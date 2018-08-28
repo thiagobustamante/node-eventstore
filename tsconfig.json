@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "lib": [
+            "es6", 
+            "dom"
+        ],
+        "module": "commonjs",
+        "newLine": "LF",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": false,
+        "noUnusedParameters": false,
+        "noUnusedLocals": true,
+        "outDir": "dist",
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strictNullChecks": false,
+        "target": "ES2017"
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}
