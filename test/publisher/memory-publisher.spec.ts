@@ -3,13 +3,13 @@
 import * as chai from 'chai';
 import 'mocha';
 import { wait, waitUntil } from 'test-wait';
-import { EventStore, EventStream } from '../src/event-store';
-import { InMemoryProvider } from '../src/provider/memory';
-import { InMemoryPublisher } from '../src/publisher/memory';
+import { EventStore, EventStream } from '../../src/event-store';
+import { InMemoryProvider } from '../../src/provider/memory';
+import { InMemoryPublisher } from '../../src/publisher/memory';
 
 const expect = chai.expect;
 
-describe('EventStory Memory Provider', () => {
+describe('EventStory Memory Publisher', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
     const EVENT_PAYLOAD = "Event Data";

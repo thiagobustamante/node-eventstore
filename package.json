@@ -36,10 +36,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/thiagobustamante/eventstore"
+    "url": "https://github.com/thiagobustamante/node-eventstore"
   },
   "bugs": {
-    "url": "https://github.com/thiagobustamante/eventstore/issues"
+    "url": "https://github.com/thiagobustamante/node-eventstore/issues"
   },
   "directories": {
     "lib": "dist"
