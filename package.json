@@ -15,6 +15,8 @@
     "pretest": "cross-env NODE_ENV=test npm run build && npm run lint",
     "test": "cross-env NODE_ENV=test mocha --exit",
     "test:coverage": "nyc npm test",
+    "test:mutation": "stryker run",
+    "stryker:init": "stryker init",
     "tsc": "tsc"
   },
   "nyc": {
@@ -31,6 +33,7 @@
       "text-summary",
       "html"
     ],
+    "report-dir": "./reports/coverage",
     "sourceMap": true,
     "instrument": true
   },
@@ -60,6 +63,13 @@
     "nyc": "^12.0.2",
     "rimraf": "^2.6.2",
     "source-map-support": "^0.5.9",
+    "stryker": "^0.29.1",
+    "stryker-api": "^0.21.0",
+    "stryker-baseline-reporter": "^1.0.3",
+    "stryker-html-reporter": "^0.16.1",
+    "stryker-mocha-framework": "^0.12.1",
+    "stryker-mocha-runner": "^0.14.1",
+    "stryker-typescript": "^0.13.2",
     "test-wait": "^1.1.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
