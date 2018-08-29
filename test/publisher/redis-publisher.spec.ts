@@ -38,8 +38,6 @@ describe('EventStory Redis Publisher', () => {
         const eventStoreNotified = createEventStore();
         count = 0;
         const subscription = await eventStoreNotified.subscribe(ordersStream.aggregation, message => {
-            // tslint:disable-next-line:no-console
-            console.log('trsadsdadasdasd');
             count++;
         });
         await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
