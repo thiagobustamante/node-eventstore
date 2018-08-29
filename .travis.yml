@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '8'
 - '9'
-script: npm test:mutation
+script: npm run test:mutation
 deploy:
   provider: npm
   email: thiago@cruxframework.org
