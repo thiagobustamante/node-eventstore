@@ -41,7 +41,7 @@ const order = ordersAggregation.loadFromHistory(events)
 Listening for new events in event streams:
 
 ```javascript
-eventStore.subscribe('orders', message -> {
+eventStore.subscribe('orders', message => {
     console.log(message.aggregation);
     console.log(message.streamId);
     console.log(message.event.payload);
@@ -51,7 +51,7 @@ eventStore.subscribe('orders', message -> {
 Removing the subscription to eventStore channels:
 
 ```javascript
-const subscription = await eventStore.subscribe('orders', message -> {
+const subscription = await eventStore.subscribe('orders', message => {
     console.log(message.aggregation);
     console.log(message.streamId);
     console.log(message.event.payload);
