@@ -15,8 +15,8 @@ describe('EventStory', () => {
     });
 
     it('should be able to add an event to the EventStream', async () => {
-        const streamId = "1";
-        const aggregation = "orders";
+        const streamId = '1';
+        const aggregation = 'orders';
         const ordersStream = eventStore.getEventStream(aggregation, streamId);
         expect(ordersStream.streamId).to.equal(streamId);
         expect(ordersStream.aggregation).to.equal(aggregation);

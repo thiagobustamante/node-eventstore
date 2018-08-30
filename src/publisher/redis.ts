@@ -22,7 +22,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
     }
 
     public async publish(message: Message) {
-        this.redisPublisher.publish(message.aggregation, JSON.stringify(message));
+        await this.redisPublisher.publish(message.aggregation, JSON.stringify(message));
     }
 
     public async subscribe(aggregation: string, subscriber: Subscriber): Promise<Subscription> {

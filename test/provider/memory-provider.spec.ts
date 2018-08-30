@@ -10,11 +10,11 @@ const expect = chai.expect;
 describe('EventStory Memory Provider', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
-    const EVENT_PAYLOAD = "Event Data";
+    const EVENT_PAYLOAD = 'Event Data';
 
     beforeEach(() => {
-        const streamId = "1";
-        const aggregation = "orders";
+        const streamId = '1';
+        const aggregation = 'orders';
         eventStore = new EventStore(
             new InMemoryProvider());
         ordersStream = eventStore.getEventStream(aggregation, streamId);

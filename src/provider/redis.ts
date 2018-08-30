@@ -17,7 +17,7 @@ export class RedisProvider implements Provider {
     }
 
     public async addEvent(aggregation: string, streamId: string, event: Event) {
-        event.sequence = await this.redis.incr("sequences:{" + this.getKey(aggregation, streamId) + "}") - 1;
+        event.sequence = await this.redis.incr(`sequences:{${this.getKey(aggregation, streamId)}}`) - 1;
         const time = await this.redis.time()
         event.commitTimestamp = parseInt(time, 10);
         await this.redis.rpush(this.getKey(aggregation, streamId), JSON.stringify(event));
@@ -30,6 +30,6 @@ export class RedisProvider implements Provider {
     }
 
     private getKey(aggregation: string, streamId: string): string {
-        return aggregation + ":" + streamId;
+        return `${aggregation}:${streamId}`;
     }
 }

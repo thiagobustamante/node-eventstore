@@ -52,6 +52,7 @@
   },
   "engineStrict": true,
   "devDependencies": {
+    "@types/amqplib": "^0.5.8",
     "@types/chai": "^4.1.4",
     "@types/ioredis": "^3.2.15",
     "@types/lodash": "^4.14.116",
@@ -77,6 +78,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
+    "amqplib": "^0.5.2",
     "ioredis": "^4.0.0",
     "lodash": "^4.17.10"
   }

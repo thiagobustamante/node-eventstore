@@ -12,7 +12,7 @@ const expect = chai.expect;
 describe('EventStory Redis Provider', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
-    const EVENT_PAYLOAD = "Event Data";
+    const EVENT_PAYLOAD = 'Event Data';
     const redisConfig = {
         options: {
             db: 6
@@ -25,8 +25,8 @@ describe('EventStory Redis Provider', () => {
     const redis = initializeRedis(redisConfig);
 
     beforeEach(async () => {
-        const streamId = "1";
-        const aggregation = "orders";
+        const streamId = '1';
+        const aggregation = 'orders';
         await redis.flushdb();
         eventStore = new EventStore(new RedisProvider(redisConfig));
         ordersStream = eventStore.getEventStream(aggregation, streamId);
