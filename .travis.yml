@@ -4,17 +4,21 @@ node_js:
 - '9'
 sudo: required
 services:
-  - docker
+- docker
 before_install:
-  - docker run -p 6379:6379 -d --name redis redis:3.0.7-alpine
-  - docker run -d --hostname rabbit --name rabbit -p 8080:15672 -p 5672:5672 rabbitmq:3-management
+- docker run -p 6379:6379 -d --name redis redis:3.0.7-alpine
+- docker run -d --hostname rabbit --name rabbit -p 8080:15672 -p 5672:5672 rabbitmq:3-management
 script: npm run test:mutation
-deploy:
-  provider: npm
-  email: thiago@cruxframework.org
-  skip_cleanup: true
-  api_key:
-    secure: h36KkxAMuHGXktDL1FB3rgl8s3cPLdSBpbBMN7A5XpXF3E7mMIPEEEfSQ5nfRc5wxmlseBZjyjhcXbEavluAGmBB+d3bBRz3ifqrwqT/DTPRdTMkMhqVKC7ywAzh+pU8qkmcX9TVMmYYJQhFIj7fWy0yr2DRoEEa6Ei4ZEDFH/hHOSzHmfJNZAoXuI7rZ1nJoQZ1UJsGERMNp+xdJdVY1jng33karymkl+zNrqxPPf+enfazxqo4+s5fQM/pAU64IEyj+JCpzYrXG9uu+1CDOVyp+G1bdVYohCJj1nUFqSpaKyYHTjO963ogVnMjMFlDlzy2C6jD6/q6f4dqWiG6W1EAau2VdJdfEVfOqiZ7djPYR8DP/qdLIBUdpcWJKOchL3+Y/S6vz25s/aGWmZrqBp1Lwmuod9vh+Wdfm96kWA9HQO6JIt+bsxa8RNstNnWlb8FCf9O48S/Jhjl5UTcgsSjxvXJe/5V0bqXSW6MNGwP89Y7mnDgV+r2zd/twuYOc020YBNHqdvywQJrMk1m+rP3MLJPgnzjfFrXUKmoL2JI9Nr73rce1U6E3D24KXdE43NmvulXve6DQ23Zc57U2DKNxlxvac+Jx6ksoQ3rYkWa9d3R3bYYD5e3HAn9D+QsJz+kTo8uVlH/9PjAAE4TyhJkQY+XikIVfa36dFmAXeos=
-  on:
-    tags: true
-    repo: thiagobustamante/node-eventstore
+jobs:
+  include:
+  - stage: npm release
+    node_js: '9'
+    script: echo "Deploying to npm ..."
+    deploy:
+      provider: npm
+      email: thiago@cruxframework.org
+      api_key:
+        secure: R69iX1mlylutYsM4dDSO4WoBYeUEIOpvasuA/cDiWQs+d8KKqtd/tpFC/nhQ2Mri3lH95XG6Ko6SnCCAIw9STuD9fcbkjSIxRIQwFEJKSo9IX7dm2+WIOoC8H42Hpuazt0Ze+7gGaKu+zyWHDRbU3jLlpaVOG9dUZF4rXM39XNCwQRGwLBvopLsKBdnG5zfamCLdkzwYHBXHwtQcQcZYbtfjNXcx9BG88JHYgQz1KA9UYD9OstTSw0FF1PszMI8HLmKtOhj3fGDJMB8hFGQKXgPygdNakBpbW3ZUTmpRNwxLg9Hbsq0/imY1cTvmQ3Ji6R850o1h+Wg1gfOsTZIjwNFOT1aat/luW6vJZHeM+6vI9iWxooCJmgJbxFr613jSfxlNGdQXzH+2QOgZQIvOeBvDFLH85sPftvcvWsc9jm979VXToFALtgEe6qyEGzlyPZ31VlTfphhlfFAWJQVkt65RrZsvoyHIEwUJxkMgLg1eoCLa96tDd0TS3lOkxl/qBckrqUeu6Da4Vh1mZLKgukmQaFB9Sh0pNx+iE+NQV+nlP8pIyKbl+6z6cDBkBsPyc4OGeYfB5tNr2c1n/E7QRn2RtNBEGLqiy96DOvKpr8XDGWktbBcFEdPa2Hc4rq/dfzvxXWqmjBvuBGXrSxcOrK6G1JKsh7yxxs1uzhXQUmk=
+      on:
+        tags: true
+        repo: thiagobustamante/node-eventstore

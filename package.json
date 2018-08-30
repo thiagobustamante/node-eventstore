@@ -66,7 +66,6 @@
     "source-map-support": "^0.5.9",
     "stryker": "^0.29.1",
     "stryker-api": "^0.21.0",
-    "stryker-baseline-reporter": "^1.0.3",
     "stryker-html-reporter": "^0.16.1",
     "stryker-mocha-framework": "^0.12.1",
     "stryker-mocha-runner": "^0.14.1",
