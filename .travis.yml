@@ -13,7 +13,7 @@ jobs:
   include:
   - stage: npm release
     node_js: '9'
-    script: echo "Deploying to npm ..."
+    script: npm run build
     deploy:
       provider: npm
       email: thiago@cruxframework.org
