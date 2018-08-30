@@ -1,11 +1,18 @@
 {
   "name": "event.store",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple and fast EventStore that support multiple persistence and notification providers",
   "author": "Thiago da Rosa de Bustamante <trbustamante@gmail.com>",
   "license": "MIT",
   "main": "./dist/event-store.js",
   "typings": "./dist/event-store.d.ts",
+  "keywords": [
+    "EventStore",
+    "Event",
+    "event sourcing",
+    "eventsourcing",
+    "cqrs"
+  ],
   "scripts": {
     "build": "npm run clean && tsc",
     "clean": "rimraf dist",
