@@ -18,10 +18,29 @@ export interface Provider {
     addEvent(aggregation: string, streamId: string, event: Event): Promise<Event>;
 
     /**
-     * Retrieve a list of events in the {@link EventStream}
+     * Retrieves a ranged list of events in the {@link EventStream}
      * @param aggregation The parent aggregation
      * @param streamId The {@link EventStream} identifier
+     * @param offset The start position in the events list
+     * @param limit The desired quantity events
      * @return A List with events in the {@link EventStream}
      */
-    getEvents(aggregation: string, streamId: string): Promise<Array<Event>>;
+    getEvents(aggregation: string, streamId: string, offset?: number, limit?: number): Promise<Array<Event>>;
+
+    /**
+     * Retrieves a ranged aggregation list
+     * @param offset The start position in the aggregation list
+     * @param limit The desired quantity aggregations
+     * @return The aggregation list
+     */
+    getAggregations(offset?: number, limit?: number): Promise<Array<string>>;
+
+    /**
+     * Retrieves a ranged stream list
+     * @param aggregation The aggregation
+     * @param offset The start position in the stream list
+     * @param limit The desired quantity streams
+     * @return The stream list
+     */
+    getStreams(aggregation: string, offset?: number, limit?: number): Promise<Array<string>>;
 }

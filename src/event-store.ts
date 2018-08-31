@@ -51,6 +51,27 @@ export class EventStore implements EventStore, HasSubscribers {
         throw new Error('There is no valid Publisher configured. '
             + 'Configure a Publisher that implements HasSubscribers int erface');
     }
+
+    /**
+     * Retrieves a ranged aggregation list
+     * @param offset The start position in the aggregation list
+     * @param limit The desired quantity aggregations
+     * @return The aggregation list
+     */
+    public async getAggregations(offset?: number, limit?: number) {
+        return this.provider.getAggregations(offset, limit);
+    }
+
+    /**
+     * Retrieves a ranged stream list
+     * @param aggregation The aggregation
+     * @param offset The start position in the stream list
+     * @param limit The desired quantity streams
+     * @return The stream list
+     */
+    public async getStreams(aggregation: string, offset?: number, limit?: number) {
+        return this.provider.getStreams(aggregation, offset, limit);
+    }
 }
 
 /**
@@ -67,9 +88,11 @@ export interface EventStream {
     aggregation: string;
     /**
      * Rertieve a list containing all the events in the stream in order.
+     * @param offset The start position in the stream list
+     * @param limit The desired quantity events
      * @return All the events
      */
-    getEvents(): Promise<Array<Event>>;
+    getEvents(offset?: number, limit?: number): Promise<Array<Event>>;
     /**
      * Add a new event to the end of the event stream.
      * @param event The event

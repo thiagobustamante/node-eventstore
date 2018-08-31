@@ -33,4 +33,38 @@ describe('EventStory Memory Provider', () => {
         expect(events[0].payload).to.equals(EVENT_PAYLOAD);
         expect(events[0].sequence).to.equals(0);
     });
+
+    it('should be able to get event ranged list from the event stream', async () => {
+        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent({ payload: EVENT_PAYLOAD + '_1' });
+        await ordersStream.addEvent({ payload: EVENT_PAYLOAD + '_2' });
+        const events = await ordersStream.getEvents(1, 5);
+        expect(events.length).to.equal(2);
+        expect(events[0].payload).to.equal(EVENT_PAYLOAD + '_1');
+        expect(events[0].sequence).to.equal(1);
+    });
+
+    it('should be able to get aggregations from the event stream', async () => {
+        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        const aggregations = await eventStore.getAggregations();
+        expect(aggregations.length).to.equal(1);
+    });
+
+    it('should be able to get streams from the event stream', async () => {
+        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        const orders = await eventStore.getStreams('orders');
+        expect(orders.length).to.equal(1);
+    });
+
+    it('should be able to get ranged aggregations from the event stream', async () => {
+        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        const aggregations = await eventStore.getAggregations(0, 1);
+        expect(aggregations.length).to.equal(1);
+    });
+
+    it('should be able to get ranged aggregations from the event stream', async () => {
+        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        const orders = await eventStore.getStreams('orders', 0, 1);
+        expect(orders.length).to.equal(1);
+    });
 });

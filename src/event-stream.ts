@@ -35,10 +35,12 @@ export class EventStreamImpl implements EventStream {
 
     /**
      * Rertieve a list containing all the events in the stream in order.
+     * @param offset The start position in the stream list
+     * @param limit The desired quantity events
      * @return All the events
      */
-    public getEvents(): Promise<Array<Event>> {
-        return this.getProvider().getEvents(this.aggregation, this.streamId);
+    public getEvents(offset?: number, limit?: number): Promise<Array<Event>> {
+        return this.getProvider().getEvents(this.aggregation, this.streamId, offset, limit);
     }
 
     /**
