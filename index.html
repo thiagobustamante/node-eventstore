@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A simple and fast EventStore that support multiple persistence and notification providers">
+    <meta name="author" content="Event Store">
+
+    <title>EventStore</title>
+
+    <script type="text/javascript" src="./webcomponents-lite.js"></script>
+    <script type="text/javascript" src="./source-code-example.js"></script>
+</head>
+
+<body id="page-top" class="index">
+    <h1>EventStore</h1>
+
+    <h2>Installation</h2>
+
+    
+
+    <h2>Usage Guide</h2>
+
+    <h3>Create EventStore</h3>
+
+    <leanty-source-code-example id="create">
+        <leanty-title>Create Event Store</leanty-title>
+        <leanty-source label="Javascript" language="javascript">
+const eventStore = new EventStore(
+    new InMemoryProvider(), // The persistence provider. Could use different providers, like MongoDB etc
+    new InMemoryPublisher()); // Opcional. Support different publishers, like RabbitmqPublisher, RedisPublisher etc
+        </leanty-source>
+        <leanty-source label="Java" language="java">
+EventStore eventStore = new EventStoreBuilder()
+    .setProvider(new InMemoryProvider()) // The persistence provider. Could use different providers, like MongoDB etc
+    .setPublisher(new InMemoryPublisher()) // Opcional. Support different publishers, like RabbitmqPublisher, RedisPublisher etc
+    .createEventStore();
+        </leanty-source>
+        <leanty-description>
+            <p>To Create an EventStore you must provide two implementations:</p>
+            <ul>
+                <li>A persistence <b>Provider</b>: Responsible for events persistence in the store.</li>
+                <li>A notification <b>Publisher</b> (Optional): Responsible for notify any process interested in modifications
+                    on the store srteams.</li>
+            </ul>
+            <p>If there is no publisher provided, the event store will not send any notification.</p>
+        </leanty-description>
+    </leanty-source-code-example>
+
+    <h3>Adding to Events</h3>
+
+    <leanty-source-code-example id="add">
+        <leanty-title>Adding Events</leanty-title>
+        <leanty-source label="Javascript" language="javascript">
+const ordersStream = eventStore.getEventStream('orders', '1234567');
+ordersStream.addEvent({ payload: 'My Event Payload'}); // Could pass anything here
+        </leanty-source>
+        <leanty-source label="Java" language="java">
+EventStream ordersStream = eventStore.getEventStream("orders", "1234567");
+ordersStream.addEvent(new Event("My Event Payload")); // Could pass a JSON string here
+        </leanty-source>
+        <leanty-description>
+            <p>
+                To add Events you need to ask to EventStore a reference to an <b>EventStream</b>. 
+                You can add Events passing anything you want as a payload.
+            </p>
+        </leanty-description>
+    </leanty-source-code-example>
+
+    <h3>Reading to Events</h3>
+
+    <leanty-source-code-example id="read">
+        <leanty-title>Reading Events</leanty-title>
+        <leanty-source label="Javascript" language="javascript">
+const ordersStream = eventStore.getEventStream('orders', '1234567');
+const events = await ordersStream.getEvents();
+const order = ordersAggregation.loadFromHistory(events)
+        </leanty-source>
+        <leanty-source label="Java" language="java">
+EventStream ordersStream = eventStore.getEventStream("orders", "1234567");
+List&lt;Event&gt; events = ordersStream.getEvents();
+Order order = ordersAggregation.loadFromHistory(events)
+        </leanty-source>
+        <leanty-description>
+            <p>
+                To read Events you need to ask to EventStore a reference to an <b>EventStream</b>. 
+                You can read a stream to receive an ordered list containing all the events in the store.
+            </p>
+        </leanty-description>
+    </leanty-source-code-example>
+
+
+    <h3>Reacting to Events</h3>
+
+    <leanty-source-code-example id="react">
+        <leanty-title>Reacting to Events</leanty-title>
+        <leanty-source label="Javascript" language="javascript">
+eventStore.subscribe('orders', message => {
+    console.log(message.aggregation);
+    console.log(message.streamId);
+    console.log(message.event.payload);
+});
+        </leanty-source>
+        <leanty-source label="Java" language="java">
+eventStore.subscribe("orders", message -> {
+    System.out.println(message.getAggregation());
+    System.out.println(message.getStreamId());
+    System.out.println(getEvent().getPayload());
+});
+        </leanty-source>
+        <leanty-description>
+            <p>
+                You can add subscribers to be notified every time a new event is added in any stream contained in the given aggregation.
+                The above example will be notified for every new event in any stream in the "orders" aggregation.
+            </p>
+        </leanty-description>
+    </leanty-source-code-example>    
+
+    <h3>Reacting to Events</h3>
+
+    <leanty-source-code-example id="react">
+        <leanty-title>Reacting to Events</leanty-title>
+        <leanty-source label="Javascript" language="javascript">
+eventStore.subscribe('orders', message => {
+    console.log(message.aggregation);
+    console.log(message.streamId);
+    console.log(message.event.payload);
+});
+        </leanty-source>
+        <leanty-source label="Java" language="java">
+eventStore.subscribe("orders", message -> {
+    System.out.println(message.getAggregation());
+    System.out.println(message.getStreamId());
+    System.out.println(getEvent().getPayload());
+});
+        </leanty-source>
+        <leanty-description>
+            <p>
+                You can add subscribers to be notified every time a new event is added in any stream contained in the given aggregation.
+                The above example will be notified for every new event in any stream in the "orders" aggregation.
+            </p>
+        </leanty-description>
+    </leanty-source-code-example>    
+
+</body>
+
+
+<h2>Supported Providers</h2>
+<h2>Supported Publishers</h2>
+
+</html>
