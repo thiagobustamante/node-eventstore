@@ -1,4 +1,10 @@
-theme: ekyll-theme-minimal
+theme: jekyll-theme-architect
 
 title: Event.Store
 description: [A simple and fast EventStore that support multiple persistence and notification providers]
+
+show_projects: true
+
+github:
+  node_url: https://github.com/thiagobustamante/node-eventstore/
+  java_url: https://github.com/biharck/eventstore
