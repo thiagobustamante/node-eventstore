@@ -12,8 +12,8 @@ layout: default
 
     <p>The Event Store is a database accompanied by a publication and subscription system.
         The database stores all the events related to an event stream. The pub / sub system allows
-        other systems or microservices to react to changes in event streams. It is a core component any in 
-        event sourcing + cqrs architectures.
+        other systems or microservices to react to changes in event streams. It is a core component in 
+        any event sourcing + cqrs architectures.
     </p>
 
     <p>Event.Store has client implementations for <a href="https://github.com/thiagobustamante/node-eventstore">Node.js</a> and 
@@ -158,18 +158,23 @@ eventStore.subscribe("orders", message -> {
 
     <leanty-source-code-example id="react">
         <leanty-source label="Javascript" language="javascript">
-eventStore.subscribe('orders', message => {
+const subscription = await eventStore.subscribe('orders', message => {
     console.log(message.aggregation);
     console.log(message.streamId);
     console.log(message.event.payload);
 });
+// ...
+subscription.remove();
         </leanty-source>
         <leanty-source label="Java" language="java">
-eventStore.subscribe("orders", message -> {
+Subscription subscription = eventStore.subscribe("orders", message -> {
     System.out.println(message.getAggregation());
     System.out.println(message.getStreamId());
     System.out.println(getEvent().getPayload());
 });
+
+// ...
+subscription.remove();
         </leanty-source>
     </leanty-source-code-example>    
 
