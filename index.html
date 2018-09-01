@@ -84,7 +84,7 @@ EventStore eventStore = new EventStoreBuilder()
         </leanty-source>
     </leanty-source-code-example>
 
-    <h3>Adding to Events</h3>
+    <h3>Adding Events</h3>
 
     <p>
         To add Events you need to ask to EventStore a reference to an <b>EventStream</b>. 
@@ -147,12 +147,11 @@ eventStore.subscribe("orders", message -> {
         </leanty-source>
     </leanty-source-code-example>    
 
-    <h3>Reacting to Events</h3>
+    <h3>Removing subscriptions</h3>
 
     <leanty-description>
         <p>
-            You can add subscribers to be notified every time a new event is added in any stream contained in the given aggregation.
-            The above example will be notified for every new event in any stream in the "orders" aggregation.
+            It is possible to cancel subscriptions to event stream channels.
         </p>
     </leanty-description>
 
