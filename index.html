@@ -17,10 +17,36 @@
 <body id="page-top" class="index">
     <h1>EventStore</h1>
 
+Event.Store is an open source library to create Event Stores that works with multiple persistence 
+providers and notification systems.
+
+Event.Store has client implmentations for <a href="https://github.com/thiagobustamante/node-eventstore">Node.js</a> and 
+<a href="https://github.com/biharck/eventstore">Java</a>. The two clients can interact with the same 
+Event Store.
+
     <h2>Installation</h2>
 
-    
+To install the library:
 
+    <leanty-source-code-example id="install">
+        <leanty-source label="Javascript" language="javascript">
+npm install --save @eventstore.net/event.store
+        </leanty-source>
+        <leanty-source label="gradle" language="java">
+dependencies {
+    compile 'br.net.eventstore:event.store:1.0.3'
+}                
+        </leanty-source>
+        <leanty-source label="maven" language="java">
+<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-cloudwatch -->
+&lt;dependency&gt;
+    &lt;groupId&gt;br.net.eventstore&lt;/groupId&gt;
+    &lt;artifactId&gt;event.store&lt;/artifactId&gt;
+    &lt;version&gt;1.0.3&lt;/version&gt;
+&lt;/dependency&gt;
+        </leanty-source>
+</leanty-source-code-example>
+    
     <h2>Usage Guide</h2>
 
     <h3>Create EventStore</h3>
