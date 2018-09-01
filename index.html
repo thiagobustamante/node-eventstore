@@ -7,8 +7,14 @@ layout: default
         
     <h1>EventStore</h1>
 
-    <p>Event.Store is an open source library to create Event Stores that works with multiple persistence 
-    providers and notification systems.</p>
+    <p>Event.Store is an open source library to create <a href="https://martinfowler.com/eaaDev/EventSourcing.html">Event Stores</a> 
+        that works with multiple persistence providers and notification systems.</p>
+
+    <p>The Event Store is a centralized database accompanied by a publication and subscription system.
+        The database stores all the events related to an event stream. The pub / sub system, allows
+        other systems or microservices to react to changes in event streams. It is a core component in 
+        event sourcing + cqrs architectures.
+    </p>
 
     <p>Event.Store has client implementations for <a href="https://github.com/thiagobustamante/node-eventstore">Node.js</a> and 
     <a href="https://github.com/biharck/eventstore">Java</a>. The two clients can interact with the same 
