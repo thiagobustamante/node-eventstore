@@ -17,6 +17,7 @@ jobs:
     deploy:
       provider: npm
       email: thiago@cruxframework.org
+      skip_cleanup: true
       api_key:
         secure: NvM+6uhsfZjZ4wi1uWIhtUT3S7zhj/C0XDOMUYesRto4XLd8DYzov4cG/AzL2qJWX8fhJkldcBBSS4y2hMa8wfq2FybeV2V7W/PaLrx70glX4pjvD1wBpuIg0tRHOW34iVVNrZYPj4x7Dx4NtgAAe6eJAltwhIyqnej+iiLxx7AQriaf9opuZFSVQTAWQJ+o8KBTmhuNBTXHZxWHwyxuHJPBoZFCFuk9p1I6hYqWzuTJ3vITq++PtY3acxZ27ANo2V+mblsh+xqhOZ7yXkbhdUgxwwnt2WyoOmoJ5C3r48Mo7j24+lBbLXdf0HLQg4quzQLC4s6PRmzcC2tUAVZt4dsgSDhCArVwXl03pGkEQmtVzYmMONfSUWqrrAL39pe6O8smjaZWeHVp8Clu34xCRlqclFch/MKLE42E9KiW4jW+QP/tntM70sjGjrj9LAmtW46zVPThaPkPG/vmT7IK//obavaVgveWBHJYeLuGav2idSlqnhCoMPW1pj3p3uaQIoy/Bt1klEPMIN19+xKEuxGuZ++VT9nqPJZ09nCpooM0FxlBSOsLUznwCh3JI2mxj+UUGxIoGDj4IZHNqKpxz4LoYTbzhzH5RUz9BDQ+mxgAsM/lRokC3Pj52o+WrXY42hxSVWPuJLsQLMkMTHffN4ra5HUPj9s2DtEb5QkPhnM=
       on:
