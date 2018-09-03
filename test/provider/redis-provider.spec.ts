@@ -2,8 +2,7 @@
 
 import * as chai from 'chai';
 import 'mocha';
-import { EventStore, EventStream } from '../../src';
-import { RedisProvider } from '../../src/provider';
+import { EventStore, EventStream, RedisProvider } from '../../src';
 import { initializeRedis } from '../../src/redis/connect';
 
 const expect = chai.expect;

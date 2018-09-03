@@ -3,9 +3,7 @@
 import * as chai from 'chai';
 import 'mocha';
 import { wait, waitUntil } from 'test-wait';
-import { EventStore, EventStream } from '../../src';
-import { InMemoryProvider } from '../../src/provider';
-import { RabbitMQPublisher } from '../../src/publisher';
+import { EventStore, EventStream, InMemoryProvider, RabbitMQPublisher } from '../../src';
 
 const expect = chai.expect;
 
