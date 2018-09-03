@@ -4,8 +4,8 @@ import * as chai from 'chai';
 import 'mocha';
 import { wait, waitUntil } from 'test-wait';
 import { EventStore, EventStream } from '../../src/event-store';
-import { InMemoryProvider } from '../../src/provider/memory';
-import { RedisPublisher } from '../../src/publisher/redis';
+import { InMemoryProvider } from '../../src/provider';
+import { RedisPublisher } from '../../src/publisher';
 import { initializeRedis } from '../../src/redis/connect';
 
 const expect = chai.expect;
