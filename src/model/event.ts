@@ -7,7 +7,7 @@ export interface Event {
     /**
      * The event payload. The payload can be any data associated with the event
      */
-    payload: string;
+    payload: any;
     /**
      * The time where the event was persisted in the {@link EventStream}
      */
