@@ -19,21 +19,21 @@ export class InMemoryProvider implements Provider {
         return event;
     }
 
-    public async getEvents(aggregation: string, streamId: string, offset?: number, limit?: number) {
+    public async getEvents(aggregation: string, streamId: string, offset: number = 0, limit?: number) {
         const history = this.getEventsList(aggregation, streamId);
-        return _(history).drop(offset || 0).take(limit || history.length).value();
+        return _(history).drop(offset).take(limit || history.length).value();
     }
 
-    public async getAggregations(offset?: number, limit?: number): Promise<Array<string>> {
+    public async getAggregations(offset: number = 0, limit?: number): Promise<Array<string>> {
         const keys = Array.from(this.store.keys());
-        return _(keys).sort().drop(offset || 0).take(limit || this.store.size).value();
+        return _(keys).sort().drop(offset).take(limit || this.store.size).value();
     }
 
-    public async getStreams(aggregation: string, offset?: number, limit?: number): Promise<Array<string>> {
+    public async getStreams(aggregation: string, offset: number = 0, limit?: number): Promise<Array<string>> {
         const streams = this.store.get(aggregation);
         const keys = Array.from(streams.keys());
         if (streams) {
-            return _(keys).sort().drop(offset || 0).take(limit || this.store.size).value();
+            return _(keys).sort().drop(offset).take(limit || this.store.size).value();
         }
         return [];
     }

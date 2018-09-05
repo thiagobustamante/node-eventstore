@@ -28,18 +28,18 @@ export class RedisProvider implements Provider {
         return event;
     }
 
-    public async getEvents(aggregation: string, streamId: string, offset?: number, limit?: number) {
-        const history: Array<string> = await this.redis.lrange(this.getKey(aggregation, streamId), offset || 0, limit || -1);
+    public async getEvents(aggregation: string, streamId: string, offset: number = 0, limit: number = -1) {
+        const history: Array<string> = await this.redis.lrange(this.getKey(aggregation, streamId), offset, limit);
         return history.map(data => JSON.parse(data));
     }
 
-    public async getAggregations(offset?: number, limit?: number): Promise<Array<string>> {
-        const aggregations: Array<string> = await this.redis.zrange('meta:aggregations', offset || 0, limit || -1);
+    public async getAggregations(offset: number = 0, limit: number = -1): Promise<Array<string>> {
+        const aggregations: Array<string> = await this.redis.zrange('meta:aggregations', offset, limit);
         return aggregations;
     }
 
-    public async getStreams(aggregation: string, offset?: number, limit?: number): Promise<Array<string>> {
-        const streams: Array<string> = await this.redis.zrange(`meta:aggregations:${aggregation}`, offset || 0, limit || -1);
+    public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
+        const streams: Array<string> = await this.redis.zrange(`meta:aggregations:${aggregation}`, offset, limit);
         return streams;
     }
 
