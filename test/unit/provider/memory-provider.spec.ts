@@ -2,7 +2,7 @@
 
 import * as chai from 'chai';
 import 'mocha';
-import { EventStore, EventStream, InMemoryProvider } from '../../src';
+import { EventStore, EventStream, InMemoryProvider } from '../../../src';
 
 const expect = chai.expect;
 

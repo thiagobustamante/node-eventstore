@@ -1,38 +1,33 @@
 'use strict';
 
+// import * as amqp from 'amqplib';
 import * as chai from 'chai';
 import 'mocha';
+// import * as sinon from 'sinon';
 import { wait, waitUntil } from 'test-wait';
-import { EventStore, EventStream, InMemoryProvider, InMemoryPublisher } from '../../src';
+import { EventStore, EventStream, InMemoryProvider, RabbitMQPublisher } from '../../../src';
+// const amqpMock = require('amqplib-mock');
 
 const expect = chai.expect;
 
-describe('EventStory Memory Publisher', () => {
+describe('EventStory RabbitMQ Publisher', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
     const EVENT_PAYLOAD = 'Event Data';
     let count = 0;
+    const rabbitmqUrl = 'amqp://localhost';
+    // sinon.stub(amqp, 'connect')
+    //     .withArgs(rabbitmqUrl)
+    //     .returns(amqpMock.connect(rabbitmqUrl));
 
-    beforeEach(() => {
+    beforeEach(async () => {
         const streamId = '1';
         const aggregation = 'orders';
-        eventStore = new EventStore(
-            new InMemoryProvider(),
-            new InMemoryPublisher());
+        eventStore = createEventStore();
         ordersStream = eventStore.getEventStream(aggregation, streamId);
     });
 
-    it('should be able to listen to EventStream changes', (done) => {
-        eventStore.subscribe(ordersStream.aggregation, (message) => {
-            expect(message.aggregation).to.equal(ordersStream.aggregation);
-            expect(message.streamId).to.equal(ordersStream.streamId);
-            expect(message.event.payload).to.equal(EVENT_PAYLOAD);
-            done();
-        }).then(() => ordersStream.addEvent({ payload: EVENT_PAYLOAD }));
-
-    });
-
-    it('should be able to unsubscribe from EventStore changes channel', async () => {
+    it('should be able to subscribe and unsubscribe to EventStore changes channel', async () => {
         count = 0;
         const subscription = await eventStore.subscribe(ordersStream.aggregation, message => {
             count++;
@@ -44,4 +39,10 @@ describe('EventStory Memory Publisher', () => {
         wait(500);
         expect(count).to.equal(1);
     });
+
+    function createEventStore() {
+        return new EventStore(
+            new InMemoryProvider(),
+            new RabbitMQPublisher(rabbitmqUrl));
+    }
 });

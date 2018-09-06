@@ -3,7 +3,7 @@
 import { Redis } from 'ioredis';
 import { Message } from '../model/message';
 import { RedisConfig } from '../redis/config';
-import { initializeRedis } from '../redis/connect';
+import { RedisFactory } from '../redis/connect';
 import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher';
 
 
@@ -17,8 +17,8 @@ export class RedisPublisher implements Publisher, HasSubscribers {
     private listenningRedis: boolean = false;
 
     constructor(config: RedisConfig) {
-        this.redisSubscriber = initializeRedis(config);
-        this.redisPublisher = initializeRedis(config);
+        this.redisSubscriber = RedisFactory.createClient(config);
+        this.redisPublisher = RedisFactory.createClient(config);
     }
 
     public async publish(message: Message) {

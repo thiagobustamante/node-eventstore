@@ -3,7 +3,7 @@
 import { Redis } from 'ioredis';
 import { Event } from '../model/event';
 import { RedisConfig } from '../redis/config';
-import { initializeRedis } from '../redis/connect';
+import { RedisFactory } from '../redis/connect';
 import { Provider } from './provider';
 
 /**
@@ -13,7 +13,7 @@ export class RedisProvider implements Provider {
     private redis: Redis;
 
     constructor(config: RedisConfig) {
-        this.redis = initializeRedis(config);
+        this.redis = RedisFactory.createClient(config);
     }
 
     public async addEvent(aggregation: string, streamId: string, event: Event) {

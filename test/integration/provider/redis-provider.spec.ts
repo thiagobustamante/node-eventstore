@@ -2,8 +2,10 @@
 
 import * as chai from 'chai';
 import 'mocha';
-import { EventStore, EventStream, RedisProvider } from '../../src';
-import { initializeRedis } from '../../src/redis/connect';
+// import * as sinon from 'sinon';
+import { EventStore, EventStream, RedisProvider } from '../../../src';
+import { RedisFactory } from '../../../src/redis/connect';
+// const redisMock = require('ioredis-mock');
 
 const expect = chai.expect;
 // tslint:disable:no-unused-expression
@@ -21,14 +23,22 @@ describe('EventStory Redis Provider', () => {
             port: 6379
         }
     };
-    const redis = initializeRedis(redisConfig);
-
     beforeEach(async () => {
         const streamId = '1';
         const aggregation = 'orders';
+        // sinon.stub(RedisFactory, 'createClient')
+        //     .withArgs(redisConfig)
+        //     .returns(new redisMock(redisConfig.standalone.port,
+        //         redisConfig.standalone.host, redisConfig.options));
+
+        const redis = RedisFactory.createClient(redisConfig);
         await redis.flushdb();
         eventStore = new EventStore(new RedisProvider(redisConfig));
         ordersStream = eventStore.getEventStream(aggregation, streamId);
+    });
+
+    afterEach(() => {
+        // (RedisFactory as any).createClient.restore();
     });
 
     it('should be able to add an event to the event stream', async () => {
