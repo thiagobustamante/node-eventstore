@@ -31,4 +31,17 @@ describe('EventStory', () => {
         expect(aggregations.length).to.equal(1);
         expect(aggregations[0]).to.equal(aggregation);
     });
+
+    it('should raise an Error if no persistence provider is set', async () => {
+        const store = new EventStore(null);
+        expect(() => store.provider).to.throw('No Provider configured in EventStore.');
+    });
+
+    it('should raise an Error if subscribe is called withou a valid publisher', async () => {
+        expect(() => eventStore.subscribe('test', () => {
+            chai.assert.fail('Should not be called');
+        })).to.throw('There is no valid Publisher configured. '
+            + 'Configure a Publisher that implements HasSubscribers int erface');
+    });
+
 });

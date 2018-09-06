@@ -81,7 +81,7 @@ describe('RedisFactory', () => {
                     {
                         host: 'localhost',
                         password: 'test',
-                        port: 6379
+                        port: '6379'
                     }
                 ]
             }
@@ -92,7 +92,13 @@ describe('RedisFactory', () => {
         expect(redisStub).to.have.been.calledOnceWithExactly(
             _.merge(config.options, {
                 name: config.sentinel.name,
-                sentinels: config.sentinel.nodes
+                sentinels: [
+                    {
+                        host: 'localhost',
+                        password: 'test',
+                        port: 6379
+                    }
+                ]
             }));
     });
 
@@ -102,7 +108,7 @@ describe('RedisFactory', () => {
                 {
                     host: 'localhost',
                     password: 'test',
-                    port: 6379
+                    port: '6379'
                 }
             ],
             options: {
@@ -115,7 +121,14 @@ describe('RedisFactory', () => {
         RedisFactory.createClient(config);
 
         expect(clusterStub).to.have.been.calledOnceWithExactly(
-            config.cluster, {
+            [
+                {
+                    host: 'localhost',
+                    password: 'test',
+                    port: 6379
+                }
+            ]
+            , {
                 redisOptions: config.options,
                 scaleReads: 'all'
             });

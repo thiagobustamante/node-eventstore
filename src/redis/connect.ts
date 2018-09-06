@@ -39,7 +39,6 @@ export class RedisFactory {
         if (config.cluster) {
             config.cluster.forEach(node => {
                 node.port = _.toSafeInteger(node.port);
-                node.host = node.host;
             });
             client = new Redis.Cluster(config.cluster as any, {
                 redisOptions: config.options,
@@ -52,7 +51,6 @@ export class RedisFactory {
             });
             config.sentinel.nodes.forEach(node => {
                 node.port = _.toSafeInteger(node.port);
-                node.host = node.host;
             });
             client = new Redis(params);
         } else {
