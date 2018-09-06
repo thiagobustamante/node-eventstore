@@ -42,6 +42,34 @@ describe('RedisFactory', () => {
             _.merge(config.options, { password: config.standalone.password }));
     });
 
+    it('should be able to create a client to connect to a standalone redis, using default configurations', async () => {
+        const config = {
+            standalone: {
+                host: 'localhost'
+            }
+        };
+
+        RedisFactory.createClient(config);
+
+        expect(redisStub).to.have.been.calledOnceWithExactly(6379, config.standalone.host, {});
+    });
+
+    it('should be able to validate redis config params', async () => {
+        const config = {
+            options: {
+                db: 6
+            },
+            standalone: {
+                host: 'localhost',
+                invalidOption: 'invalid',
+                password: 'test',
+                port: 6379
+            }
+        };
+
+        expect(() => RedisFactory.createClient(config)).to.throw();
+    });
+
     it('should be able to create a client to connect to a redis using sentinel', async () => {
         const config = {
             options: {

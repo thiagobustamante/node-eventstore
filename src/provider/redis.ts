@@ -4,12 +4,12 @@ import { Redis } from 'ioredis';
 import { Event } from '../model/event';
 import { RedisConfig } from '../redis/config';
 import { RedisFactory } from '../redis/connect';
-import { Provider } from './provider';
+import { PersistenceProvider } from './provider';
 
 /**
  * A Persistence Provider that handle all the data in redis.
  */
-export class RedisProvider implements Provider {
+export class RedisProvider implements PersistenceProvider {
     private redis: Redis;
 
     constructor(config: RedisConfig) {

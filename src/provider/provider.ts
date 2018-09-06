@@ -6,7 +6,7 @@ import { Event } from '../model/event';
  * A Persistence provider for the {@link EventStore}. It is responsible for write and read {@link Event}s
  * in the {@link EventStream}
  */
-export interface Provider {
+export interface PersistenceProvider {
 
     /**
      * Add a new {@link Event} in the {@link EventStream}

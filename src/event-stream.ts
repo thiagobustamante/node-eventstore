@@ -2,7 +2,7 @@
 
 import { EventStore, EventStream } from './event-store';
 import { Event } from './model/event';
-import { Provider } from './provider/provider';
+import { PersistenceProvider } from './provider/provider';
 import { Publisher } from './publisher/publisher';
 
 /**
@@ -60,10 +60,7 @@ export class EventStreamImpl implements EventStream {
         return addedEvent;
     }
 
-    private getProvider(): Provider {
-        if (this.eventStore.provider) {
-            return this.eventStore.provider;
-        }
-        throw new Error('No Provider configured in EventStore.');
+    private getProvider(): PersistenceProvider {
+        return this.eventStore.provider;
     }
 }

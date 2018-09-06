@@ -1,8 +1,9 @@
 'use strict';
 
+import * as _ from 'lodash';
 import { EventStreamImpl } from './event-stream';
 import { Event } from './model/event';
-import { Provider } from './provider/provider';
+import { PersistenceProvider } from './provider/provider';
 import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher/publisher';
 
 /**
@@ -10,16 +11,19 @@ import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher
  */
 export class EventStore implements EventStore, HasSubscribers {
 
-    private storeProvider: Provider;
+    private persistenceProvider: PersistenceProvider;
     private storePublisher: Publisher;
 
-    public constructor(provider: Provider, publisher?: Publisher) {
-        this.storeProvider = provider;
+    public constructor(provider: PersistenceProvider, publisher?: Publisher) {
+        this.persistenceProvider = provider;
         this.storePublisher = publisher;
     }
 
-    public get provider(): Provider {
-        return this.storeProvider;
+    public get provider(): PersistenceProvider {
+        if (_.isNil(this.persistenceProvider)) {
+            throw new Error('No Provider configured in EventStore.');
+        }
+        return this.persistenceProvider;
     }
 
     public get publisher(): Publisher | HasSubscribers {

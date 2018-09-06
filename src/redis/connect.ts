@@ -57,7 +57,6 @@ export class RedisFactory {
             client = new Redis(params);
         } else {
             config.standalone = _.defaults(config.standalone, {
-                host: 'localhost',
                 port: 6379
             });
 
