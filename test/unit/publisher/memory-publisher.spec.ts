@@ -7,6 +7,7 @@ import { EventStore, EventStream, InMemoryProvider, InMemoryPublisher } from '..
 
 const expect = chai.expect;
 
+// tslint:disable:no-unused-expression
 describe('EventStory Memory Publisher', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
@@ -29,7 +30,6 @@ describe('EventStory Memory Publisher', () => {
             expect(message.event.payload).to.equal(EVENT_PAYLOAD);
             done();
         }).then(() => ordersStream.addEvent({ payload: EVENT_PAYLOAD }));
-
     });
 
     it('should be able to unsubscribe from EventStore changes channel', async () => {
@@ -43,5 +43,19 @@ describe('EventStory Memory Publisher', () => {
         await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
         wait(500);
         expect(count).to.equal(1);
+    });
+
+    it('should be able to notify multiple listeners', async () => {
+        let calledFirst = false;
+        let calledSecond = false;
+        await eventStore.subscribe(ordersStream.aggregation, (message) => {
+            calledFirst = true;
+        });
+        await eventStore.subscribe(ordersStream.aggregation, (message) => {
+            calledSecond = true;
+        });
+        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        expect(calledFirst).to.be.true;
+        expect(calledSecond).to.be.true;
     });
 });

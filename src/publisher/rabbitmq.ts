@@ -19,7 +19,7 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
     public async publish(message: Message) {
         const channel = await this.getChannel()
         this.ensureExchange(message.aggregation, channel);
-        channel.publish(message.aggregation, '', new Buffer(JSON.stringify(message)));
+        await channel.publish(message.aggregation, '', new Buffer(JSON.stringify(message)));
     }
 
     public async subscribe(aggregation: string, subscriber: Subscriber): Promise<Subscription> {
