@@ -25,7 +25,7 @@ describe('EventStory', () => {
         const streamId = '1';
         const aggregation = 'orders';
         const ordersStream = eventStore.getEventStream(aggregation, streamId);
-        await ordersStream.addEvent({ payload: 'payload' });
+        await ordersStream.addEvent('payload');
         const aggregations = await eventStore.getAggregations();
 
         expect(aggregations.length).to.equal(1);
