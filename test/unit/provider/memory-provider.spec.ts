@@ -27,8 +27,9 @@ describe('EventStory Memory Provider', () => {
 
     it('should be able to read events from the EventStream', async () => {
         await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent({ payload: EVENT_PAYLOAD + '_1' });
         const events = await ordersStream.getEvents();
-        expect(events.length).to.equals(1);
+        expect(events.length).to.equals(2);
         expect(events[0].payload).to.equals(EVENT_PAYLOAD);
         expect(events[0].sequence).to.equals(0);
     });
