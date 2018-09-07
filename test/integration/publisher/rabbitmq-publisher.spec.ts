@@ -32,10 +32,10 @@ describe('EventStory RabbitMQ Publisher', () => {
         const subscription = await eventStore.subscribe(ordersStream.aggregation, message => {
             count++;
         });
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
         await waitUntil(() => count === 1);
         await subscription.remove();;
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
         wait(500);
         expect(count).to.equal(1);
     });

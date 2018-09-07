@@ -99,8 +99,8 @@ export interface EventStream {
     getEvents(offset?: number, limit?: number): Promise<Array<Event>>;
     /**
      * Add a new event to the end of the event stream.
-     * @param event The event
+     * @param data The event data
      * @return The event, updated with informations like its sequence order and commitTimestamp
      */
-    addEvent(event: Event): Promise<Event>;
+    addEvent(data: any): Promise<Event>;
 }

@@ -36,7 +36,7 @@ Adding events to the stream:
 
 ```javascript
 const ordersStream = eventStore.getEventStream('orders', '1234567');
-ordersStream.addEvent({ payload: 'My Event Payload' }); // Could pass anything here
+ordersStream.addEvent({ data: 'My Event Data' }); // Could pass anything here
 ```
 
 Loading events from the stream:

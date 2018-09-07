@@ -20,14 +20,14 @@ describe('EventStory Memory Provider', () => {
     });
 
     it('should be able to add an event to the EventStream', async () => {
-        const eventPromise = await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        const eventPromise = await ordersStream.addEvent(EVENT_PAYLOAD);
         expect(eventPromise).to.have.property('commitTimestamp');
         expect(eventPromise).to.have.property('sequence');
     });
 
     it('should be able to read events from the EventStream', async () => {
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD + '_1' });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
+        await ordersStream.addEvent(EVENT_PAYLOAD + '_1');
         const events = await ordersStream.getEvents();
         expect(events.length).to.equals(2);
         expect(events[0].payload).to.equals(EVENT_PAYLOAD);
@@ -35,9 +35,9 @@ describe('EventStory Memory Provider', () => {
     });
 
     it('should be able to get event ranged list from the event stream', async () => {
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD + '_1' });
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD + '_2' });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
+        await ordersStream.addEvent(EVENT_PAYLOAD + '_1');
+        await ordersStream.addEvent(EVENT_PAYLOAD + '_2');
         const events = await ordersStream.getEvents(1, 5);
         expect(events.length).to.equal(2);
         expect(events[0].payload).to.equal(EVENT_PAYLOAD + '_1');
@@ -45,25 +45,25 @@ describe('EventStory Memory Provider', () => {
     });
 
     it('should be able to get aggregations from the event stream', async () => {
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
         const aggregations = await eventStore.getAggregations();
         expect(aggregations.length).to.equal(1);
     });
 
     it('should be able to get streams from the event stream', async () => {
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
         const orders = await eventStore.getStreams('orders');
         expect(orders.length).to.equal(1);
     });
 
     it('should be able to get ranged aggregations from the event stream', async () => {
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
         const offersStream = eventStore.getEventStream('offers', '1');
-        await offersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await offersStream.addEvent(EVENT_PAYLOAD);
         const checkoutStream = eventStore.getEventStream('checkout', '1');
-        await checkoutStream.addEvent({ payload: EVENT_PAYLOAD });
+        await checkoutStream.addEvent(EVENT_PAYLOAD);
         const customersStream = eventStore.getEventStream('customers', '1');
-        await customersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await customersStream.addEvent(EVENT_PAYLOAD);
         const aggregations = await eventStore.getAggregations(1, 2);
         expect(aggregations.length).to.equal(2);
         expect(aggregations[0]).to.equal('customers');
@@ -71,17 +71,17 @@ describe('EventStory Memory Provider', () => {
     });
 
     it('should be able to get ranged aggregations from the event stream', async () => {
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
         const orders2Stream = eventStore.getEventStream('orders', '2');
-        await orders2Stream.addEvent({ payload: EVENT_PAYLOAD });
+        await orders2Stream.addEvent(EVENT_PAYLOAD);
         const orders3Stream = eventStore.getEventStream('orders', '3');
-        await orders3Stream.addEvent({ payload: EVENT_PAYLOAD });
+        await orders3Stream.addEvent(EVENT_PAYLOAD);
         const orders4Stream = eventStore.getEventStream('orders', '4');
-        await orders4Stream.addEvent({ payload: EVENT_PAYLOAD });
+        await orders4Stream.addEvent(EVENT_PAYLOAD);
         const orders5Stream = eventStore.getEventStream('orders', '5');
-        await orders5Stream.addEvent({ payload: EVENT_PAYLOAD });
+        await orders5Stream.addEvent(EVENT_PAYLOAD);
         const orders6Stream = eventStore.getEventStream('orders', '6');
-        await orders6Stream.addEvent({ payload: EVENT_PAYLOAD });
+        await orders6Stream.addEvent(EVENT_PAYLOAD);
         const orders = await eventStore.getStreams('orders', 2, 3);
         expect(orders.length).to.equal(3);
         expect(orders[0]).to.equal('3');

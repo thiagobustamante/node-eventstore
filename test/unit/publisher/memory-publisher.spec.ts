@@ -29,7 +29,7 @@ describe('EventStory Memory Publisher', () => {
             expect(message.streamId).to.equal(ordersStream.streamId);
             expect(message.event.payload).to.equal(EVENT_PAYLOAD);
             done();
-        }).then(() => ordersStream.addEvent({ payload: EVENT_PAYLOAD }));
+        }).then(() => ordersStream.addEvent(EVENT_PAYLOAD));
     });
 
     it('should be able to unsubscribe from EventStore changes channel', async () => {
@@ -37,10 +37,10 @@ describe('EventStory Memory Publisher', () => {
         const subscription = await eventStore.subscribe(ordersStream.aggregation, message => {
             count++;
         });
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
         await waitUntil(() => count === 1);
         await subscription.remove();;
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
         wait(500);
         expect(count).to.equal(1);
     });
@@ -54,7 +54,7 @@ describe('EventStory Memory Publisher', () => {
         await eventStore.subscribe(ordersStream.aggregation, (message) => {
             calledSecond = true;
         });
-        await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
+        await ordersStream.addEvent(EVENT_PAYLOAD);
         expect(calledFirst).to.be.true;
         expect(calledSecond).to.be.true;
     });

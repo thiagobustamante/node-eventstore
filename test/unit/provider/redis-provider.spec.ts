@@ -1,7 +1,6 @@
 'use strict';
 
 import * as chai from 'chai';
-// import { Redis } from 'ioredis';
 import * as _ from 'lodash';
 import 'mocha';
 import * as proxyquire from 'proxyquire';
@@ -28,8 +27,7 @@ describe('EventStory Redis Provider', () => {
             zadd: (key: string, weight: string, value: string) => this,
             zrange: (key: string, offset?: number, limit?: number) => []
         });
-        factoryStub = sinon.stub(RedisFactory, 'createClient')
-            .returns(redisStub);
+        factoryStub = sinon.stub(RedisFactory, 'createClient').returns(redisStub);
         RedisProvider = proxyquire('../../../src/provider/redis', { './provider': factoryStub }).RedisProvider;
     });
 
@@ -105,17 +103,16 @@ describe('EventStory Redis Provider', () => {
         redisStub.zadd.returns(redisStub);
 
         const redisProvider: any = new RedisProvider({ standalone: { host: 'localhost' } });
-        const event = await redisProvider.addEvent('orders', '1', { payload: 'EVENT PAYLOAD' });
+        const event = await redisProvider.addEvent('orders', '1', 'EVENT PAYLOAD');
         expect(redisStub.incr).to.have.been.calledOnceWithExactly('sequences:{orders:1}');
         expect(redisStub.time).to.have.been.calledOnce;
         expect(redisStub.multi).to.have.been.calledOnce;
-        expect(redisStub.rpush).to.have.been.calledOnceWithExactly('orders:1', '{"payload":"EVENT PAYLOAD","sequence":0,"commitTimestamp":1}');
+        expect(redisStub.rpush).to.have.been.calledOnceWithExactly('orders:1', '{"commitTimestamp":1,"payload":"EVENT PAYLOAD","sequence":0}');
         expect(redisStub.zadd).to.have.been.calledTwice;
-        expect(redisStub.zadd).to.calledWith(`meta:aggregations`, '1', 'orders');
-        expect(redisStub.zadd).to.calledWith(`meta:aggregations:orders`, '1', '1');
+        expect(redisStub.zadd).to.calledWithExactly(`meta:aggregations`, '1', 'orders');
+        expect(redisStub.zadd).to.calledWithExactly(`meta:aggregations:orders`, '1', '1');
         expect(redisStub.exec).to.have.been.calledOnce;
         expect(event.sequence).to.equal(0);
         expect(event.commitTimestamp).to.equal(1);
     });
-
 });

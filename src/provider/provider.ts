@@ -12,10 +12,10 @@ export interface PersistenceProvider {
      * Add a new {@link Event} in the {@link EventStream}
      * @param aggregation The parent aggregation
      * @param streamId The {@link EventStream} identifier
-     * @param event The Event
+     * @param data The Event data
      * @return The updated event, after persisted.
      */
-    addEvent(aggregation: string, streamId: string, event: Event): Promise<Event>;
+    addEvent(aggregation: string, streamId: string, data: any): Promise<Event>;
 
     /**
      * Retrieves a ranged list of events in the {@link EventStream}
