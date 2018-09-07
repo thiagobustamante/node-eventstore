@@ -18,4 +18,4 @@ npm install --save @eventstore.net/event.store
 
 ## Usage
 
-Visit our [website](https://www.eventstore.net.br) to access documentation and usage examples.
+Visit our [website](http://www.eventstore.net.br) to access documentation and usage examples.
