@@ -10,7 +10,7 @@ import { RedisFactory } from '../../../src/redis/connect';
 // const redisMock = require('ioredis-mock');
 const expect = chai.expect;
 
-describe('EventStory Redis Publisher', () => {
+describe('EventStory Redis Publisher (Integration)', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
     const EVENT_PAYLOAD = 'Event Data';

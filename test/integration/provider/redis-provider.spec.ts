@@ -10,7 +10,7 @@ import { RedisFactory } from '../../../src/redis/connect';
 const expect = chai.expect;
 // tslint:disable:no-unused-expression
 
-describe('EventStory Redis Provider', () => {
+describe('EventStory Redis Provider (Integration)', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
     const EVENT_PAYLOAD = 'Event Data';

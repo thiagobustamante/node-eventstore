@@ -10,7 +10,7 @@ import { EventStore, EventStream, InMemoryProvider, RabbitMQPublisher } from '..
 
 const expect = chai.expect;
 
-describe('EventStory RabbitMQ Publisher', () => {
+describe('EventStory RabbitMQ Publisher (Integration)', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
     const EVENT_PAYLOAD = 'Event Data';
