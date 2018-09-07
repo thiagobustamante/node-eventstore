@@ -57,13 +57,45 @@ describe('EventStory Memory Provider', () => {
 
     it('should be able to get ranged aggregations from the event stream', async () => {
         await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
-        const aggregations = await eventStore.getAggregations(0, 1);
-        expect(aggregations.length).to.equal(1);
+        const offersStream = eventStore.getEventStream('offers', '1');
+        await offersStream.addEvent({ payload: EVENT_PAYLOAD });
+        const checkoutStream = eventStore.getEventStream('checkout', '1');
+        await checkoutStream.addEvent({ payload: EVENT_PAYLOAD });
+        const customersStream = eventStore.getEventStream('customers', '1');
+        await customersStream.addEvent({ payload: EVENT_PAYLOAD });
+        const aggregations = await eventStore.getAggregations(1, 2);
+        expect(aggregations.length).to.equal(2);
+        expect(aggregations[0]).to.equal('customers');
+        expect(aggregations[1]).to.equal('offers');
     });
 
     it('should be able to get ranged aggregations from the event stream', async () => {
         await ordersStream.addEvent({ payload: EVENT_PAYLOAD });
-        const orders = await eventStore.getStreams('orders', 0, 1);
-        expect(orders.length).to.equal(1);
+        const orders2Stream = eventStore.getEventStream('orders', '2');
+        await orders2Stream.addEvent({ payload: EVENT_PAYLOAD });
+        const orders3Stream = eventStore.getEventStream('orders', '3');
+        await orders3Stream.addEvent({ payload: EVENT_PAYLOAD });
+        const orders4Stream = eventStore.getEventStream('orders', '4');
+        await orders4Stream.addEvent({ payload: EVENT_PAYLOAD });
+        const orders5Stream = eventStore.getEventStream('orders', '5');
+        await orders5Stream.addEvent({ payload: EVENT_PAYLOAD });
+        const orders6Stream = eventStore.getEventStream('orders', '6');
+        await orders6Stream.addEvent({ payload: EVENT_PAYLOAD });
+        const orders = await eventStore.getStreams('orders', 2, 3);
+        expect(orders.length).to.equal(3);
+        expect(orders[0]).to.equal('3');
+        expect(orders[1]).to.equal('4');
+        expect(orders[2]).to.equal('5');
     });
+
+    it('should return an empty list of aggregations when there is no aggregation', async () => {
+        const aggregations = await eventStore.getAggregations();
+        expect(aggregations.length).to.equal(0);
+    });
+
+    it('should return an empty list of streams when there is no aggregation', async () => {
+        const orders = await eventStore.getStreams('orders');
+        expect(orders.length).to.equal(0);
+    });
+
 });

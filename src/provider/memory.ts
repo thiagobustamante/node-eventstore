@@ -31,8 +31,8 @@ export class InMemoryProvider implements PersistenceProvider {
 
     public async getStreams(aggregation: string, offset: number = 0, limit?: number): Promise<Array<string>> {
         const streams = this.store.get(aggregation);
-        const keys = Array.from(streams.keys());
         if (streams) {
+            const keys = Array.from(streams.keys());
             return _(keys).sort().drop(offset).take(limit || this.store.size).value();
         }
         return [];

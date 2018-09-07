@@ -1,4 +1,4 @@
-# EventStore
+# Event.Store
 
 [![npm version](https://badge.fury.io/js/%40eventstore.net%2Fevent.store.svg)](https://badge.fury.io/js/%40eventstore.net%2Fevent.store)
 [![Build Status](https://travis-ci.org/thiagobustamante/node-eventstore.svg?branch=master)](https://travis-ci.org/thiagobustamante/node-eventstore)
@@ -16,7 +16,7 @@ npm install --save @eventstore.net/event.store
 
 ## Usage
 
-### Create the EventStore:
+### Create the Event Store:
 
 ```javascript
 const eventStore = new EventStore(
