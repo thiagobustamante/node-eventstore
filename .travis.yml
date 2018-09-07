@@ -11,6 +11,14 @@ before_install:
 script: 
 - npm run test:mutation
 - nyc npm test && nyc report --reporter=text-lcov | coveralls
+deploy:
+  provider: pages
+  skip-cleanup: true
+  local-dir: reports
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  on:
+    branch: master
 jobs:
   include:
   - stage: npm release
