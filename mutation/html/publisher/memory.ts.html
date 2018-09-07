@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html><head><title>memory.ts
+ - Stryker report</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../strykerResources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../strykerResources/highlightjs/styles/default.css">
+<link rel="stylesheet" href="../strykerResources/stryker.css"></head>
+<body><img class="stryker-image" alt="Stryker" src="../strykerResources/stryker-80x80.png">
+<div class="container-fluid"><div class="row"><div class="col-lg-12"><h1 class="display-4">memory.ts
+ 
+<small class="text-muted">- Stryker report</small></h1></div></div>
+<ol class="breadcrumb"><li class="breadcrumb-item"><a href="../index.html">All files</a></li><li class="breadcrumb-item"><a href="index.html">publisher</a></li>
+<li class="breadcrumb-item active">memory.ts</li></ol>
+<div class="row"><div class="col-lg-12"><div class="row"><div class="col-sm-11"><table class="table table-sm table-hover table-bordered table-no-top"><thead><tr><th style="width: 20%"><div><span>File / Directory</span></div></th>
+<th colspan="2"><div><span>Mutation score</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Killed</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Survived</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Timeout</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># No coverage</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Runtime errors</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Transpile errors</span></div></th>
+<th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total detected</span></div></th>
+<th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
+<th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th></tr></thead>
+<tbody><tr><td>memory.ts</td>
+<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="90.91" aria-valuemin="0" aria-valuemax="100" style="width: 90.91%;">90.91
+%</div></div></td>
+<th class="text-center text-success" style="width: 10%">90.91</th>
+<td class="text-center">2</td>
+<td class="text-center">1</td>
+<td class="text-center">8</td>
+<td class="text-center">0</td>
+<td class="text-center">2</td>
+<td class="text-center">0</td>
+<th class="text-center">10</th>
+<th class="text-center">1</th>
+<th class="text-center">13</th></tr>
+</tbody></table></div></div>
+<div class="row"><div class="col-lg-7"><div class="row legend"><form class="col-md-12" novalidate="novalidate">
+<div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" checked value="2" type="checkbox">
+Survived
+ 
+(1)</label></div>
+<div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
+Killed
+ 
+(2)</label></div>
+<div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="3" type="checkbox">
+TimedOut
+ 
+(8)</label></div>
+<div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="4" type="checkbox">
+RuntimeError
+ 
+(2)</label></div>
+
+<a href="#" class="stryker-collapse-expand-all">Expand all</a></form></div>
+<pre><code class="lang-javascript"><span class="bg-null">&#039;use strict&#039;;
+
+import { Message } from &#039;../model/message&#039;;
+import { HasSubscribers, Publisher, Subscriber, Subscription } from &#039;./publisher&#039;;
+
+
+/**
+ * A Publisher that handle all the data in memory. It is a very simple implementation that should be used
+ * only for development and test purposes.
+ */
+export class InMemoryPublisher implements Publisher, HasSubscribers {
+
+    private listeners: Map&lt;string, Array&lt;Subscriber&gt;&gt; = new Map();
+
+    public async publish(message: Message): Promise&lt;void&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="0"><span class="badge badge-warning">0</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="0">{}</span><span class="stryker-original-code" data-mutant="0"><span class="bg-warning-light">{
+        const aggregationListeners = this.listeners.get(message.aggregation);
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="1"><span class="badge badge-danger">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="2"><span class="badge badge-warning">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">false</span><span class="stryker-original-code" data-mutant="1"><span class="stryker-original-code" data-mutant="2"><span class="bg-danger-light">aggregationListeners </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="3"><span class="badge badge-warning">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">==</span><span class="stryker-original-code" data-mutant="3"><span class="bg-danger-light">!=</span></span><span class="bg-danger-light"> null</span></span></span><span class="bg-warning-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="4"><span class="badge badge-warning">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">{}</span><span class="stryker-original-code" data-mutant="4"><span class="bg-warning-light">{
+            aggregationListeners.forEach(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrowFunction" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="5"><span class="badge badge-warning">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">() =&gt; undefined</span><span class="stryker-original-code" data-mutant="5"><span class="bg-warning-light">subscriber =&gt; subscriber(message)</span></span><span class="bg-warning-light">);
+        }</span></span><span class="bg-warning-light">
+    }</span></span><span class="bg-null">
+
+    public async subscribe(aggregation: string, subscriber: Subscriber): Promise&lt;Subscription&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="6"><span class="badge badge-secondary">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">{}</span><span class="stryker-original-code" data-mutant="6"><span class="bg-null">{
+        let aggregateListeners = this.listeners.get(aggregation);
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="8"><span class="badge badge-warning">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="9"><span class="badge badge-warning">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">aggregateListeners</span><span class="stryker-original-code" data-mutant="7"><span class="stryker-original-code" data-mutant="8"><span class="stryker-original-code" data-mutant="9"><span class="bg-warning-light">!aggregateListeners</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="10"><span class="badge badge-warning">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">{}</span><span class="stryker-original-code" data-mutant="10"><span class="bg-warning-light">{
+            aggregateListeners = </span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrayNewExpression" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="11"><span class="badge badge-secondary">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">new Array([])</span><span class="stryker-original-code" data-mutant="11"><span class="bg-warning-light">new Array&lt;Subscriber&gt;()</span></span><span class="bg-warning-light">;
+            this.listeners.set(aggregation, aggregateListeners);
+        }</span></span><span class="bg-null">
+        aggregateListeners.push(subscriber);
+        return {
+            remove: async () =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">{}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-success-light">{
+                const index = aggregateListeners.indexOf(subscriber);
+                aggregateListeners.splice(index, 1);
+            }</span></span><span class="bg-null">
+        }
+    }</span></span><span class="bg-null">
+}</span>
+</code></pre></div>
+<div class="col-lg-5"><table class="table table-sm table-hover mutant-table"><thead><tr><th>#</th>
+<th>Mutator</th>
+<th>State</th>
+<th>Location</th>
+<th>Original</th>
+<th>Replacement</th></tr></thead>
+<tbody><tr><th>0</th>
+<td>Block</td>
+<td>TimedOut</td>
+<td>14
+:
+58</td>
+<td><code>{
+   ...    }</code></td>
+<td><code>{}</code></td></tr>
+<tr><th>1</th>
+<td>IfStatement</td>
+<td>Survived</td>
+<td>16
+:
+12</td>
+<td><code>!=</code></td>
+<td><code></code></td></tr>
+<tr><th>2</th>
+<td>IfStatement</td>
+<td>TimedOut</td>
+<td>16
+:
+12</td>
+<td><code>!=</code></td>
+<td><code></code></td></tr>
+<tr><th>3</th>
+<td>BinaryExpression</td>
+<td>TimedOut</td>
+<td>16
+:
+33</td>
+<td><code>!=</code></td>
+<td><code>==</code></td></tr>
+<tr><th>4</th>
+<td>Block</td>
+<td>TimedOut</td>
+<td>16
+:
+42</td>
+<td><code>{
+   ...    }</code></td>
+<td><code>{}</code></td></tr>
+<tr><th>5</th>
+<td>ArrowFunction</td>
+<td>TimedOut</td>
+<td>17
+:
+41</td>
+<td><code>=>   ...    )</code></td>
+<td><code>() =></code></td></tr>
+<tr><th>6</th>
+<td>Block</td>
+<td>RuntimeError</td>
+<td>21
+:
+95</td>
+<td><code>{
+   ...    }</code></td>
+<td><code>{}</code></td></tr>
+<tr><th>7</th>
+<td>IfStatement</td>
+<td>Killed</td>
+<td>23
+:
+12</td>
+<td><code>!</code></td>
+<td><code></code></td></tr>
+<tr><th>8</th>
+<td>IfStatement</td>
+<td>TimedOut</td>
+<td>23
+:
+12</td>
+<td><code>!</code></td>
+<td><code></code></td></tr>
+<tr><th>9</th>
+<td>PrefixUnaryExpression</td>
+<td>TimedOut</td>
+<td>23
+:
+12</td>
+<td><code>!</code></td>
+<td><code></code></td></tr>
+<tr><th>10</th>
+<td>Block</td>
+<td>TimedOut</td>
+<td>23
+:
+33</td>
+<td><code>{
+   ...    }</code></td>
+<td><code>{}</code></td></tr>
+<tr><th>11</th>
+<td>ArrayNewExpression</td>
+<td>RuntimeError</td>
+<td>24
+:
+33</td>
+<td><code><          >()</code></td>
+<td><code>([])</code></td></tr>
+<tr><th>12</th>
+<td>Block</td>
+<td>Killed</td>
+<td>29
+:
+32</td>
+<td><code>{
+   ...    }</code></td>
+<td><code>{}</code></td></tr></tbody></table></div></div></div></div>
+<footer>Generated with stryker-html-reporter generator. Visit the 
+<a href="https://stryker-mutator.io" target="_blank">Stryker website</a></footer></div>
+<script src="../strykerResources/popper.js/dist/umd/popper.min.js" defer="defer"></script>
+<script src="../strykerResources/jquery/dist/jquery.slim.min.js" defer="defer"></script>
+<script src="../strykerResources/bootstrap/js/bootstrap.min.js" defer="defer"></script>
+<script src="../strykerResources/stryker.js" defer="defer"></script></body></html>
