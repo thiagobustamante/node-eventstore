@@ -7,6 +7,8 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/thiagobustamante/node-eventstore/badge.svg?targetFile=package.json)](https://snyk.io/test/github/thiagobustamante/node-eventstore?targetFile=package.json)
 
 
+Event.Store is an open source library to create Event Stores that works with multiple persistence providers and notification systems.
+
 
 ## Installing
 
@@ -16,59 +18,4 @@ npm install --save @eventstore.net/event.store
 
 ## Usage
 
-### Create the Event Store:
-
-```javascript
-const eventStore = new EventStore(
-                  new InMemoryProvider(), // The persistence provider. Could use different providers, like MongoDB etc
-                  new InMemoryPublisher()); // Opcional. Support different publishers, like RabbitmqPublisher, RedisPublisher etc
-```
-
-### Reading and writing events:
-
-Accessing an event stream:
-
-```javascript
-const ordersStream = eventStore.getEventStream('orders', '1234567');
-```
-
-Adding events to the stream:
-
-```javascript
-const ordersStream = eventStore.getEventStream('orders', '1234567');
-ordersStream.addEvent({ data: 'My Event Data' }); // Could pass anything here
-```
-
-Loading events from the stream:
-
-```javascript
-const ordersStream = eventStore.getEventStream('orders', '1234567');
-const events = await ordersStream.getEvents();
-const order = ordersAggregation.loadFromHistory(events)
-```
-
-### Reacting to events:
-
-Listening for new events in event streams:
-
-```javascript
-eventStore.subscribe('orders', message => {
-    console.log(message.aggregation);
-    console.log(message.streamId);
-    console.log(message.event.payload);
-});
-```
-
-Removing the subscription to eventStore channels:
-
-```javascript
-const subscription = await eventStore.subscribe('orders', message => {
-    console.log(message.aggregation);
-    console.log(message.streamId);
-    console.log(message.event.payload);
-});
-
-// ...
-subscription.remove();
- 
-```
+Visit our [website](https://www.eventstore.net.br) to access documentation and usage examples.
