@@ -24,28 +24,28 @@
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th></tr></thead>
 <tbody><tr><td>redis.ts</td>
-<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="92.31" aria-valuemin="0" aria-valuemax="100" style="width: 92.31%;">92.31
+<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="84.62" aria-valuemin="0" aria-valuemax="100" style="width: 84.62%;">84.62
 %</div></div></td>
-<th class="text-center text-success" style="width: 10%">92.31</th>
-<td class="text-center">12</td>
-<td class="text-center">1</td>
+<th class="text-center text-success" style="width: 10%">84.62</th>
+<td class="text-center">11</td>
+<td class="text-center">2</td>
 <td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">9</td>
 <td class="text-center">0</td>
-<th class="text-center">12</th>
-<th class="text-center">1</th>
+<th class="text-center">11</th>
+<th class="text-center">2</th>
 <th class="text-center">22</th></tr>
 </tbody></table></div></div>
 <div class="row"><div class="col-lg-7"><div class="row legend"><form class="col-md-12" novalidate="novalidate">
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" checked value="2" type="checkbox">
 Survived
  
-(1)</label></div>
+(2)</label></div>
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
 Killed
  
-(12)</label></div>
+(11)</label></div>
 
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="4" type="checkbox">
 RuntimeError
@@ -105,7 +105,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
             await this.redisSubscriber.on(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="16"><span class="badge badge-success">16</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="16">&quot;&quot;</span><span class="stryker-original-code" data-mutant="16"><span class="bg-success-light">&#039;message&#039;</span></span><span class="bg-success-light">, (aggregation, received) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="17"><span class="badge badge-success">17</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="17">{}</span><span class="stryker-original-code" data-mutant="17"><span class="bg-success-light">{
                 const message: Message = JSON.parse(received);
                 const subscribers = this.listeners.get(aggregation);
-                if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="18"><span class="badge badge-success">18</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="18">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="19"><span class="badge badge-success">19</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="19">false</span><span class="stryker-original-code" data-mutant="18"><span class="stryker-original-code" data-mutant="19"><span class="bg-success-light">subscribers</span></span></span><span class="bg-success-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="20"><span class="badge badge-secondary">20</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="20">{}</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success-light">{
+                if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="18"><span class="badge badge-danger">18</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="18">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="19"><span class="badge badge-success">19</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="19">false</span><span class="stryker-original-code" data-mutant="18"><span class="stryker-original-code" data-mutant="19"><span class="bg-danger-light">subscribers</span></span></span><span class="bg-success-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="20"><span class="badge badge-secondary">20</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="20">{}</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success-light">{
                     subscribers.forEach(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrowFunction" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="21"><span class="badge badge-secondary">21</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="21">() =&gt; undefined</span><span class="stryker-original-code" data-mutant="21"><span class="bg-success-light">subscriber =&gt; subscriber(message)</span></span><span class="bg-success-light">);
                 }</span></span><span class="bg-success-light">
             }</span></span><span class="bg-success-light">);
@@ -273,7 +273,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
 <td><code>{}</code></td></tr>
 <tr><th>18</th>
 <td>IfStatement</td>
-<td>Killed</td>
+<td>Survived</td>
 <td>52
 :
 20</td>
