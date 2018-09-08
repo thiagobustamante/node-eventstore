@@ -24,28 +24,28 @@
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th></tr></thead>
 <tbody><tr><td>rabbitmq.ts</td>
-<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="88.24" aria-valuemin="0" aria-valuemax="100" style="width: 88.24%;">88.24
+<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="94.12" aria-valuemin="0" aria-valuemax="100" style="width: 94.12%;">94.12
 %</div></div></td>
-<th class="text-center text-success" style="width: 10%">88.24</th>
-<td class="text-center">15</td>
-<td class="text-center">2</td>
+<th class="text-center text-success" style="width: 10%">94.12</th>
+<td class="text-center">16</td>
+<td class="text-center">1</td>
 <td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">5</td>
 <td class="text-center">0</td>
-<th class="text-center">15</th>
-<th class="text-center">2</th>
+<th class="text-center">16</th>
+<th class="text-center">1</th>
 <th class="text-center">22</th></tr>
 </tbody></table></div></div>
 <div class="row"><div class="col-lg-7"><div class="row legend"><form class="col-md-12" novalidate="novalidate">
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" checked value="2" type="checkbox">
 Survived
  
-(2)</label></div>
+(1)</label></div>
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
 Killed
  
-(15)</label></div>
+(16)</label></div>
 
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="4" type="checkbox">
 RuntimeError
@@ -74,7 +74,7 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
     public async publish(message: Message) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="1"><span class="badge badge-success">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">{}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-success-light">{
         const channel = await this.getChannel()
         await this.ensureExchange(message.aggregation, channel);
-        await channel.publish(message.aggregation, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="2"><span class="badge badge-danger">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">&quot;Stryker was here!&quot;</span><span class="stryker-original-code" data-mutant="2"><span class="bg-danger-light">&#039;&#039;</span></span><span class="bg-success-light">, new Buffer(JSON.stringify(message)));
+        await channel.publish(message.aggregation, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">&quot;Stryker was here!&quot;</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success-light">&#039;&#039;</span></span><span class="bg-success-light">, new Buffer(JSON.stringify(message)));
     }</span></span><span class="bg-null">
 
     public async subscribe(aggregation: string, subscriber: Subscriber): Promise&lt;Subscription&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="3"><span class="badge badge-secondary">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">{}</span><span class="stryker-original-code" data-mutant="3"><span class="bg-null">{
@@ -104,7 +104,7 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
     }</span></span><span class="bg-null">
 
     private async getChannel() </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="17"><span class="badge badge-secondary">17</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="17">{}</span><span class="stryker-original-code" data-mutant="17"><span class="bg-null">{
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="18"><span class="badge badge-success">18</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="18">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="19"><span class="badge badge-success">19</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="19">this.channel</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="20"><span class="badge badge-success">20</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="20">false</span><span class="stryker-original-code" data-mutant="18"><span class="stryker-original-code" data-mutant="19"><span class="stryker-original-code" data-mutant="20"><span class="bg-success-light">!this.channel</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="21"><span class="badge badge-secondary">21</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="21">{}</span><span class="stryker-original-code" data-mutant="21"><span class="bg-null">{
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="18"><span class="badge badge-success">18</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="18">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="19"><span class="badge badge-success">19</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="19">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="20"><span class="badge badge-success">20</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="20">this.channel</span><span class="stryker-original-code" data-mutant="18"><span class="stryker-original-code" data-mutant="19"><span class="stryker-original-code" data-mutant="20"><span class="bg-success-light">!this.channel</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="21"><span class="badge badge-secondary">21</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="21">{}</span><span class="stryker-original-code" data-mutant="21"><span class="bg-null">{
             const conn = await amqp.connect(this.url);
             this.channel = await conn.createChannel();
         }</span></span><span class="bg-null">
@@ -138,7 +138,7 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
 <td><code>{}</code></td></tr>
 <tr><th>2</th>
 <td>StringLiteral</td>
-<td>Survived</td>
+<td>Killed</td>
 <td>21
 :
 51</td>
@@ -279,14 +279,6 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
 <td><code>!    .</code></td>
 <td><code></code></td></tr>
 <tr><th>19</th>
-<td>PrefixUnaryExpression</td>
-<td>Killed</td>
-<td>51
-:
-12</td>
-<td><code>!    .</code></td>
-<td><code>.</code></td></tr>
-<tr><th>20</th>
 <td>IfStatement</td>
 <td>Killed</td>
 <td>51
@@ -294,6 +286,14 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
 12</td>
 <td><code>!    .</code></td>
 <td><code></code></td></tr>
+<tr><th>20</th>
+<td>PrefixUnaryExpression</td>
+<td>Killed</td>
+<td>51
+:
+12</td>
+<td><code>!    .</code></td>
+<td><code>.</code></td></tr>
 <tr><th>21</th>
 <td>Block</td>
 <td>RuntimeError</td>
