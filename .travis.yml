@@ -2,6 +2,7 @@ language: node_js
 node_js:
 - '8'
 - '9'
+- '10'
 sudo: required
 services:
 - docker
@@ -19,6 +20,7 @@ deploy:
   keep-history: true
   on:
     branch: master
+    node: '10'
 jobs:
   include:
   - stage: npm release
