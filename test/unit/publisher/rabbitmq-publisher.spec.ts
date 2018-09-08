@@ -54,6 +54,8 @@ describe('EventStory RabbitMQ Publisher', () => {
         expect(connectionStub.createChannel).to.have.been.calledOnce;
         expect(channelStub.assertExchange).to.have.been.calledOnceWithExactly(message.aggregation, 'fanout', { durable: false });
         expect(channelStub.publish).to.have.been.calledTwice;
+        expect(channelStub.publish).to.have.been.calledWithExactly(
+            message.aggregation, '', new Buffer(JSON.stringify(message)));
     });
 
     it('should be able to subscribe to listen changes in the eventstore', async () => {
