@@ -1,13 +1,11 @@
 'use strict';
 
 import * as chai from 'chai';
-import * as _ from 'lodash';
 import 'mocha';
 import * as proxyquire from 'proxyquire';
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
 import { RedisFactory } from '../../../src/redis/connect';
-
 chai.use(sinonChai);
 const expect = chai.expect;
 // tslint:disable:no-unused-expression

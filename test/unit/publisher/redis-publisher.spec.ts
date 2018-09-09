@@ -1,7 +1,6 @@
 'use strict';
 
 import * as chai from 'chai';
-import * as _ from 'lodash';
 import 'mocha';
 import * as proxyquire from 'proxyquire';
 import * as sinon from 'sinon';
