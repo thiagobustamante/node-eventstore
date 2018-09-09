@@ -105,7 +105,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
             await this.redisSubscriber.on(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="16"><span class="badge badge-success">16</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="16">&quot;&quot;</span><span class="stryker-original-code" data-mutant="16"><span class="bg-success-light">&#039;message&#039;</span></span><span class="bg-success-light">, (aggregation, received) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="17"><span class="badge badge-success">17</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="17">{}</span><span class="stryker-original-code" data-mutant="17"><span class="bg-success-light">{
                 const message: Message = JSON.parse(received);
                 const subscribers = this.listeners.get(aggregation);
-                if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="18"><span class="badge badge-danger">18</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="18">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="19"><span class="badge badge-success">19</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="19">false</span><span class="stryker-original-code" data-mutant="18"><span class="stryker-original-code" data-mutant="19"><span class="bg-danger-light">subscribers</span></span></span><span class="bg-success-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="20"><span class="badge badge-secondary">20</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="20">{}</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success-light">{
+                if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="18"><span class="badge badge-success">18</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="18">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="19"><span class="badge badge-danger">19</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="19">true</span><span class="stryker-original-code" data-mutant="18"><span class="stryker-original-code" data-mutant="19"><span class="bg-danger-light">subscribers</span></span></span><span class="bg-success-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="20"><span class="badge badge-secondary">20</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="20">{}</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success-light">{
                     subscribers.forEach(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrowFunction" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="21"><span class="badge badge-secondary">21</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="21">() =&gt; undefined</span><span class="stryker-original-code" data-mutant="21"><span class="bg-success-light">subscriber =&gt; subscriber(message)</span></span><span class="bg-success-light">);
                 }</span></span><span class="bg-success-light">
             }</span></span><span class="bg-success-light">);
@@ -273,7 +273,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
 <td><code>{}</code></td></tr>
 <tr><th>18</th>
 <td>IfStatement</td>
-<td>Survived</td>
+<td>Killed</td>
 <td>52
 :
 20</td>
@@ -281,7 +281,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
 <td><code></code></td></tr>
 <tr><th>19</th>
 <td>IfStatement</td>
-<td>Killed</td>
+<td>Survived</td>
 <td>52
 :
 20</td>
