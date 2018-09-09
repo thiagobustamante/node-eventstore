@@ -72,13 +72,13 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
     }</span></span><span class="bg-null">
 
     public async publish(message: Message) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="1"><span class="badge badge-success">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">{}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-success-light">{
-        const channel = await this.getChannel()
-        await this.ensureExchange(message.aggregation, channel);
-        await channel.publish(message.aggregation, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">&quot;Stryker was here!&quot;</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success-light">&#039;&#039;</span></span><span class="bg-success-light">, new Buffer(JSON.stringify(message)));
+        const channel = await this.getChannel();
+        await this.ensureExchange(message.stream.aggregation, channel);
+        await channel.publish(message.stream.aggregation, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">&quot;Stryker was here!&quot;</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success-light">&#039;&#039;</span></span><span class="bg-success-light">, new Buffer(JSON.stringify(message)));
     }</span></span><span class="bg-null">
 
     public async subscribe(aggregation: string, subscriber: Subscriber): Promise&lt;Subscription&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="3"><span class="badge badge-secondary">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">{}</span><span class="stryker-original-code" data-mutant="3"><span class="bg-null">{
-        const channel = await this.getChannel()
+        const channel = await this.getChannel();
         await this.ensureExchange(aggregation, channel);
 
         const q = await channel.assertQueue(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="4"><span class="badge badge-success">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">&quot;Stryker was here!&quot;</span><span class="stryker-original-code" data-mutant="4"><span class="bg-success-light">&#039;&#039;</span></span><span class="bg-null">, { exclusive: </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">false</span><span class="stryker-original-code" data-mutant="5"><span class="bg-success-light">true</span></span><span class="bg-null"> });
@@ -93,7 +93,7 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
                 await channel.cancel(consumerTag);
                 await channel.deleteQueue(q.queue);
             }</span></span><span class="bg-null">
-        }
+        };
     }</span></span><span class="bg-null">
 
     private async ensureExchange(aggregation: string, channel: amqp.Channel) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="10"><span class="badge badge-secondary">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">{}</span><span class="stryker-original-code" data-mutant="10"><span class="bg-null">{
@@ -141,7 +141,7 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
 <td>Killed</td>
 <td>21
 :
-51</td>
+58</td>
 <td><code>''</code></td>
 <td><code>"    ...   !"</code></td></tr>
 <tr><th>3</th>

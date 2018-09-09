@@ -55,6 +55,7 @@ RuntimeError
 import * as _ from &#039;lodash&#039;;
 import { EventStreamImpl } from &#039;./event-stream&#039;;
 import { Event } from &#039;./model/event&#039;;
+import { Stream } from &#039;./model/stream&#039;;
 import { PersistenceProvider } from &#039;./provider/provider&#039;;
 import { HasSubscribers, Publisher, Subscriber, Subscription } from &#039;./publisher/publisher&#039;;
 
@@ -90,7 +91,7 @@ export class EventStore implements EventStore, HasSubscribers {
      * will be created when the first event is added to the stream.
      */
     public getEventStream(aggregation: string, streamId: string): EventStream </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="7"><span class="badge badge-secondary">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">{}</span><span class="stryker-original-code" data-mutant="7"><span class="bg-null">{
-        return new EventStreamImpl(this, aggregation, streamId);
+        return new EventStreamImpl(this, { aggregation: aggregation, id: streamId });
     }</span></span><span class="bg-null">
 
     /**
@@ -101,7 +102,7 @@ export class EventStore implements EventStore, HasSubscribers {
      * @return A subscription. Can be used to remove the subscription to the publisher channel.
      */
     public subscribe(aggregation: string, subscriber: Subscriber): Promise&lt;Subscription&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="8"><span class="badge badge-secondary">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">{}</span><span class="stryker-original-code" data-mutant="8"><span class="bg-null">{
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="9"><span class="badge badge-success">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="10"><span class="badge badge-success">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">false</span><span class="stryker-original-code" data-mutant="9"><span class="stryker-original-code" data-mutant="10"><span class="bg-success-light">this.publisher </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="11"><span class="badge badge-success">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">||</span><span class="stryker-original-code" data-mutant="11"><span class="bg-success-light">&amp;&amp;</span></span><span class="bg-success-light"> (this.publisher as HasSubscribers).subscribe</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">{}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-success-light">{
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="9"><span class="badge badge-success">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="10"><span class="badge badge-success">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">true</span><span class="stryker-original-code" data-mutant="9"><span class="stryker-original-code" data-mutant="10"><span class="bg-success-light">this.publisher </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="11"><span class="badge badge-success">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">||</span><span class="stryker-original-code" data-mutant="11"><span class="bg-success-light">&amp;&amp;</span></span><span class="bg-success-light"> (this.publisher as HasSubscribers).subscribe</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">{}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-success-light">{
             return (this.publisher as HasSubscribers).subscribe(aggregation, subscriber);
         }</span></span><span class="bg-null">
         throw new Error(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="13"><span class="badge badge-success">13</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="13">&quot;&quot;</span><span class="stryker-original-code" data-mutant="13"><span class="bg-success-light">&#039;There is no valid Publisher configured. &#039;</span></span><span class="bg-null">
@@ -135,13 +136,9 @@ export class EventStore implements EventStore, HasSubscribers {
  */
 export interface EventStream {
     /**
-     * The event stream identifier
+     * The event stream
      */
-    streamId: string;
-    /**
-     * The parent aggregation for this event stream
-     */
-    aggregation: string;
+    stream: Stream;
     /**
      * Rertieve a list containing all the events in the stream in order.
      * @param offset The start position in the stream list
@@ -166,7 +163,7 @@ export interface EventStream {
 <tbody><tr><th>0</th>
 <td>Block</td>
 <td>Killed</td>
-<td>16
+<td>17
 :
 77</td>
 <td><code>{
@@ -175,7 +172,7 @@ export interface EventStream {
 <tr><th>1</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>21
+<td>22
 :
 47</td>
 <td><code>{
@@ -184,7 +181,7 @@ export interface EventStream {
 <tr><th>2</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>22
+<td>23
 :
 12</td>
 <td><code>.    ...    )</code></td>
@@ -192,7 +189,7 @@ export interface EventStream {
 <tr><th>3</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>22
+<td>23
 :
 12</td>
 <td><code>.    ...    )</code></td>
@@ -200,7 +197,7 @@ export interface EventStream {
 <tr><th>4</th>
 <td>Block</td>
 <td>Killed</td>
-<td>22
+<td>23
 :
 47</td>
 <td><code>{
@@ -209,7 +206,7 @@ export interface EventStream {
 <tr><th>5</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>23
+<td>24
 :
 28</td>
 <td><code>'    ...   .'</code></td>
@@ -217,7 +214,7 @@ export interface EventStream {
 <tr><th>6</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>28
+<td>29
 :
 55</td>
 <td><code>{
@@ -226,7 +223,7 @@ export interface EventStream {
 <tr><th>7</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>39
+<td>40
 :
 78</td>
 <td><code>{
@@ -235,7 +232,7 @@ export interface EventStream {
 <tr><th>8</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>50
+<td>51
 :
 89</td>
 <td><code>{
@@ -244,7 +241,7 @@ export interface EventStream {
 <tr><th>9</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>51
+<td>52
 :
 12</td>
 <td><code>.    ...   ).</code></td>
@@ -252,7 +249,7 @@ export interface EventStream {
 <tr><th>10</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>51
+<td>52
 :
 12</td>
 <td><code>.    ...   ).</code></td>
@@ -260,7 +257,7 @@ export interface EventStream {
 <tr><th>11</th>
 <td>BinaryExpression</td>
 <td>Killed</td>
-<td>51
+<td>52
 :
 27</td>
 <td><code>&&</code></td>
@@ -268,7 +265,7 @@ export interface EventStream {
 <tr><th>12</th>
 <td>Block</td>
 <td>Killed</td>
-<td>51
+<td>52
 :
 76</td>
 <td><code>{
@@ -277,7 +274,7 @@ export interface EventStream {
 <tr><th>13</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>54
+<td>55
 :
 24</td>
 <td><code>'    ...  . '</code></td>
@@ -285,7 +282,7 @@ export interface EventStream {
 <tr><th>14</th>
 <td>BinaryExpression</td>
 <td>RuntimeError</td>
-<td>55
+<td>56
 :
 12</td>
 <td><code>+</code></td>
@@ -293,7 +290,7 @@ export interface EventStream {
 <tr><th>15</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>55
+<td>56
 :
 14</td>
 <td><code>'    ...    '</code></td>
@@ -301,7 +298,7 @@ export interface EventStream {
 <tr><th>16</th>
 <td>Block</td>
 <td>Killed</td>
-<td>64
+<td>65
 :
 66</td>
 <td><code>{
@@ -310,7 +307,7 @@ export interface EventStream {
 <tr><th>17</th>
 <td>Block</td>
 <td>Killed</td>
-<td>75
+<td>76
 :
 82</td>
 <td><code>{

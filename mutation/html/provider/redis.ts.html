@@ -54,6 +54,7 @@ RuntimeError
 
 import { Redis } from &#039;ioredis&#039;;
 import { Event } from &#039;../model/event&#039;;
+import { Stream } from &#039;../model/stream&#039;;
 import { RedisConfig } from &#039;../redis/config&#039;;
 import { RedisFactory } from &#039;../redis/connect&#039;;
 import { PersistenceProvider } from &#039;./provider&#039;;
@@ -68,25 +69,25 @@ export class RedisProvider implements PersistenceProvider {
         this.redis = RedisFactory.createClient(config);
     }</span></span><span class="bg-null">
 
-    public async addEvent(aggregation: string, streamId: string, data: any) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="1"><span class="badge badge-secondary">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">{}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-null">{
-        const sequence = await this.redis.incr(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">&quot;&quot;</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success-light">`sequences:{${this.getKey(aggregation, streamId)}}`</span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="3"><span class="badge badge-success">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">+</span><span class="stryker-original-code" data-mutant="3"><span class="bg-success-light">-</span></span><span class="bg-null"> 1;
-        const time = await this.redis.time()
+    public async addEvent(stream: Stream, data: any) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="1"><span class="badge badge-secondary">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">{}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-null">{
+        const sequence = await this.redis.incr(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">&quot;&quot;</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success-light">`sequences:{${this.getKey(stream.aggregation, stream.id)}}`</span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="3"><span class="badge badge-success">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">+</span><span class="stryker-original-code" data-mutant="3"><span class="bg-success-light">-</span></span><span class="bg-null"> 1;
+        const time = await this.redis.time();
         const commitTimestamp = parseInt(time, 10);
         const event: Event = {
             commitTimestamp: commitTimestamp,
             payload: data,
             sequence: sequence
-        }
+        };
         await this.redis.multi()
-            .rpush(this.getKey(aggregation, streamId), JSON.stringify(event))
-            .zadd(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="4"><span class="badge badge-success">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">&quot;&quot;</span><span class="stryker-original-code" data-mutant="4"><span class="bg-success-light">`meta:aggregations:${aggregation}`</span></span><span class="bg-null">, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">&quot;&quot;</span><span class="stryker-original-code" data-mutant="5"><span class="bg-success-light">&#039;1&#039;</span></span><span class="bg-null">, streamId)
-            .zadd(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">&quot;&quot;</span><span class="stryker-original-code" data-mutant="6"><span class="bg-success-light">`meta:aggregations`</span></span><span class="bg-null">, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">&quot;&quot;</span><span class="stryker-original-code" data-mutant="7"><span class="bg-success-light">&#039;1&#039;</span></span><span class="bg-null">, aggregation)
+            .rpush(this.getKey(stream.aggregation, stream.id), JSON.stringify(event))
+            .zadd(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="4"><span class="badge badge-success">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">&quot;&quot;</span><span class="stryker-original-code" data-mutant="4"><span class="bg-success-light">`meta:aggregations:${stream.aggregation}`</span></span><span class="bg-null">, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">&quot;&quot;</span><span class="stryker-original-code" data-mutant="5"><span class="bg-success-light">&#039;1&#039;</span></span><span class="bg-null">, stream.id)
+            .zadd(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">&quot;&quot;</span><span class="stryker-original-code" data-mutant="6"><span class="bg-success-light">`meta:aggregations`</span></span><span class="bg-null">, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">&quot;&quot;</span><span class="stryker-original-code" data-mutant="7"><span class="bg-success-light">&#039;1&#039;</span></span><span class="bg-null">, stream.aggregation)
             .exec();
         return event;
     }</span></span><span class="bg-null">
 
-    public async getEvents(aggregation: string, streamId: string, offset: number = 0, limit: number = </span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="8"><span class="badge badge-success">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">+1</span><span class="stryker-original-code" data-mutant="8"><span class="bg-success-light">-1</span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="9"><span class="badge badge-secondary">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">{}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-null">{
-        const history: Array&lt;string&gt; = await this.redis.lrange(this.getKey(aggregation, streamId), offset, limit);
+    public async getEvents(stream: Stream, offset: number = 0, limit: number = </span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="8"><span class="badge badge-success">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">+1</span><span class="stryker-original-code" data-mutant="8"><span class="bg-success-light">-1</span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="9"><span class="badge badge-secondary">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">{}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-null">{
+        const history: Array&lt;string&gt; = await this.redis.lrange(this.getKey(stream.aggregation, stream.id), offset, limit);
         return history.map(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrowFunction" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="10"><span class="badge badge-success">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">() =&gt; undefined</span><span class="stryker-original-code" data-mutant="10"><span class="bg-success-light">data =&gt; JSON.parse(data)</span></span><span class="bg-null">);
     }</span></span><span class="bg-null">
 
@@ -114,7 +115,7 @@ export class RedisProvider implements PersistenceProvider {
 <tbody><tr><th>0</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>14
+<td>15
 :
 37</td>
 <td><code>{
@@ -123,16 +124,16 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>1</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>18
+<td>19
 :
-76</td>
+53</td>
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
 <tr><th>2</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>19
+<td>20
 :
 47</td>
 <td><code>`    ... )}}`</code></td>
@@ -140,15 +141,15 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>3</th>
 <td>BinaryExpression</td>
 <td>Killed</td>
-<td>19
+<td>20
 :
-100</td>
+108</td>
 <td><code>-</code></td>
 <td><code>+</code></td></tr>
 <tr><th>4</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>29
+<td>30
 :
 18</td>
 <td><code>`    ...   }`</code></td>
@@ -156,15 +157,15 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>5</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>29
+<td>30
 :
-54</td>
+61</td>
 <td><code>' '</code></td>
 <td><code>""</code></td></tr>
 <tr><th>6</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>30
+<td>31
 :
 18</td>
 <td><code>`    ...    `</code></td>
@@ -172,7 +173,7 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>7</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>30
+<td>31
 :
 39</td>
 <td><code>' '</code></td>
@@ -180,24 +181,24 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>8</th>
 <td>PrefixUnaryExpression</td>
 <td>Killed</td>
-<td>35
+<td>36
 :
-102</td>
+79</td>
 <td><code>-</code></td>
 <td><code>+</code></td></tr>
 <tr><th>9</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>35
+<td>36
 :
-106</td>
+83</td>
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
 <tr><th>10</th>
 <td>ArrowFunction</td>
 <td>Killed</td>
-<td>37
+<td>38
 :
 27</td>
 <td><code>=>   ...    )</code></td>
@@ -205,7 +206,7 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>11</th>
 <td>PrefixUnaryExpression</td>
 <td>Killed</td>
-<td>40
+<td>41
 :
 69</td>
 <td><code>-</code></td>
@@ -213,7 +214,7 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>12</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>40
+<td>41
 :
 97</td>
 <td><code>{
@@ -222,7 +223,7 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>13</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>41
+<td>42
 :
 68</td>
 <td><code>'    ...    '</code></td>
@@ -230,7 +231,7 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>14</th>
 <td>PrefixUnaryExpression</td>
 <td>Killed</td>
-<td>45
+<td>46
 :
 85</td>
 <td><code>-</code></td>
@@ -238,7 +239,7 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>15</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>45
+<td>46
 :
 113</td>
 <td><code>{
@@ -247,7 +248,7 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>16</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>46
+<td>47
 :
 63</td>
 <td><code>`    ...   }`</code></td>
@@ -255,7 +256,7 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>17</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>50
+<td>51
 :
 66</td>
 <td><code>{
@@ -264,7 +265,7 @@ export class RedisProvider implements PersistenceProvider {
 <tr><th>18</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>51
+<td>52
 :
 15</td>
 <td><code>`${  ...   }`</code></td>

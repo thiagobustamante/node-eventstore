@@ -77,7 +77,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
     }</span></span><span class="bg-null">
 
     public async publish(message: Message) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="2"><span class="badge badge-secondary">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">{}</span><span class="stryker-original-code" data-mutant="2"><span class="bg-null">{
-        await this.redisPublisher.publish(message.aggregation, JSON.stringify(message));
+        await this.redisPublisher.publish(message.stream.aggregation, JSON.stringify(message));
     }</span></span><span class="bg-null">
 
     public async subscribe(aggregation: string, subscriber: Subscriber): Promise&lt;Subscription&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="3"><span class="badge badge-secondary">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">{}</span><span class="stryker-original-code" data-mutant="3"><span class="bg-null">{
@@ -96,7 +96,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
                 const index = subscribers.indexOf(subscriber);
                 subscribers.splice(index, 1);
             }</span></span><span class="bg-null">
-        }
+        };
     }</span></span><span class="bg-null">
 
     private async registerRedisListener() </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="10"><span class="badge badge-secondary">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">{}</span><span class="stryker-original-code" data-mutant="10"><span class="bg-null">{

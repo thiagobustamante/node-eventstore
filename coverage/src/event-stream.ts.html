@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>12/12</span>
+        <span class='fraction'>10/10</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>5/5</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>12/12</span>
+        <span class='fraction'>10/10</span>
       </div>
     </div>
     <p class="quiet">
@@ -103,16 +103,8 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -127,24 +119,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
-<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,7 +153,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,6 +164,7 @@
 &nbsp;
 import { EventStore, EventStream } from './event-store';
 import { Event } from './model/event';
+import { Stream } from './model/stream';
 import { PersistenceProvider } from './provider/provider';
 import { Publisher } from './publisher/publisher';
 &nbsp;
@@ -189,28 +172,19 @@ import { Publisher } from './publisher/publisher';
  * An Event Stream
  */
 export class EventStreamImpl implements EventStream {
-    private id: string;
-    private parentAggregation: string;
+    private streamInfo: Stream;
     private eventStore: EventStore;
 &nbsp;
-    public constructor(eventStore: EventStore, aggregation: string, streamId: string) {
+    public constructor(eventStore: EventStore, stream: Stream) {
         this.eventStore = eventStore;
-        this.parentAggregation = aggregation;
-        this.id = streamId;
+        this.streamInfo = stream;
     }
 &nbsp;
     /**
-     * The event stream identifier
+     * The event stream
      */
-    public get streamId(): string {
-        return this.id;
-    }
-&nbsp;
-    /**
-     * The parent aggregation for this event stream
-     */
-    public get aggregation(): string {
-        return this.parentAggregation
+    public get stream(): Stream {
+        return this.streamInfo;
     }
 &nbsp;
     /**
@@ -220,7 +194,7 @@ export class EventStreamImpl implements EventStream {
      * @return All the events
      */
     public getEvents(offset?: number, limit?: number): Promise&lt;Array&lt;Event&gt;&gt; {
-        return this.getProvider().getEvents(this.aggregation, this.streamId, offset, limit);
+        return this.getProvider().getEvents(this.stream, offset, limit);
     }
 &nbsp;
     /**
@@ -229,12 +203,11 @@ export class EventStreamImpl implements EventStream {
      * @return The event, updated with informations like its sequence order and commitTimestamp
      */
     public async addEvent(data: any) {
-        const addedEvent: Event = await this.getProvider().addEvent(this.aggregation, this.streamId, data);
+        const addedEvent: Event = await this.getProvider().addEvent(this.stream, data);
         if (this.eventStore.publisher) {
             await (this.eventStore.publisher as Publisher).publish({
-                aggregation: this.aggregation,
                 event: addedEvent,
-                streamId: this.streamId
+                stream: this.stream
             });
         }
         return addedEvent;
@@ -250,7 +223,7 @@ export class EventStreamImpl implements EventStream {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Sep 08 2018 04:40:55 GMT+0000 (Coordinated Universal Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Sep 09 2018 03:21:05 GMT+0000 (Coordinated Universal Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

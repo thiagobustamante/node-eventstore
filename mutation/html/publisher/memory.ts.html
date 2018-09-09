@@ -71,7 +71,7 @@ export class InMemoryPublisher implements Publisher, HasSubscribers {
     private listeners: Map&lt;string, Array&lt;Subscriber&gt;&gt; = new Map();
 
     public async publish(message: Message): Promise&lt;void&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="0"><span class="badge badge-warning">0</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="0">{}</span><span class="stryker-original-code" data-mutant="0"><span class="bg-warning-light">{
-        const aggregationListeners = this.listeners.get(message.aggregation);
+        const aggregationListeners = this.listeners.get(message.stream.aggregation);
         if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="1"><span class="badge badge-danger">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="2"><span class="badge badge-warning">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">false</span><span class="stryker-original-code" data-mutant="1"><span class="stryker-original-code" data-mutant="2"><span class="bg-danger-light">aggregationListeners </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="3"><span class="badge badge-warning">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">==</span><span class="stryker-original-code" data-mutant="3"><span class="bg-danger-light">!=</span></span><span class="bg-danger-light"> null</span></span></span><span class="bg-warning-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="4"><span class="badge badge-warning">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">{}</span><span class="stryker-original-code" data-mutant="4"><span class="bg-warning-light">{
             aggregationListeners.forEach(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrowFunction" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="5"><span class="badge badge-warning">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">() =&gt; undefined</span><span class="stryker-original-code" data-mutant="5"><span class="bg-warning-light">subscriber =&gt; subscriber(message)</span></span><span class="bg-warning-light">);
         }</span></span><span class="bg-warning-light">
@@ -89,7 +89,7 @@ export class InMemoryPublisher implements Publisher, HasSubscribers {
                 const index = aggregateListeners.indexOf(subscriber);
                 aggregateListeners.splice(index, 1);
             }</span></span><span class="bg-null">
-        }
+        };
     }</span></span><span class="bg-null">
 }</span>
 </code></pre></div>

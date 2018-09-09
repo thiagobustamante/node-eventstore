@@ -54,6 +54,7 @@ RuntimeError
 
 import * as _ from &#039;lodash&#039;;
 import { Event } from &#039;../model/event&#039;;
+import { Stream } from &#039;../model/stream&#039;;
 import { PersistenceProvider } from &#039;./provider&#039;;
 
 /**
@@ -63,19 +64,19 @@ import { PersistenceProvider } from &#039;./provider&#039;;
 export class InMemoryProvider implements PersistenceProvider {
     private store: Map&lt;string, Map&lt;string, Array&lt;Event&gt;&gt;&gt; = new Map();
 
-    public async addEvent(aggregation: string, streamId: string, data: any) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="0"><span class="badge badge-secondary">0</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="0">{}</span><span class="stryker-original-code" data-mutant="0"><span class="bg-null">{
-        const currentEvents = await this.getEventsList(aggregation, streamId);
+    public async addEvent(stream: Stream, data: any) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="0"><span class="badge badge-secondary">0</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="0">{}</span><span class="stryker-original-code" data-mutant="0"><span class="bg-null">{
+        const currentEvents = await this.getEventsList(stream.aggregation, stream.id);
         const event: Event = {
             commitTimestamp: new Date().getTime(),
             payload: data,
             sequence: currentEvents.length
-        }
+        };
         currentEvents.push(event);
         return event;
     }</span></span><span class="bg-null">
 
-    public async getEvents(aggregation: string, streamId: string, offset: number = 0, limit?: number) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="1"><span class="badge badge-secondary">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">{}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-null">{
-        const history = this.getEventsList(aggregation, streamId);
+    public async getEvents(stream: Stream, offset: number = 0, limit?: number) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="1"><span class="badge badge-secondary">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">{}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-null">{
+        const history = this.getEventsList(stream.aggregation, stream.id);
         return _(history).drop(offset).take(limit </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">&amp;&amp;</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success-light">||</span></span><span class="bg-null"> history.length).value();
     }</span></span><span class="bg-null">
 
@@ -95,7 +96,7 @@ export class InMemoryProvider implements PersistenceProvider {
 
     private getEventsList(aggregation: string, streamId: string) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="11"><span class="badge badge-secondary">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">{}</span><span class="stryker-original-code" data-mutant="11"><span class="bg-null">{
         let streams = this.store.get(aggregation);
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="13"><span class="badge badge-success">13</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="13">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="14"><span class="badge badge-success">14</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="14">streams</span><span class="stryker-original-code" data-mutant="12"><span class="stryker-original-code" data-mutant="13"><span class="stryker-original-code" data-mutant="14"><span class="bg-success-light">!streams</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="15"><span class="badge badge-success">15</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="15">{}</span><span class="stryker-original-code" data-mutant="15"><span class="bg-success-light">{
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="13"><span class="badge badge-success">13</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="13">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="14"><span class="badge badge-success">14</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="14">streams</span><span class="stryker-original-code" data-mutant="12"><span class="stryker-original-code" data-mutant="13"><span class="stryker-original-code" data-mutant="14"><span class="bg-success-light">!streams</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="15"><span class="badge badge-success">15</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="15">{}</span><span class="stryker-original-code" data-mutant="15"><span class="bg-success-light">{
             streams = new Map&lt;string, Array&lt;Event&gt;&gt;();
             this.store.set(aggregation, streams);
         }</span></span><span class="bg-null">
@@ -117,25 +118,25 @@ export class InMemoryProvider implements PersistenceProvider {
 <tbody><tr><th>0</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>13
+<td>14
 :
-76</td>
+53</td>
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
 <tr><th>1</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>24
+<td>25
 :
-102</td>
+79</td>
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
 <tr><th>2</th>
 <td>BinaryExpression</td>
 <td>Killed</td>
-<td>26
+<td>27
 :
 50</td>
 <td><code>||</code></td>
@@ -143,7 +144,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>3</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>29
+<td>30
 :
 93</td>
 <td><code>{
@@ -152,7 +153,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>4</th>
 <td>BinaryExpression</td>
 <td>Killed</td>
-<td>31
+<td>32
 :
 54</td>
 <td><code>||</code></td>
@@ -160,7 +161,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>5</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>34
+<td>35
 :
 109</td>
 <td><code>{
@@ -169,7 +170,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>6</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>36
+<td>37
 :
 12</td>
 <td><code></code></td>
@@ -177,7 +178,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>7</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>36
+<td>37
 :
 12</td>
 <td><code></code></td>
@@ -185,7 +186,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>8</th>
 <td>Block</td>
 <td>Killed</td>
-<td>36
+<td>37
 :
 21</td>
 <td><code>{
@@ -194,7 +195,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>9</th>
 <td>BinaryExpression</td>
 <td>Killed</td>
-<td>38
+<td>39
 :
 58</td>
 <td><code>||</code></td>
@@ -202,7 +203,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>10</th>
 <td>ArrayLiteral</td>
 <td>Killed</td>
-<td>40
+<td>41
 :
 15</td>
 <td><code>[]</code></td>
@@ -210,7 +211,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>11</th>
 <td>Block</td>
 <td>RuntimeError</td>
-<td>43
+<td>44
 :
 65</td>
 <td><code>{
@@ -219,7 +220,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>12</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>45
+<td>46
 :
 12</td>
 <td><code>!</code></td>
@@ -227,7 +228,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>13</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>45
+<td>46
 :
 12</td>
 <td><code>!</code></td>
@@ -235,7 +236,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>14</th>
 <td>PrefixUnaryExpression</td>
 <td>Killed</td>
-<td>45
+<td>46
 :
 12</td>
 <td><code>!</code></td>
@@ -243,7 +244,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>15</th>
 <td>Block</td>
 <td>Killed</td>
-<td>45
+<td>46
 :
 22</td>
 <td><code>{
@@ -252,7 +253,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>16</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>50
+<td>51
 :
 12</td>
 <td><code>!</code></td>
@@ -260,7 +261,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>17</th>
 <td>IfStatement</td>
 <td>Killed</td>
-<td>50
+<td>51
 :
 12</td>
 <td><code>!</code></td>
@@ -268,7 +269,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>18</th>
 <td>PrefixUnaryExpression</td>
 <td>Killed</td>
-<td>50
+<td>51
 :
 12</td>
 <td><code>!</code></td>
@@ -276,7 +277,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>19</th>
 <td>Block</td>
 <td>Killed</td>
-<td>50
+<td>51
 :
 22</td>
 <td><code>{
@@ -285,7 +286,7 @@ export class InMemoryProvider implements PersistenceProvider {
 <tr><th>20</th>
 <td>ArrayNewExpression</td>
 <td>RuntimeError</td>
-<td>51
+<td>52
 :
 22</td>
 <td><code><     >()</code></td>
