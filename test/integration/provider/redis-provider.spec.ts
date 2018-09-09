@@ -50,7 +50,7 @@ describe('EventStory Redis Provider (Integration)', () => {
 
     it('should be able to get event list from the event stream', async () => {
         await ordersStream.addEvent(EVENT_PAYLOAD);
-        const events = await ordersStream.getEvents()
+        const events = await ordersStream.getEvents();
         expect(events.length).to.equal(1);
         expect(events[0].payload).to.equal(EVENT_PAYLOAD);
         expect(events[0].sequence).to.equal(0);

@@ -2,6 +2,7 @@
 
 import * as _ from 'lodash';
 import { Event } from '../model/event';
+import { Stream } from '../model/stream';
 import { PersistenceProvider } from './provider';
 
 /**
@@ -11,8 +12,8 @@ import { PersistenceProvider } from './provider';
 export class InMemoryProvider implements PersistenceProvider {
     private store: Map<string, Map<string, Array<Event>>> = new Map();
 
-    public async addEvent(aggregation: string, streamId: string, data: any) {
-        const currentEvents = await this.getEventsList(aggregation, streamId);
+    public async addEvent(stream: Stream, data: any) {
+        const currentEvents = await this.getEventsList(stream.aggregation, stream.id);
         const event: Event = {
             commitTimestamp: new Date().getTime(),
             payload: data,
@@ -22,8 +23,8 @@ export class InMemoryProvider implements PersistenceProvider {
         return event;
     }
 
-    public async getEvents(aggregation: string, streamId: string, offset: number = 0, limit?: number) {
-        const history = this.getEventsList(aggregation, streamId);
+    public async getEvents(stream: Stream, offset: number = 0, limit?: number) {
+        const history = this.getEventsList(stream.aggregation, stream.id);
         return _(history).drop(offset).take(limit || history.length).value();
     }
 

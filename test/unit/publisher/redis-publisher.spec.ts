@@ -36,17 +36,19 @@ describe('EventStory Redis Publisher', () => {
         const redisPublisher: any = new RedisPublisher({ standalone: { host: 'localhost' } });
 
         const message: Message = {
-            aggregation: 'orders',
             event: {
                 commitTimestamp: 123,
                 payload: 'PAYLOAD',
                 sequence: 2
             },
-            streamId: '1'
-        }
+            stream: {
+                aggregation: 'orders',
+                id: '1'
+            }
+        };
         await redisPublisher.publish(message);
 
-        expect(redisStub.publish).to.have.been.calledOnceWithExactly(message.aggregation, JSON.stringify(message));
+        expect(redisStub.publish).to.have.been.calledOnceWithExactly(message.stream.aggregation, JSON.stringify(message));
     });
 
     it('should be able to subscribe to listen changes in the eventstore', async () => {

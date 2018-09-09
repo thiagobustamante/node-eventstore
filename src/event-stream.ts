@@ -2,6 +2,7 @@
 
 import { EventStore, EventStream } from './event-store';
 import { Event } from './model/event';
+import { Stream } from './model/stream';
 import { PersistenceProvider } from './provider/provider';
 import { Publisher } from './publisher/publisher';
 
@@ -9,28 +10,19 @@ import { Publisher } from './publisher/publisher';
  * An Event Stream
  */
 export class EventStreamImpl implements EventStream {
-    private id: string;
-    private parentAggregation: string;
+    private streamInfo: Stream;
     private eventStore: EventStore;
 
-    public constructor(eventStore: EventStore, aggregation: string, streamId: string) {
+    public constructor(eventStore: EventStore, stream: Stream) {
         this.eventStore = eventStore;
-        this.parentAggregation = aggregation;
-        this.id = streamId;
+        this.streamInfo = stream;
     }
 
     /**
-     * The event stream identifier
+     * The event stream
      */
-    public get streamId(): string {
-        return this.id;
-    }
-
-    /**
-     * The parent aggregation for this event stream
-     */
-    public get aggregation(): string {
-        return this.parentAggregation
+    public get stream(): Stream {
+        return this.streamInfo;
     }
 
     /**
@@ -40,7 +32,7 @@ export class EventStreamImpl implements EventStream {
      * @return All the events
      */
     public getEvents(offset?: number, limit?: number): Promise<Array<Event>> {
-        return this.getProvider().getEvents(this.aggregation, this.streamId, offset, limit);
+        return this.getProvider().getEvents(this.stream, offset, limit);
     }
 
     /**
@@ -49,12 +41,11 @@ export class EventStreamImpl implements EventStream {
      * @return The event, updated with informations like its sequence order and commitTimestamp
      */
     public async addEvent(data: any) {
-        const addedEvent: Event = await this.getProvider().addEvent(this.aggregation, this.streamId, data);
+        const addedEvent: Event = await this.getProvider().addEvent(this.stream, data);
         if (this.eventStore.publisher) {
             await (this.eventStore.publisher as Publisher).publish({
-                aggregation: this.aggregation,
                 event: addedEvent,
-                streamId: this.streamId
+                stream: this.stream
             });
         }
         return addedEvent;

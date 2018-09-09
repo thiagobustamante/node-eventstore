@@ -39,23 +39,25 @@ describe('EventStory RabbitMQ Publisher', () => {
         const rabbitmqPublisher: any = new RabbitMQPublisher("amqp://localhost");
 
         const message: Message = {
-            aggregation: 'orders',
             event: {
                 commitTimestamp: 123,
                 payload: 'PAYLOAD',
                 sequence: 2
             },
-            streamId: '1'
+            stream: {
+                aggregation: 'orders',
+                id: '1'
+            }
         };
         await rabbitmqPublisher.publish(message);
         await rabbitmqPublisher.publish(message);
 
         expect(amqpStub.connect).to.have.been.calledOnceWithExactly("amqp://localhost");
         expect(connectionStub.createChannel).to.have.been.calledOnce;
-        expect(channelStub.assertExchange).to.have.been.calledOnceWithExactly(message.aggregation, 'fanout', { durable: false });
+        expect(channelStub.assertExchange).to.have.been.calledOnceWithExactly(message.stream.aggregation, 'fanout', { durable: false });
         expect(channelStub.publish).to.have.been.calledTwice;
         expect(channelStub.publish).to.have.been.calledWithExactly(
-            message.aggregation, '', new Buffer(JSON.stringify(message)));
+            message.stream.aggregation, '', new Buffer(JSON.stringify(message)));
     });
 
     it('should be able to subscribe to listen changes in the eventstore', async () => {

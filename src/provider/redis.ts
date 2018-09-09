@@ -2,6 +2,7 @@
 
 import { Redis } from 'ioredis';
 import { Event } from '../model/event';
+import { Stream } from '../model/stream';
 import { RedisConfig } from '../redis/config';
 import { RedisFactory } from '../redis/connect';
 import { PersistenceProvider } from './provider';
@@ -16,8 +17,8 @@ export class RedisProvider implements PersistenceProvider {
         this.redis = RedisFactory.createClient(config);
     }
 
-    public async addEvent(aggregation: string, streamId: string, data: any) {
-        const sequence = await this.redis.incr(`sequences:{${this.getKey(aggregation, streamId)}}`) - 1;
+    public async addEvent(stream: Stream, data: any) {
+        const sequence = await this.redis.incr(`sequences:{${this.getKey(stream.aggregation, stream.id)}}`) - 1;
         const time = await this.redis.time();
         const commitTimestamp = parseInt(time, 10);
         const event: Event = {
@@ -26,15 +27,15 @@ export class RedisProvider implements PersistenceProvider {
             sequence: sequence
         };
         await this.redis.multi()
-            .rpush(this.getKey(aggregation, streamId), JSON.stringify(event))
-            .zadd(`meta:aggregations:${aggregation}`, '1', streamId)
-            .zadd(`meta:aggregations`, '1', aggregation)
+            .rpush(this.getKey(stream.aggregation, stream.id), JSON.stringify(event))
+            .zadd(`meta:aggregations:${stream.aggregation}`, '1', stream.id)
+            .zadd(`meta:aggregations`, '1', stream.aggregation)
             .exec();
         return event;
     }
 
-    public async getEvents(aggregation: string, streamId: string, offset: number = 0, limit: number = -1) {
-        const history: Array<string> = await this.redis.lrange(this.getKey(aggregation, streamId), offset, limit);
+    public async getEvents(stream: Stream, offset: number = 0, limit: number = -1) {
+        const history: Array<string> = await this.redis.lrange(this.getKey(stream.aggregation, stream.id), offset, limit);
         return history.map(data => JSON.parse(data));
     }
 

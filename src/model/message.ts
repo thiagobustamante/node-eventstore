@@ -1,6 +1,7 @@
 'use strict';
 
 import { Event } from './event';
+import { Stream } from './stream';
 
 /**
  * A Meesage sent by a {@link Publisher} to inform {@link Subscriber}s
@@ -8,13 +9,9 @@ import { Event } from './event';
  */
 export interface Message {
     /**
-     * The name of the parent aggregation
+     * The stream associated qith this message
      */
-    aggregation: string;
-    /**
-     * The {@link EventStream} identifier
-     */
-    streamId: string;
+    stream: Stream;
     /**
      * The {@link Event} that was added to the stream
      */

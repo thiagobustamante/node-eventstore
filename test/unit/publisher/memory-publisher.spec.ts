@@ -24,9 +24,9 @@ describe('EventStory Memory Publisher', () => {
     });
 
     it('should be able to listen to EventStream changes', (done) => {
-        eventStore.subscribe(ordersStream.aggregation, (message) => {
-            expect(message.aggregation).to.equal(ordersStream.aggregation);
-            expect(message.streamId).to.equal(ordersStream.streamId);
+        eventStore.subscribe(ordersStream.stream.aggregation, (message) => {
+            expect(message.stream.aggregation).to.equal(ordersStream.stream.aggregation);
+            expect(message.stream.id).to.equal(ordersStream.stream.id);
             expect(message.event.payload).to.equal(EVENT_PAYLOAD);
             done();
         }).then(() => ordersStream.addEvent(EVENT_PAYLOAD));
@@ -34,12 +34,12 @@ describe('EventStory Memory Publisher', () => {
 
     it('should be able to unsubscribe from EventStore changes channel', async () => {
         count = 0;
-        const subscription = await eventStore.subscribe(ordersStream.aggregation, message => {
+        const subscription = await eventStore.subscribe(ordersStream.stream.aggregation, message => {
             count++;
         });
         await ordersStream.addEvent(EVENT_PAYLOAD);
         await waitUntil(() => count === 1);
-        await subscription.remove();;
+        await subscription.remove();
         await ordersStream.addEvent(EVENT_PAYLOAD);
         wait(500);
         expect(count).to.equal(1);
@@ -48,10 +48,10 @@ describe('EventStory Memory Publisher', () => {
     it('should be able to notify multiple listeners', async () => {
         let calledFirst = false;
         let calledSecond = false;
-        await eventStore.subscribe(ordersStream.aggregation, (message) => {
+        await eventStore.subscribe(ordersStream.stream.aggregation, (message) => {
             calledFirst = true;
         });
-        await eventStore.subscribe(ordersStream.aggregation, (message) => {
+        await eventStore.subscribe(ordersStream.stream.aggregation, (message) => {
             calledSecond = true;
         });
         await ordersStream.addEvent(EVENT_PAYLOAD);

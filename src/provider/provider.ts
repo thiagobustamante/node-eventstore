@@ -1,6 +1,7 @@
 'use srtrict';
 
 import { Event } from '../model/event';
+import { Stream } from '../model/stream';
 
 /**
  * A Persistence provider for the {@link EventStore}. It is responsible for write and read {@link Event}s
@@ -10,22 +11,20 @@ export interface PersistenceProvider {
 
     /**
      * Add a new {@link Event} in the {@link EventStream}
-     * @param aggregation The parent aggregation
-     * @param streamId The {@link EventStream} identifier
+     * @param stream The associated stream
      * @param data The Event data
      * @return The updated event, after persisted.
      */
-    addEvent(aggregation: string, streamId: string, data: any): Promise<Event>;
+    addEvent(stream: Stream, data: any): Promise<Event>;
 
     /**
      * Retrieves a ranged list of events in the {@link EventStream}
-     * @param aggregation The parent aggregation
-     * @param streamId The {@link EventStream} identifier
+     * @param stream The associated stream
      * @param offset The start position in the events list
      * @param limit The desired quantity events
      * @return A List with events in the {@link EventStream}
      */
-    getEvents(aggregation: string, streamId: string, offset?: number, limit?: number): Promise<Array<Event>>;
+    getEvents(stream: Stream, offset?: number, limit?: number): Promise<Array<Event>>;
 
     /**
      * Retrieves a ranged aggregation list

@@ -39,7 +39,7 @@ describe('EventStory Redis Provider', () => {
         redisStub.lrange.returns(['{ "payload": "EVENT PAYLOAD"}']);
 
         const redisProvider: any = new RedisProvider({ standalone: { host: 'localhost' } });
-        const events = await redisProvider.getEvents("orders", "1", 2, 5);
+        const events = await redisProvider.getEvents({ aggregation: "orders", id: "1" }, 2, 5);
         expect(redisStub.lrange).to.have.been.calledOnceWithExactly(`orders:1`, 2, 5);
         expect(events.length).to.equal(1);
         expect(events[0].payload).to.equal('EVENT PAYLOAD');
@@ -49,7 +49,7 @@ describe('EventStory Redis Provider', () => {
         redisStub.lrange.returns(['{ "payload": "EVENT PAYLOAD"}']);
 
         const redisProvider: any = new RedisProvider({ standalone: { host: 'localhost' } });
-        const events = await redisProvider.getEvents("orders", "1");
+        const events = await redisProvider.getEvents({ aggregation: "orders", id: "1" });
         expect(redisStub.lrange).to.have.been.calledOnceWithExactly(`orders:1`, 0, -1);
         expect(events.length).to.equal(1);
         expect(events[0].payload).to.equal('EVENT PAYLOAD');
@@ -103,7 +103,7 @@ describe('EventStory Redis Provider', () => {
         redisStub.zadd.returns(redisStub);
 
         const redisProvider: any = new RedisProvider({ standalone: { host: 'localhost' } });
-        const event = await redisProvider.addEvent('orders', '1', 'EVENT PAYLOAD');
+        const event = await redisProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
         expect(redisStub.incr).to.have.been.calledOnceWithExactly('sequences:{orders:1}');
         expect(redisStub.time).to.have.been.calledOnce;
         expect(redisStub.multi).to.have.been.calledOnce;

@@ -3,6 +3,7 @@
 import * as _ from 'lodash';
 import { EventStreamImpl } from './event-stream';
 import { Event } from './model/event';
+import { Stream } from './model/stream';
 import { PersistenceProvider } from './provider/provider';
 import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher/publisher';
 
@@ -38,7 +39,7 @@ export class EventStore implements EventStore, HasSubscribers {
      * will be created when the first event is added to the stream.
      */
     public getEventStream(aggregation: string, streamId: string): EventStream {
-        return new EventStreamImpl(this, aggregation, streamId);
+        return new EventStreamImpl(this, { aggregation: aggregation, id: streamId });
     }
 
     /**
@@ -83,13 +84,9 @@ export class EventStore implements EventStore, HasSubscribers {
  */
 export interface EventStream {
     /**
-     * The event stream identifier
+     * The event stream
      */
-    streamId: string;
-    /**
-     * The parent aggregation for this event stream
-     */
-    aggregation: string;
+    stream: Stream;
     /**
      * Rertieve a list containing all the events in the stream in order.
      * @param offset The start position in the stream list
