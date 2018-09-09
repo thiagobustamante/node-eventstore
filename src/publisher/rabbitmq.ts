@@ -17,13 +17,13 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
     }
 
     public async publish(message: Message) {
-        const channel = await this.getChannel()
+        const channel = await this.getChannel();
         await this.ensureExchange(message.aggregation, channel);
         await channel.publish(message.aggregation, '', new Buffer(JSON.stringify(message)));
     }
 
     public async subscribe(aggregation: string, subscriber: Subscriber): Promise<Subscription> {
-        const channel = await this.getChannel()
+        const channel = await this.getChannel();
         await this.ensureExchange(aggregation, channel);
 
         const q = await channel.assertQueue('', { exclusive: true });
@@ -38,7 +38,7 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
                 await channel.cancel(consumerTag);
                 await channel.deleteQueue(q.queue);
             }
-        }
+        };
     }
 
     private async ensureExchange(aggregation: string, channel: amqp.Channel) {

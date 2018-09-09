@@ -18,13 +18,13 @@ export class RedisProvider implements PersistenceProvider {
 
     public async addEvent(aggregation: string, streamId: string, data: any) {
         const sequence = await this.redis.incr(`sequences:{${this.getKey(aggregation, streamId)}}`) - 1;
-        const time = await this.redis.time()
+        const time = await this.redis.time();
         const commitTimestamp = parseInt(time, 10);
         const event: Event = {
             commitTimestamp: commitTimestamp,
             payload: data,
             sequence: sequence
-        }
+        };
         await this.redis.multi()
             .rpush(this.getKey(aggregation, streamId), JSON.stringify(event))
             .zadd(`meta:aggregations:${aggregation}`, '1', streamId)

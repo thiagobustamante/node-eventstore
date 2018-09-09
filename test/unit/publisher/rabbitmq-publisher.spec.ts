@@ -46,7 +46,7 @@ describe('EventStory RabbitMQ Publisher', () => {
                 sequence: 2
             },
             streamId: '1'
-        }
+        };
         await rabbitmqPublisher.publish(message);
         await rabbitmqPublisher.publish(message);
 

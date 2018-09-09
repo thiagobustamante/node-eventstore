@@ -17,7 +17,7 @@ export class InMemoryProvider implements PersistenceProvider {
             commitTimestamp: new Date().getTime(),
             payload: data,
             sequence: currentEvents.length
-        }
+        };
         currentEvents.push(event);
         return event;
     }

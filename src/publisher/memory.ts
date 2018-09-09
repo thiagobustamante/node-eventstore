@@ -31,6 +31,6 @@ export class InMemoryPublisher implements Publisher, HasSubscribers {
                 const index = aggregateListeners.indexOf(subscriber);
                 aggregateListeners.splice(index, 1);
             }
-        }
+        };
     }
 }

@@ -41,7 +41,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
                 const index = subscribers.indexOf(subscriber);
                 subscribers.splice(index, 1);
             }
-        }
+        };
     }
 
     private async registerRedisListener() {
