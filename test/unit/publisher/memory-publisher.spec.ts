@@ -24,9 +24,9 @@ describe('EventStory Memory Publisher', () => {
     });
 
     it('should be able to listen to EventStream changes', (done) => {
-        eventStore.subscribe(ordersStream.stream.aggregation, (message) => {
-            expect(message.stream.aggregation).to.equal(ordersStream.stream.aggregation);
-            expect(message.stream.id).to.equal(ordersStream.stream.id);
+        eventStore.subscribe(ordersStream.aggregation, (message) => {
+            expect(message.stream.aggregation).to.equal(ordersStream.aggregation);
+            expect(message.stream.id).to.equal(ordersStream.streamId);
             expect(message.event.payload).to.equal(EVENT_PAYLOAD);
             done();
         }).then(() => ordersStream.addEvent(EVENT_PAYLOAD));
@@ -34,7 +34,7 @@ describe('EventStory Memory Publisher', () => {
 
     it('should be able to unsubscribe from EventStore changes channel', async () => {
         count = 0;
-        const subscription = await eventStore.subscribe(ordersStream.stream.aggregation, message => {
+        const subscription = await eventStore.subscribe(ordersStream.aggregation, message => {
             count++;
         });
         await ordersStream.addEvent(EVENT_PAYLOAD);
@@ -48,10 +48,10 @@ describe('EventStory Memory Publisher', () => {
     it('should be able to notify multiple listeners', async () => {
         let calledFirst = false;
         let calledSecond = false;
-        await eventStore.subscribe(ordersStream.stream.aggregation, (message) => {
+        await eventStore.subscribe(ordersStream.aggregation, (message) => {
             calledFirst = true;
         });
-        await eventStore.subscribe(ordersStream.stream.aggregation, (message) => {
+        await eventStore.subscribe(ordersStream.aggregation, (message) => {
             calledSecond = true;
         });
         await ordersStream.addEvent(EVENT_PAYLOAD);

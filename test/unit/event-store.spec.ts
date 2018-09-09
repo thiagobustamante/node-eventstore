@@ -17,8 +17,8 @@ describe('EventStory', () => {
         const streamId = '1';
         const aggregation = 'orders';
         const ordersStream = eventStore.getEventStream(aggregation, streamId);
-        expect(ordersStream.stream.id).to.equal(streamId);
-        expect(ordersStream.stream.aggregation).to.equal(aggregation);
+        expect(ordersStream.streamId).to.equal(streamId);
+        expect(ordersStream.aggregation).to.equal(aggregation);
     });
 
     it('should be able to get the aggregations list', async () => {

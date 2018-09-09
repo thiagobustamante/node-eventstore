@@ -10,19 +10,27 @@ import { Publisher } from './publisher/publisher';
  * An Event Stream
  */
 export class EventStreamImpl implements EventStream {
-    private streamInfo: Stream;
+    private stream: Stream;
     private eventStore: EventStore;
 
     public constructor(eventStore: EventStore, stream: Stream) {
         this.eventStore = eventStore;
-        this.streamInfo = stream;
+        this.stream = stream;
     }
 
     /**
+     * The event stream identifier
      * The event stream
      */
-    public get stream(): Stream {
-        return this.streamInfo;
+    public get streamId(): string {
+        return this.stream.id;
+    }
+
+    /**
+     * The parent aggregation for this event stream
+     */
+    public get aggregation(): string {
+        return this.stream.aggregation;
     }
 
     /**

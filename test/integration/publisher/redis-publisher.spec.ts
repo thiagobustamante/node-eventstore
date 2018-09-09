@@ -46,7 +46,7 @@ describe('EventStory Redis Publisher (Integration)', () => {
     it('should be able to subscribe and unsubscribe to EventStore changes channel', async () => {
         const eventStoreNotified = createEventStore();
         count = 0;
-        const subscription = await eventStoreNotified.subscribe(ordersStream.stream.aggregation, message => {
+        const subscription = await eventStoreNotified.subscribe(ordersStream.aggregation, message => {
             count++;
         });
         await ordersStream.addEvent(EVENT_PAYLOAD);

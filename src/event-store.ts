@@ -3,7 +3,6 @@
 import * as _ from 'lodash';
 import { EventStreamImpl } from './event-stream';
 import { Event } from './model/event';
-import { Stream } from './model/stream';
 import { PersistenceProvider } from './provider/provider';
 import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher/publisher';
 
@@ -84,9 +83,13 @@ export class EventStore implements EventStore, HasSubscribers {
  */
 export interface EventStream {
     /**
-     * The event stream
+     * The event stream identifier
      */
-    stream: Stream;
+    streamId: string;
+    /**
+     * The parent aggregation for this event stream
+     */
+    aggregation: string;
     /**
      * Rertieve a list containing all the events in the stream in order.
      * @param offset The start position in the stream list
