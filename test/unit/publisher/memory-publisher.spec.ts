@@ -2,60 +2,83 @@
 
 import * as chai from 'chai';
 import 'mocha';
-import { wait, waitUntil } from 'test-wait';
-import { EventStore, EventStream, InMemoryProvider, InMemoryPublisher } from '../../../src';
+import * as sinon from 'sinon';
+import * as sinonChai from 'sinon-chai';
+import { InMemoryPublisher, Message } from '../../../src';
 
+chai.use(sinonChai);
 const expect = chai.expect;
 
 // tslint:disable:no-unused-expression
 describe('EventStory Memory Publisher', () => {
-    let eventStore: EventStore;
-    let ordersStream: EventStream;
     const EVENT_PAYLOAD = 'Event Data';
-    let count = 0;
+    let memoryPublisher: InMemoryPublisher;
 
     beforeEach(() => {
-        const streamId = '1';
-        const aggregation = 'orders';
-        eventStore = new EventStore(
-            new InMemoryProvider(),
-            new InMemoryPublisher());
-        ordersStream = eventStore.getEventStream(aggregation, streamId);
+        memoryPublisher = new InMemoryPublisher();
     });
 
-    it('should be able to listen to EventStream changes', (done) => {
-        eventStore.subscribe(ordersStream.aggregation, (message) => {
-            expect(message.stream.aggregation).to.equal(ordersStream.aggregation);
-            expect(message.stream.id).to.equal(ordersStream.streamId);
-            expect(message.event.payload).to.equal(EVENT_PAYLOAD);
-            done();
-        }).then(() => ordersStream.addEvent(EVENT_PAYLOAD));
-    });
+    it('should be able to publish messages to listeners', async () => {
 
-    it('should be able to unsubscribe from EventStore changes channel', async () => {
-        count = 0;
-        const subscription = await eventStore.subscribe(ordersStream.aggregation, message => {
-            count++;
-        });
-        await ordersStream.addEvent(EVENT_PAYLOAD);
-        await waitUntil(() => count === 1);
-        await subscription.remove();
-        await ordersStream.addEvent(EVENT_PAYLOAD);
-        wait(500);
-        expect(count).to.equal(1);
+        const message: Message = {
+            event: {
+                commitTimestamp: 123,
+                payload: EVENT_PAYLOAD,
+                sequence: 2
+            },
+            stream: {
+                aggregation: 'orders',
+                id: '1'
+            }
+        };
+
+        const subscriberStub = sinon.stub();
+        await memoryPublisher.subscribe('orders', subscriberStub);
+        const status = await memoryPublisher.publish(message);
+
+        expect(subscriberStub).to.have.been.calledOnceWithExactly(message);
+        expect(status).to.be.true;
     });
 
     it('should be able to notify multiple listeners', async () => {
-        let calledFirst = false;
-        let calledSecond = false;
-        await eventStore.subscribe(ordersStream.aggregation, (message) => {
-            calledFirst = true;
-        });
-        await eventStore.subscribe(ordersStream.aggregation, (message) => {
-            calledSecond = true;
-        });
-        await ordersStream.addEvent(EVENT_PAYLOAD);
-        expect(calledFirst).to.be.true;
-        expect(calledSecond).to.be.true;
+        const message: Message = {
+            event: {
+                commitTimestamp: 123,
+                payload: EVENT_PAYLOAD,
+                sequence: 2
+            },
+            stream: {
+                aggregation: 'orders',
+                id: '1'
+            }
+        };
+
+        const subscriberStub = sinon.stub();
+        const subscriber2Stub = sinon.stub();
+        await memoryPublisher.subscribe('orders', subscriberStub);
+        await memoryPublisher.subscribe('orders', subscriber2Stub);
+        const status = await memoryPublisher.publish(message);
+
+        expect(subscriberStub).to.have.been.calledOnceWithExactly(message);
+        expect(subscriber2Stub).to.have.been.calledOnceWithExactly(message);
+        expect(status).to.be.true;
+    });
+
+    it('should be able to check if a message was published', async () => {
+        const message: Message = {
+            event: {
+                commitTimestamp: 123,
+                payload: EVENT_PAYLOAD,
+                sequence: 2
+            },
+            stream: {
+                aggregation: 'orders',
+                id: '1'
+            }
+        };
+
+        const status = await memoryPublisher.publish(message);
+
+        expect(status).to.be.false;
     });
 });
