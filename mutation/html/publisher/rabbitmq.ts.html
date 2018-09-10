@@ -24,28 +24,25 @@
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th></tr></thead>
 <tbody><tr><td>rabbitmq.ts</td>
-<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="93.75" aria-valuemin="0" aria-valuemax="100" style="width: 93.75%;">93.75
+<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%;">100.00
 %</div></div></td>
-<th class="text-center text-success" style="width: 10%">93.75</th>
-<td class="text-center">15</td>
-<td class="text-center">1</td>
+<th class="text-center text-success" style="width: 10%">100.00</th>
+<td class="text-center">16</td>
+<td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">6</td>
 <td class="text-center">0</td>
-<th class="text-center">15</th>
-<th class="text-center">1</th>
+<th class="text-center">16</th>
+<th class="text-center">0</th>
 <th class="text-center">22</th></tr>
 </tbody></table></div></div>
 <div class="row"><div class="col-lg-7"><div class="row legend"><form class="col-md-12" novalidate="novalidate">
-<div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" checked value="2" type="checkbox">
-Survived
- 
-(1)</label></div>
+
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
 Killed
  
-(15)</label></div>
+(16)</label></div>
 
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="4" type="checkbox">
 RuntimeError
@@ -85,7 +82,7 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
         channel.bindQueue(q.queue, aggregation, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">&quot;Stryker was here!&quot;</span><span class="stryker-original-code" data-mutant="6"><span class="bg-success-light">&#039;&#039;</span></span><span class="bg-null">);
         const response = await channel.consume(q.queue, (msg) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">{}</span><span class="stryker-original-code" data-mutant="7"><span class="bg-success-light">{
             subscriber(JSON.parse(msg.content.toString()));
-        }</span></span><span class="bg-null">, { noAck: </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="8"><span class="badge badge-danger">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">false</span><span class="stryker-original-code" data-mutant="8"><span class="bg-danger-light">true</span></span><span class="bg-null"> });
+        }</span></span><span class="bg-null">, { noAck: </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="8"><span class="badge badge-success">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">false</span><span class="stryker-original-code" data-mutant="8"><span class="bg-success-light">true</span></span><span class="bg-null"> });
         const consumerTag = response.consumerTag;
 
         return {
@@ -188,7 +185,7 @@ export class RabbitMQPublisher implements Publisher, HasSubscribers {
 <td><code>{}</code></td></tr>
 <tr><th>8</th>
 <td>BooleanSubstitution</td>
-<td>Survived</td>
+<td>Killed</td>
 <td>32
 :
 20</td>
