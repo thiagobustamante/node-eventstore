@@ -16,7 +16,6 @@ describe('EventStory Redis Publisher (Integration)', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
     const EVENT_PAYLOAD = 'Event Data';
-    let count = 0;
     const redisConfig = {
         options: {
             db: 6
@@ -38,16 +37,15 @@ describe('EventStory Redis Publisher (Integration)', () => {
 
     it('should be able to subscribe and unsubscribe to EventStore changes channel', async () => {
         const eventStoreNotified = createEventStore();
-        count = 0;
-        const subscription = await eventStoreNotified.subscribe(ordersStream.aggregation, message => {
-            count++;
-        });
+        const subscriberStub = sinon.stub();
+
+        const subscription = await eventStoreNotified.subscribe(ordersStream.aggregation, subscriberStub);
         await ordersStream.addEvent(EVENT_PAYLOAD);
-        await waitUntil(() => count === 1);
+        await waitUntil(() => subscriberStub.calledOnce);
         await subscription.remove();
         await ordersStream.addEvent(EVENT_PAYLOAD);
         wait(500);
-        expect(count).to.equal(1);
+        expect(subscriberStub).to.have.callCount(1);
     });
 
     it('should be able to notify multiple listeners for a channel', async () => {
@@ -59,6 +57,17 @@ describe('EventStory Redis Publisher (Integration)', () => {
         await eventStoreNotified.subscribe('orders', subscriber2Stub);
         await ordersStream.addEvent(EVENT_PAYLOAD);
         await waitUntil(() => subscriberStub.calledOnce && subscriber2Stub.calledOnce);
+    });
+
+    it('should not notify listeners about other aggregation changes', async () => {
+        const eventStoreNotified = createEventStore();
+
+        const subscriberStub = sinon.stub();
+        await eventStoreNotified.subscribe('offers', subscriberStub);
+        await ordersStream.addEvent(EVENT_PAYLOAD);
+        await wait(500);
+
+        expect(subscriberStub).to.not.have.been.called;
     });
 
     function createEventStore() {

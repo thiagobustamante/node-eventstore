@@ -63,10 +63,10 @@ describe('EventStory RabbitMQ Publisher', () => {
         channelStub.assertQueue.returns({ queue: '123' });
         channelStub.consume.returns({ consumerTag: '321' });
         const rabbitmqPublisher: any = new RabbitMQPublisher("amqp://localhost");
-
-        const subscription = await rabbitmqPublisher.subscribe('orders', () => {
-            // 
-        });
+        const subscriber = (message: Message) => {
+            // nothing to do
+        };
+        const subscription = await rabbitmqPublisher.subscribe('orders', subscriber);
         await rabbitmqPublisher.subscribe('orders', () => {
             // 
         });
@@ -81,8 +81,8 @@ describe('EventStory RabbitMQ Publisher', () => {
         expect(channelStub.bindQueue).to.have.been.calledTwice;
         expect(channelStub.bindQueue).to.have.been.calledWithExactly('123', 'orders', '');
         expect(channelStub.consume).to.have.been.calledTwice;
+        expect(channelStub.consume).to.have.been.calledWith('123', sinon.match.func, { noAck: true });
         expect(channelStub.cancel).to.have.been.calledWithExactly('321');
         expect(channelStub.deleteQueue).to.have.been.calledWithExactly('123');
     });
-
 });
