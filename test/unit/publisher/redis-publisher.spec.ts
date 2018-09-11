@@ -45,9 +45,32 @@ describe('EventStory Redis Publisher', () => {
                 id: '1'
             }
         };
-        await redisPublisher.publish(message);
+        redisStub.publish.returns(1);
+        const status = await redisPublisher.publish(message);
 
         expect(redisStub.publish).to.have.been.calledOnceWithExactly(message.stream.aggregation, JSON.stringify(message));
+        expect(status).to.be.true;
+    });
+
+    it('should be able to notify when no listener reacted to a publish event', async () => {
+        const redisPublisher: any = new RedisPublisher({ standalone: { host: 'localhost' } });
+
+        const message: Message = {
+            event: {
+                commitTimestamp: 123,
+                payload: 'PAYLOAD',
+                sequence: 2
+            },
+            stream: {
+                aggregation: 'offers',
+                id: '1'
+            }
+        };
+        redisStub.publish.returns(0);
+        const status = await redisPublisher.publish(message);
+
+        expect(redisStub.publish).to.have.been.calledOnceWithExactly(message.stream.aggregation, JSON.stringify(message));
+        expect(status).to.be.false;
     });
 
     it('should be able to subscribe to listen changes in the eventstore', async () => {
@@ -68,5 +91,4 @@ describe('EventStory Redis Publisher', () => {
         expect(redisStub.on).to.have.been.calledOnce;
         expect(redisStub.unsubscribe).to.have.been.calledOnceWithExactly('orders');
     });
-
 });

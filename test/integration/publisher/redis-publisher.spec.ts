@@ -2,12 +2,16 @@
 
 import * as chai from 'chai';
 import 'mocha';
+import * as sinon from 'sinon';
+import * as sinonChai from 'sinon-chai';
 import { wait, waitUntil } from 'test-wait';
 import { EventStore, EventStream, InMemoryProvider, RedisPublisher } from '../../../src';
 import { RedisFactory } from '../../../src/redis/connect';
 
+chai.use(sinonChai);
 const expect = chai.expect;
 
+// tslint:disable:no-unused-expression
 describe('EventStory Redis Publisher (Integration)', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
@@ -44,6 +48,17 @@ describe('EventStory Redis Publisher (Integration)', () => {
         await ordersStream.addEvent(EVENT_PAYLOAD);
         wait(500);
         expect(count).to.equal(1);
+    });
+
+    it('should be able to notify multiple listeners for a channel', async () => {
+        const eventStoreNotified = createEventStore();
+
+        const subscriberStub = sinon.stub();
+        const subscriber2Stub = sinon.stub();
+        await eventStoreNotified.subscribe('orders', subscriberStub);
+        await eventStoreNotified.subscribe('orders', subscriber2Stub);
+        await ordersStream.addEvent(EVENT_PAYLOAD);
+        await waitUntil(() => subscriberStub.calledOnce && subscriber2Stub.calledOnce);
     });
 
     function createEventStore() {
