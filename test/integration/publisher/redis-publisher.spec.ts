@@ -61,12 +61,14 @@ describe('EventStory Redis Publisher (Integration)', () => {
 
     it('should not notify listeners about other aggregation changes', async () => {
         const eventStoreNotified = createEventStore();
+        const customersStream = eventStore.getEventStream('customers', '1');
 
         const subscriberOffersStub = sinon.stub();
         const subscriberOrdersStub = sinon.stub();
         await eventStoreNotified.subscribe('offers', subscriberOffersStub);
         await eventStoreNotified.subscribe('orders', subscriberOrdersStub);
         await ordersStream.addEvent(EVENT_PAYLOAD);
+        await customersStream.addEvent(EVENT_PAYLOAD);
         await waitUntil(() => subscriberOrdersStub.calledOnce);
         await wait(10);
 
