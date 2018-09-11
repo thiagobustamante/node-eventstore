@@ -77,12 +77,10 @@ describe('EventStory Redis Publisher', () => {
         redisStub.on.returns(redisStub);
         const redisPublisher: any = new RedisPublisher({ standalone: { host: 'localhost' } });
 
-        const subscription = await redisPublisher.subscribe('orders', () => {
-            // 
-        });
-        await redisPublisher.subscribe('orders', () => {
-            // 
-        });
+        const subscriberOrdersStub = sinon.stub();
+        const subscriberOrdersStub2 = sinon.stub();
+        const subscription = await redisPublisher.subscribe('orders', subscriberOrdersStub);
+        await redisPublisher.subscribe('orders', () => subscriberOrdersStub2);
 
         await subscription.remove();
 

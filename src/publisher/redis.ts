@@ -51,9 +51,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
             await this.redisSubscriber.on('message', (aggregation, received) => {
                 const message: Message = JSON.parse(received);
                 const subscribers = this.listeners.get(aggregation);
-                if (subscribers) {
-                    subscribers.forEach(subscriber => subscriber(message));
-                }
+                subscribers.forEach(subscriber => subscriber(message));
             });
         }
     }

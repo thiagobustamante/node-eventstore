@@ -73,7 +73,7 @@ describe('EventStory Redis Publisher (Integration)', () => {
         await wait(10);
 
         expect(subscriberOffersStub).to.not.have.been.called;
-        expect(subscriberOrdersStub).to.have.been.called;
+        expect(subscriberOrdersStub).to.have.been.calledOnce;
     });
 
     function createEventStore() {
