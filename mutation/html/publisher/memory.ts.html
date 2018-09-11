@@ -27,9 +27,9 @@
 <td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%;">100.00
 %</div></div></td>
 <th class="text-center text-success" style="width: 10%">100.00</th>
-<td class="text-center">7</td>
+<td class="text-center">8</td>
 <td class="text-center">0</td>
-<td class="text-center">6</td>
+<td class="text-center">5</td>
 <td class="text-center">0</td>
 <td class="text-center">3</td>
 <td class="text-center">0</td>
@@ -42,11 +42,11 @@
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
 Killed
  
-(7)</label></div>
+(8)</label></div>
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="3" type="checkbox">
 TimedOut
  
-(6)</label></div>
+(5)</label></div>
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="4" type="checkbox">
 RuntimeError
  
@@ -70,7 +70,7 @@ export class InMemoryPublisher implements Publisher, HasSubscribers {
     public async publish(message: Message) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="0"><span class="badge badge-secondary">0</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="0">{}</span><span class="stryker-original-code" data-mutant="0"><span class="bg-null">{
         const aggregationListeners = this.listeners.get(message.stream.aggregation);
         let notified = </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="1"><span class="badge badge-success">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">true</span><span class="stryker-original-code" data-mutant="1"><span class="bg-success-light">false</span></span><span class="bg-null">;
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="3"><span class="badge badge-warning">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">false</span><span class="stryker-original-code" data-mutant="2"><span class="stryker-original-code" data-mutant="3"><span class="bg-warning-light">aggregationListeners </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="4"><span class="badge badge-success">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">==</span><span class="stryker-original-code" data-mutant="4"><span class="bg-warning-light">!=</span></span><span class="bg-warning-light"> null </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">||</span><span class="stryker-original-code" data-mutant="5"><span class="bg-warning-light">&amp;&amp;</span></span><span class="bg-warning-light"> aggregationListeners.length</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="6"><span class="badge badge-warning">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">{}</span><span class="stryker-original-code" data-mutant="6"><span class="bg-warning-light">{
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="3"><span class="badge badge-success">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">true</span><span class="stryker-original-code" data-mutant="2"><span class="stryker-original-code" data-mutant="3"><span class="bg-success-light">aggregationListeners </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="4"><span class="badge badge-success">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">==</span><span class="stryker-original-code" data-mutant="4"><span class="bg-success-light">!=</span></span><span class="bg-success-light"> null </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">||</span><span class="stryker-original-code" data-mutant="5"><span class="bg-success-light">&amp;&amp;</span></span><span class="bg-success-light"> aggregationListeners.length</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="6"><span class="badge badge-warning">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">{}</span><span class="stryker-original-code" data-mutant="6"><span class="bg-warning-light">{
             notified = </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">false</span><span class="stryker-original-code" data-mutant="7"><span class="bg-warning-light">true</span></span><span class="bg-warning-light">;
             aggregationListeners.forEach(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrowFunction" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="8"><span class="badge badge-warning">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">() =&gt; undefined</span><span class="stryker-original-code" data-mutant="8"><span class="bg-warning-light">subscriber =&gt; subscriber(message)</span></span><span class="bg-warning-light">);
         }</span></span><span class="bg-null">
@@ -126,7 +126,7 @@ export class InMemoryPublisher implements Publisher, HasSubscribers {
 <td><code></code></td></tr>
 <tr><th>3</th>
 <td>IfStatement</td>
-<td>TimedOut</td>
+<td>Killed</td>
 <td>17
 :
 12</td>
