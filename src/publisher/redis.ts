@@ -38,9 +38,11 @@ export class RedisPublisher implements Publisher, HasSubscribers {
 
         return {
             remove: async () => {
-                this.redisSubscriber.unsubscribe(aggregation);
                 const index = subscribers.indexOf(subscriber);
                 subscribers.splice(index, 1);
+                if (subscribers.length === 0) {
+                    this.redisSubscriber.unsubscribe(aggregation);
+                }
             }
         };
     }

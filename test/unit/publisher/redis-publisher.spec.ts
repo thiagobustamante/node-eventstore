@@ -87,6 +87,19 @@ describe('EventStory Redis Publisher', () => {
         expect(redisStub.subscribe).to.have.been.calledTwice;
         expect(redisStub.subscribe).to.have.been.calledWithExactly('orders');
         expect(redisStub.on).to.have.been.calledOnce;
+        expect(redisStub.unsubscribe).to.not.have.been.called;
+    });
+
+    it('should be able to unsubscribe to redis channel', async () => {
+        redisStub.on.returns(redisStub);
+        const redisPublisher: any = new RedisPublisher({ standalone: { host: 'localhost' } });
+
+        const subscriberOrdersStub = sinon.stub();
+        const subscription = await redisPublisher.subscribe('orders', subscriberOrdersStub);
+        await subscription.remove();
+
+        expect(redisStub.subscribe).to.have.been.calledOnceWithExactly('orders');
+        expect(redisStub.on).to.have.been.calledOnce;
         expect(redisStub.unsubscribe).to.have.been.calledOnceWithExactly('orders');
     });
 });
