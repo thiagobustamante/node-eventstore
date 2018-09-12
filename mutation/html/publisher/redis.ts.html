@@ -27,22 +27,22 @@
 <td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%;">100.00
 %</div></div></td>
 <th class="text-center text-success" style="width: 10%">100.00</th>
-<td class="text-center">13</td>
+<td class="text-center">17</td>
 <td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">8</td>
 <td class="text-center">0</td>
-<th class="text-center">13</th>
+<th class="text-center">17</th>
 <th class="text-center">0</th>
-<th class="text-center">21</th></tr>
+<th class="text-center">25</th></tr>
 </tbody></table></div></div>
 <div class="row"><div class="col-lg-7"><div class="row legend"><form class="col-md-12" novalidate="novalidate">
 
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
 Killed
  
-(13)</label></div>
+(17)</label></div>
 
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="4" type="checkbox">
 RuntimeError
@@ -80,7 +80,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
 
     public async subscribe(aggregation: string, subscriber: Subscriber): Promise&lt;Subscription&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="5"><span class="badge badge-secondary">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">{}</span><span class="stryker-original-code" data-mutant="5"><span class="bg-null">{
         let subscribers = this.listeners.get(aggregation);
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">subscribers</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="8"><span class="badge badge-success">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">true</span><span class="stryker-original-code" data-mutant="6"><span class="stryker-original-code" data-mutant="7"><span class="stryker-original-code" data-mutant="8"><span class="bg-success-light">!subscribers</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="9"><span class="badge badge-success">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">{}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-success-light">{
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="8"><span class="badge badge-success">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">subscribers</span><span class="stryker-original-code" data-mutant="6"><span class="stryker-original-code" data-mutant="7"><span class="stryker-original-code" data-mutant="8"><span class="bg-success-light">!subscribers</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="9"><span class="badge badge-success">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">{}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-success-light">{
             subscribers = </span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrayNewExpression" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="10"><span class="badge badge-secondary">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">new Array([])</span><span class="stryker-original-code" data-mutant="10"><span class="bg-success-light">new Array&lt;Subscriber&gt;()</span></span><span class="bg-success-light">;
             this.listeners.set(aggregation, subscribers);
         }</span></span><span class="bg-null">
@@ -90,20 +90,22 @@ export class RedisPublisher implements Publisher, HasSubscribers {
 
         return {
             remove: async () =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="11"><span class="badge badge-success">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">{}</span><span class="stryker-original-code" data-mutant="11"><span class="bg-success-light">{
-                this.redisSubscriber.unsubscribe(aggregation);
                 const index = subscribers.indexOf(subscriber);
                 subscribers.splice(index, 1);
+                if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="13"><span class="badge badge-success">13</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="13">false</span><span class="stryker-original-code" data-mutant="12"><span class="stryker-original-code" data-mutant="13"><span class="bg-success-light">subscribers.length </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="14"><span class="badge badge-success">14</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="14">!==</span><span class="stryker-original-code" data-mutant="14"><span class="bg-success-light">===</span></span><span class="bg-success-light"> 0</span></span></span><span class="bg-success-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="15"><span class="badge badge-success">15</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="15">{}</span><span class="stryker-original-code" data-mutant="15"><span class="bg-success-light">{
+                    this.redisSubscriber.unsubscribe(aggregation);
+                }</span></span><span class="bg-success-light">
             }</span></span><span class="bg-null">
         };
     }</span></span><span class="bg-null">
 
-    private async registerRedisListener() </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="12"><span class="badge badge-secondary">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">{}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-null">{
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="13"><span class="badge badge-secondary">13</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="13">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="14"><span class="badge badge-secondary">14</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="14">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="15"><span class="badge badge-success">15</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="15">this.listenningRedis</span><span class="stryker-original-code" data-mutant="13"><span class="stryker-original-code" data-mutant="14"><span class="stryker-original-code" data-mutant="15"><span class="bg-success-light">!this.listenningRedis</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="16"><span class="badge badge-success">16</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="16">{}</span><span class="stryker-original-code" data-mutant="16"><span class="bg-success-light">{
-            this.listenningRedis = </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="17"><span class="badge badge-success">17</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="17">false</span><span class="stryker-original-code" data-mutant="17"><span class="bg-success-light">true</span></span><span class="bg-success-light">;
-            await this.redisSubscriber.on(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="18"><span class="badge badge-success">18</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="18">&quot;&quot;</span><span class="stryker-original-code" data-mutant="18"><span class="bg-success-light">&#039;message&#039;</span></span><span class="bg-success-light">, (aggregation, received) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="19"><span class="badge badge-success">19</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="19">{}</span><span class="stryker-original-code" data-mutant="19"><span class="bg-success-light">{
+    private async registerRedisListener() </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="16"><span class="badge badge-secondary">16</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="16">{}</span><span class="stryker-original-code" data-mutant="16"><span class="bg-null">{
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="17"><span class="badge badge-secondary">17</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="17">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="18"><span class="badge badge-secondary">18</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="18">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="19"><span class="badge badge-success">19</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="19">this.listenningRedis</span><span class="stryker-original-code" data-mutant="17"><span class="stryker-original-code" data-mutant="18"><span class="stryker-original-code" data-mutant="19"><span class="bg-success-light">!this.listenningRedis</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="20"><span class="badge badge-success">20</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="20">{}</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success-light">{
+            this.listenningRedis = </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="21"><span class="badge badge-success">21</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="21">false</span><span class="stryker-original-code" data-mutant="21"><span class="bg-success-light">true</span></span><span class="bg-success-light">;
+            await this.redisSubscriber.on(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="22"><span class="badge badge-success">22</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="22">&quot;&quot;</span><span class="stryker-original-code" data-mutant="22"><span class="bg-success-light">&#039;message&#039;</span></span><span class="bg-success-light">, (aggregation, received) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="23"><span class="badge badge-success">23</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="23">{}</span><span class="stryker-original-code" data-mutant="23"><span class="bg-success-light">{
                 const message: Message = JSON.parse(received);
                 const subscribers = this.listeners.get(aggregation);
-                subscribers.forEach(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrowFunction" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="20"><span class="badge badge-secondary">20</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="20">() =&gt; undefined</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success-light">subscriber =&gt; subscriber(message)</span></span><span class="bg-success-light">);
+                subscribers.forEach(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrowFunction" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="24"><span class="badge badge-secondary">24</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="24">() =&gt; undefined</span><span class="stryker-original-code" data-mutant="24"><span class="bg-success-light">subscriber =&gt; subscriber(message)</span></span><span class="bg-success-light">);
             }</span></span><span class="bg-success-light">);
         }</span></span><span class="bg-null">
     }</span></span><span class="bg-null">
@@ -175,7 +177,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
 <td><code>!</code></td>
 <td><code></code></td></tr>
 <tr><th>7</th>
-<td>PrefixUnaryExpression</td>
+<td>IfStatement</td>
 <td>Killed</td>
 <td>30
 :
@@ -183,7 +185,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
 <td><code>!</code></td>
 <td><code></code></td></tr>
 <tr><th>8</th>
-<td>IfStatement</td>
+<td>PrefixUnaryExpression</td>
 <td>Killed</td>
 <td>30
 :
@@ -217,76 +219,109 @@ export class RedisPublisher implements Publisher, HasSubscribers {
    ...    }</code></td>
 <td><code>{}</code></td></tr>
 <tr><th>12</th>
-<td>Block</td>
-<td>RuntimeError</td>
-<td>47
+<td>IfStatement</td>
+<td>Killed</td>
+<td>42
 :
-42</td>
+20</td>
+<td><code>.       ===</code></td>
+<td><code></code></td></tr>
+<tr><th>13</th>
+<td>IfStatement</td>
+<td>Killed</td>
+<td>42
+:
+20</td>
+<td><code>.       ===</code></td>
+<td><code></code></td></tr>
+<tr><th>14</th>
+<td>BinaryExpression</td>
+<td>Killed</td>
+<td>42
+:
+39</td>
+<td><code>===</code></td>
+<td><code>!==</code></td></tr>
+<tr><th>15</th>
+<td>Block</td>
+<td>Killed</td>
+<td>42
+:
+46</td>
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
-<tr><th>13</th>
-<td>IfStatement</td>
-<td>RuntimeError</td>
-<td>48
-:
-12</td>
-<td><code>!    .</code></td>
-<td><code></code></td></tr>
-<tr><th>14</th>
-<td>IfStatement</td>
-<td>RuntimeError</td>
-<td>48
-:
-12</td>
-<td><code>!    .</code></td>
-<td><code></code></td></tr>
-<tr><th>15</th>
-<td>PrefixUnaryExpression</td>
-<td>Killed</td>
-<td>48
-:
-12</td>
-<td><code>!    .</code></td>
-<td><code>.</code></td></tr>
 <tr><th>16</th>
 <td>Block</td>
-<td>Killed</td>
-<td>48
+<td>RuntimeError</td>
+<td>49
 :
-35</td>
+42</td>
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
 <tr><th>17</th>
+<td>IfStatement</td>
+<td>RuntimeError</td>
+<td>50
+:
+12</td>
+<td><code>!    .</code></td>
+<td><code></code></td></tr>
+<tr><th>18</th>
+<td>IfStatement</td>
+<td>RuntimeError</td>
+<td>50
+:
+12</td>
+<td><code>!    .</code></td>
+<td><code></code></td></tr>
+<tr><th>19</th>
+<td>PrefixUnaryExpression</td>
+<td>Killed</td>
+<td>50
+:
+12</td>
+<td><code>!    .</code></td>
+<td><code>.</code></td></tr>
+<tr><th>20</th>
+<td>Block</td>
+<td>Killed</td>
+<td>50
+:
+35</td>
+<td><code>{
+   ...    }</code></td>
+<td><code>{}</code></td></tr>
+<tr><th>21</th>
 <td>BooleanSubstitution</td>
 <td>Killed</td>
-<td>49
+<td>51
 :
 35</td>
 <td><code></code></td>
 <td><code></code></td></tr>
-<tr><th>18</th>
+<tr><th>22</th>
 <td>StringLiteral</td>
 <td>Killed</td>
-<td>50
+<td>52
 :
 42</td>
 <td><code>'       '</code></td>
 <td><code>""</code></td></tr>
-<tr><th>19</th>
+<tr><th>23</th>
 <td>Block</td>
 <td>Killed</td>
-<td>50
+<td>52
 :
 80</td>
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
-<tr><th>20</th>
+<tr><th>24</th>
 <td>ArrowFunction</td>
 <td>RuntimeError</td>
-<td>53
+<td>55
 :
 36</td>
 <td><code>=>   ...    )</code></td>
