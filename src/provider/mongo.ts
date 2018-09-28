@@ -13,6 +13,7 @@ export class MongoProvider implements PersistenceProvider {
     private mongoURL: string;
     private eventCollection: Collection;
     private countersCollection: Collection;
+    private mongoClient: MongoClient;
 
     constructor(url: string) {
         this.mongoURL = url;
@@ -30,7 +31,7 @@ export class MongoProvider implements PersistenceProvider {
 
         const result = await events.insertOne(_.merge(event, { stream: stream }));
         if (!result.result.ok) {
-            throw new Error("Error saving event into the store");
+            throw new Error('Error saving event into the store');
         }
 
         return event;
@@ -85,20 +86,25 @@ export class MongoProvider implements PersistenceProvider {
 
     private async events() {
         if (!this.eventCollection) {
-            const mongoClient = await MongoClient.connect(this.mongoURL);
+            const mongoClient = await this.getMongoClient();
             this.eventCollection = mongoClient.db().collection('events');
-            this.countersCollection = mongoClient.db().collection('counters');
         }
         return this.eventCollection;
     }
 
     private async counters() {
         if (!this.countersCollection) {
-            const mongoClient = await MongoClient.connect(this.mongoURL);
-            this.eventCollection = mongoClient.db().collection('events');
+            const mongoClient = await this.getMongoClient();
             this.countersCollection = mongoClient.db().collection('counters');
         }
         return this.countersCollection;
+    }
+
+    private async getMongoClient() {
+        if (!this.mongoClient) {
+            this.mongoClient = await MongoClient.connect(this.mongoURL);
+        }
+        return this.mongoClient;
     }
 
     private async getNextSequenceValue(sequenceName: string) {
@@ -112,7 +118,7 @@ export class MongoProvider implements PersistenceProvider {
             });
 
         if (!result.ok) {
-            throw new Error("Error reading next sequence value");
+            throw new Error('Error reading next sequence value');
         }
         return result.value.sequence_value;
     }
