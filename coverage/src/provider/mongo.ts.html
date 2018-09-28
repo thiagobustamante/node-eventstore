@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/event-store.ts</title>
+    <title>Code coverage report for src/provider/mongo.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,28 +16,28 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../index.html">All files</a> / <a href="index.html">src</a> event-store.ts
+      <a href="../../index.html">All files</a> / <a href="index.html">src/provider</a> mongo.ts
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">90.2% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>15/15</span>
+        <span class='fraction'>46/51</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">88.46% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>23/26</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>9/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">90.2% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>15/15</span>
+        <span class='fraction'>46/51</span>
       </div>
     </div>
     <p class="quiet">
@@ -152,64 +152,23 @@
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">70x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">69x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">84x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">53x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,12 +182,95 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,133 +278,130 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
 import * as _ from 'lodash';
-import { EventStreamImpl } from './event-stream';
-import { Event } from './model/event';
-import { PersistenceProvider } from './provider/provider';
-import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher/publisher';
+import { Collection, MongoClient } from 'mongodb';
+import { Event } from '../model/event';
+import { Stream } from '../model/stream';
+import { PersistenceProvider } from './provider';
 &nbsp;
 /**
- * The EventStore itself. To create EventStore instances, use the {@link EventStoreBuilder}
+ * A Persistence Provider that handle all the data in mongodb.
  */
-export class EventStore implements EventStore, HasSubscribers {
+export class MongoProvider implements PersistenceProvider {
+    private mongoURL: string;
+    private eventCollection: Collection;
+    private countersCollection: Collection;
 &nbsp;
-    private persistenceProvider: PersistenceProvider;
-    private storePublisher: Publisher;
-&nbsp;
-    public constructor(provider: PersistenceProvider, publisher?: Publisher) {
-        this.persistenceProvider = provider;
-        this.storePublisher = publisher;
+    constructor(url: string) {
+        this.mongoURL = url;
     }
 &nbsp;
-    public get provider(): PersistenceProvider {
-        if (_.isNil(this.persistenceProvider)) {
-            throw new Error('No Provider configured in EventStore.');
+    public async addEvent(stream: Stream, data: any) {
+        const events = await this.events();
+        const sequence = await this.getNextSequenceValue(this.getKey(stream.aggregation, stream.id)) - 1;
+        const commitTimestamp = new Date().getTime();
+        const event: Event = {
+            commitTimestamp: commitTimestamp,
+            payload: data,
+            sequence: sequence
+        };
+&nbsp;
+        const result = await events.insertOne(_.merge(event, { stream: stream }));
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!result.result.ok) {
+<span class="cstat-no" title="statement not covered" >            throw new Error("Error saving event into the store");</span>
         }
-        return this.persistenceProvider;
+&nbsp;
+        return event;
     }
 &nbsp;
-    public get publisher(): Publisher | HasSubscribers {
-        return this.storePublisher;
-    }
-&nbsp;
-    /**
-     * Retrieve an event stream.
-     * @param aggregation The parent aggregation for the event stream
-     * @param streamId The stream identifier. Can be any string
-     * @return The existing stream. If no stream exists for to the given id, a new one
-     * will be created when the first event is added to the stream.
-     */
-    public getEventStream(aggregation: string, streamId: string): EventStream {
-        return new EventStreamImpl(this, { aggregation: aggregation, id: streamId });
-    }
-&nbsp;
-    /**
-     * Add a new subscription to notifications channel associated with the given aggregation.
-     * It is necessary to have a valid {@link Publisher} configured that supports subscriptions.
-     * @param aggregation The aggregation for the stream events
-     * @param subscriber Declares the function to be called to handle new messages
-     * @return A subscription. Can be used to remove the subscription to the publisher channel.
-     */
-    public subscribe(aggregation: string, subscriber: Subscriber): Promise&lt;Subscription&gt; {
-        if (this.publisher &amp;&amp; (this.publisher as HasSubscribers).subscribe) {
-            return (this.publisher as HasSubscribers).subscribe(aggregation, subscriber);
+    public async getEvents(stream: Stream, offset: number = 0, limit: number = -1) {
+        const events = await this.events();
+        const cursor = events.find({ 'stream.id': stream.id, 'stream.aggregation': stream.aggregation });
+        if (offset &gt; 0) {
+            cursor.skip(offset);
         }
-        throw new Error('There is no valid Publisher configured. '
-            + 'Configure a Publisher that implements HasSubscribers int erface');
+        if (limit &gt; 0) {
+            cursor.limit(limit);
+        }
+&nbsp;
+        return await cursor.toArray();
     }
 &nbsp;
-    /**
-     * Retrieves a ranged aggregation list
-     * @param offset The start position in the aggregation list
-     * @param limit The desired quantity aggregations
-     * @return The aggregation list
-     */
-    public async getAggregations(offset?: number, limit?: number) {
-        return this.provider.getAggregations(offset, limit);
+    public async getAggregations(offset: number = 0, limit: number = -1): Promise&lt;Array&lt;string&gt;&gt; {
+        const events = await this.events();
+        const cursor = events.aggregate().group({ _id: '$stream.aggregation' });
+&nbsp;
+        if (offset &gt; 0) {
+            cursor.skip(offset);
+        }
+        if (limit &gt; 0) {
+            cursor.limit(limit);
+        }
+        const aggregations: Array&lt;string&gt; = await cursor.toArray();
+        return aggregations;
     }
 &nbsp;
-    /**
-     * Retrieves a ranged stream list
-     * @param aggregation The aggregation
-     * @param offset The start position in the stream list
-     * @param limit The desired quantity streams
-     * @return The stream list
-     */
-    public async getStreams(aggregation: string, offset?: number, limit?: number) {
-        return this.provider.getStreams(aggregation, offset, limit);
-    }
-}
+    public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise&lt;Array&lt;string&gt;&gt; {
+        const events = await this.events();
+        const cursor = events.aggregate()
+            .match({ 'stream.aggregation': aggregation })
+            .group({ _id: '$stream.id' });
 &nbsp;
-/**
- * An Event Stream
- */
-export interface EventStream {
-    /**
-     * The event stream identifier
-     */
-    streamId: string;
-    /**
-     * The parent aggregation for this event stream
-     */
-    aggregation: string;
-    /**
-     * Rertieve a list containing all the events in the stream in order.
-     * @param offset The start position in the stream list
-     * @param limit The desired quantity events
-     * @return All the events
-     */
-    getEvents(offset?: number, limit?: number): Promise&lt;Array&lt;Event&gt;&gt;;
-    /**
-     * Add a new event to the end of the event stream.
-     * @param data The event data
-     * @return The event, updated with informations like its sequence order and commitTimestamp
-     */
-    addEvent(data: any): Promise&lt;Event&gt;;
+        if (offset &gt; 0) {
+            cursor.skip(offset);
+        }
+        if (limit &gt; 0) {
+            cursor.limit(limit);
+        }
+        const streams: Array&lt;string&gt; = await cursor.toArray();
+        return streams;
+    }
+&nbsp;
+    private getKey(aggregation: string, streamId: string): string {
+        return `${aggregation}:${streamId}`;
+    }
+&nbsp;
+    private async events() {
+        if (!this.eventCollection) {
+            const mongoClient = await MongoClient.connect(this.mongoURL);
+            this.eventCollection = mongoClient.db().collection('events');
+            this.countersCollection = mongoClient.db().collection('counters');
+        }
+        return this.eventCollection;
+    }
+&nbsp;
+    private async counters() {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.countersCollection) {
+            const mongoClient = <span class="cstat-no" title="statement not covered" >await MongoClient.connect(this.mongoURL);</span>
+<span class="cstat-no" title="statement not covered" >            this.eventCollection = mongoClient.db().collection('events');</span>
+<span class="cstat-no" title="statement not covered" >            this.countersCollection = mongoClient.db().collection('counters');</span>
+        }
+        return this.countersCollection;
+    }
+&nbsp;
+    private async getNextSequenceValue(sequenceName: string) {
+        const counters = await this.counters();
+        const result = await counters.findOneAndUpdate(
+            { _id: sequenceName },
+            { $inc: { sequence_value: 1 } },
+            {
+                returnOriginal: false,
+                upsert: true
+            });
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!result.ok) {
+<span class="cstat-no" title="statement not covered" >            throw new Error("Error reading next sequence value");</span>
+        }
+        return result.value.sequence_value;
+    }
 }
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -373,7 +412,7 @@ export interface EventStream {
   generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Sep 28 2018 21:48:42 GMT+0000 (Coordinated Universal Time)
 </div>
 </div>
-<script src="../prettify.js"></script>
+<script src="../../prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -381,7 +420,7 @@ window.onload = function () {
         }
 };
 </script>
-<script src="../sorter.js"></script>
-<script src="../block-navigation.js"></script>
+<script src="../../sorter.js"></script>
+<script src="../../block-navigation.js"></script>
 </body>
 </html>
