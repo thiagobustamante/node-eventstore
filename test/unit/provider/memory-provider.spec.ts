@@ -20,9 +20,9 @@ describe('EventStory Memory Provider', () => {
     });
 
     it('should be able to add an event to the EventStream', async () => {
-        const eventPromise = await ordersStream.addEvent(EVENT_PAYLOAD);
-        expect(eventPromise).to.have.property('commitTimestamp');
-        expect(eventPromise).to.have.property('sequence');
+        const event = await ordersStream.addEvent(EVENT_PAYLOAD);
+        expect(event).to.have.property('commitTimestamp');
+        expect(event).to.have.property('sequence');
     });
 
     it('should be able to read events from the EventStream', async () => {
