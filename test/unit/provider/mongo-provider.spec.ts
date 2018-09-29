@@ -159,6 +159,7 @@ describe('EventStory Mongo Provider', () => {
         const mongoProvider: any = new MongoProvider('mongodb://localhost:27017/eventstore');
         const event = await mongoProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
 
+        expect(mongoClientStub).to.have.been.calledOnce;
         expect(mongoStub.db).to.have.been.calledTwice;
         expect(dbStub.collection).to.have.been.calledTwice;
         expect(dbStub.collection).to.have.been.calledWithExactly('events');
@@ -236,6 +237,21 @@ describe('EventStory Mongo Provider', () => {
                 stream: sinon.match({ aggregation: 'orders', id: '1' })
             }));
         // expect(event.commitTimestamp).to.equal(1);
+    });
+
+    it('should only initiate collections once', async () => {
+        collectionStub.findOneAndUpdate.returns({ value: { sequence_value: 1 }, ok: true });
+        collectionStub.insertOne.returns(Promise.resolve({ result: { ok: true } }));
+
+        const mongoProvider: any = new MongoProvider('mongodb://localhost:27017/eventstore');
+        await mongoProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
+        await mongoProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD_2');
+
+        expect(mongoClientStub).to.have.been.calledOnce;
+        expect(mongoStub.db).to.have.been.calledTwice;
+        expect(dbStub.collection).to.have.been.calledTwice;
+        expect(dbStub.collection).to.have.been.calledWithExactly('events');
+        expect(dbStub.collection).to.have.been.calledWithExactly('counters');
     });
 
 });
