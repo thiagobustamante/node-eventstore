@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/provider/redis.ts</title>
+    <title>Code coverage report for src/mysql/connect.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -16,28 +16,28 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">src/provider</a> redis.ts
+      <a href="../../index.html">All files</a> / <a href="index.html">src/mysql</a> connect.ts
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>16/16</span>
+        <span class='fraction'>17/17</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>3/3</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>15/15</span>
+        <span class='fraction'>17/17</span>
       </div>
     </div>
     <p class="quiet">
@@ -90,127 +90,94 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
-import { Redis } from 'ioredis';
-import { Event } from '../model/event';
-import { Stream } from '../model/stream';
-import { RedisConfig } from '../redis/config';
-import { RedisFactory } from '../redis/connect';
-import { PersistenceProvider } from './provider';
+import * as Joi from 'joi';
+import * as _ from 'lodash';
+import * as MySQL from 'mysql';
+import { MySQLConfig } from './config';
 &nbsp;
-/**
- * A Persistence Provider that handle all the data in redis.
- */
-export class RedisProvider implements PersistenceProvider {
-    private redis: Redis;
+const mySQLConfigSchema = Joi.object().keys({
+    cluster: Joi.object().unknown(true),
+    config: Joi.object().unknown(true)
+}).xor('cluster', 'config');
 &nbsp;
-    constructor(config: RedisConfig) {
-        this.redis = RedisFactory.createClient(config);
+&nbsp;
+export class MySQLFactory {
+    public static createPool(config: MySQLConfig): MySQL.PoolCluster | MySQL.Pool {
+        config = MySQLFactory.validateParams(config);
+&nbsp;
+        let result: MySQL.PoolCluster | MySQL.Pool;
+&nbsp;
+        if (config.cluster) {
+            const poolCluster = MySQL.createPoolCluster();
+            _.keys(config.cluster).forEach(key =&gt; {
+                const clusterConfig: MySQL.PoolConfig = config.cluster[key];
+                poolCluster.add(key, clusterConfig);
+            });
+            result = poolCluster;
+        } else {
+            const pool = MySQL.createPool(config.config);
+            result = pool;
+        }
+&nbsp;
+        return result;
     }
 &nbsp;
-    public async addEvent(stream: Stream, data: any) {
-        const sequence = await this.redis.incr(`sequences:{${this.getKey(stream.aggregation, stream.id)}}`) - 1;
-        const time = await this.redis.time();
-        const commitTimestamp = parseInt(time, 10);
-        const event: Event = {
-            commitTimestamp: commitTimestamp,
-            payload: data,
-            sequence: sequence
-        };
-        await this.redis.multi()
-            .rpush(this.getKey(stream.aggregation, stream.id), JSON.stringify(event))
-            .zadd(`meta:aggregations:${stream.aggregation}`, '1', stream.id)
-            .zadd(`meta:aggregations`, '1', stream.aggregation)
-            .exec();
-        return event;
-    }
-&nbsp;
-    public async getEvents(stream: Stream, offset: number = 0, limit: number = -1) {
-        const history: Array&lt;string&gt; = await this.redis.lrange(this.getKey(stream.aggregation, stream.id), offset, limit);
-        return history.map(data =&gt; JSON.parse(data));
-    }
-&nbsp;
-    public async getAggregations(offset: number = 0, limit: number = -1): Promise&lt;Array&lt;string&gt;&gt; {
-        const aggregations: Array&lt;string&gt; = await this.redis.zrange('meta:aggregations', offset, limit);
-        return aggregations;
-    }
-&nbsp;
-    public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise&lt;Array&lt;string&gt;&gt; {
-        const streams: Array&lt;string&gt; = await this.redis.zrange(`meta:aggregations:${aggregation}`, offset, limit);
-        return streams;
-    }
-&nbsp;
-    private getKey(aggregation: string, streamId: string): string {
-        return `${aggregation}:${streamId}`;
+    private static validateParams(config: MySQLConfig) {
+        const result = Joi.validate(config, mySQLConfigSchema);
+        if (result.error) {
+            throw result.error;
+        }
+        return result.value;
     }
 }
+&nbsp;
+&nbsp;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->

@@ -27,22 +27,22 @@
 <td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%;">100.00
 %</div></div></td>
 <th class="text-center text-success" style="width: 10%">100.00</th>
-<td class="text-center">61</td>
+<td class="text-center">62</td>
 <td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">12</td>
 <td class="text-center">0</td>
-<th class="text-center">61</th>
+<th class="text-center">62</th>
 <th class="text-center">0</th>
-<th class="text-center">73</th></tr>
+<th class="text-center">74</th></tr>
 </tbody></table></div></div>
 <div class="row"><div class="col-lg-7"><div class="row legend"><form class="col-md-12" novalidate="novalidate">
 
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
 Killed
  
-(61)</label></div>
+(62)</label></div>
 
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="4" type="checkbox">
 RuntimeError
@@ -92,7 +92,7 @@ export class MongoProvider implements PersistenceProvider {
     public async getEvents(stream: Stream, offset: number = 0, limit: number = 0) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="8"><span class="badge badge-secondary">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">{}</span><span class="stryker-original-code" data-mutant="8"><span class="bg-null">{
         const events = await this.events();
         const cursor = events.find({ </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="9"><span class="badge badge-success">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">&quot;&quot;</span><span class="stryker-original-code" data-mutant="9"><span class="bg-success-light">&#039;stream.id&#039;</span></span><span class="bg-null">: stream.id, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="10"><span class="badge badge-success">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">&quot;&quot;</span><span class="stryker-original-code" data-mutant="10"><span class="bg-success-light">&#039;stream.aggregation&#039;</span></span><span class="bg-null">: stream.aggregation });
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="11"><span class="badge badge-success">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">true</span><span class="stryker-original-code" data-mutant="11"><span class="stryker-original-code" data-mutant="12"><span class="bg-success-light">offset </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="13"><span class="badge badge-success">13</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="13">&lt;=</span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="14"><span class="badge badge-success">14</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="14">&gt;=</span><span class="stryker-original-code" data-mutant="13"><span class="stryker-original-code" data-mutant="14"><span class="bg-success-light">&gt;</span></span></span><span class="bg-success-light"> 0</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="15"><span class="badge badge-success">15</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="15">{}</span><span class="stryker-original-code" data-mutant="15"><span class="bg-success-light">{
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="11"><span class="badge badge-success">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">false</span><span class="stryker-original-code" data-mutant="11"><span class="stryker-original-code" data-mutant="12"><span class="bg-success-light">offset </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="13"><span class="badge badge-success">13</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="13">&lt;=</span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="14"><span class="badge badge-success">14</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="14">&gt;=</span><span class="stryker-original-code" data-mutant="13"><span class="stryker-original-code" data-mutant="14"><span class="bg-success-light">&gt;</span></span></span><span class="bg-success-light"> 0</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="15"><span class="badge badge-success">15</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="15">{}</span><span class="stryker-original-code" data-mutant="15"><span class="bg-success-light">{
             cursor.skip(offset);
         }</span></span><span class="bg-null">
         if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="16"><span class="badge badge-success">16</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="16">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="17"><span class="badge badge-success">17</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="17">false</span><span class="stryker-original-code" data-mutant="16"><span class="stryker-original-code" data-mutant="17"><span class="bg-success-light">limit </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="18"><span class="badge badge-success">18</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="18">&lt;=</span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="19"><span class="badge badge-success">19</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="19">&gt;=</span><span class="stryker-original-code" data-mutant="18"><span class="stryker-original-code" data-mutant="19"><span class="bg-success-light">&gt;</span></span></span><span class="bg-success-light"> 0</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="20"><span class="badge badge-success">20</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="20">{}</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success-light">{
@@ -154,23 +154,23 @@ export class MongoProvider implements PersistenceProvider {
 
     private async getMongoClient() </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="60"><span class="badge badge-secondary">60</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="60">{}</span><span class="stryker-original-code" data-mutant="60"><span class="bg-null">{
         if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="61"><span class="badge badge-success">61</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="61">false</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="62"><span class="badge badge-success">62</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="62">this.mongoClient</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="63"><span class="badge badge-success">63</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="63">true</span><span class="stryker-original-code" data-mutant="61"><span class="stryker-original-code" data-mutant="62"><span class="stryker-original-code" data-mutant="63"><span class="bg-success-light">!this.mongoClient</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="64"><span class="badge badge-secondary">64</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="64">{}</span><span class="stryker-original-code" data-mutant="64"><span class="bg-null">{
-            this.mongoClient = await MongoClient.connect(this.mongoURL);
+            this.mongoClient = await MongoClient.connect(this.mongoURL, { useNewUrlParser: </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="65"><span class="badge badge-success">65</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="65">false</span><span class="stryker-original-code" data-mutant="65"><span class="bg-success-light">true</span></span><span class="bg-null"> });
         }</span></span><span class="bg-null">
         return this.mongoClient;
     }</span></span><span class="bg-null">
 
-    private async getNextSequenceValue(sequenceName: string) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="65"><span class="badge badge-secondary">65</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="65">{}</span><span class="stryker-original-code" data-mutant="65"><span class="bg-null">{
+    private async getNextSequenceValue(sequenceName: string) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="66"><span class="badge badge-secondary">66</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="66">{}</span><span class="stryker-original-code" data-mutant="66"><span class="bg-null">{
         const counters = await this.counters();
         const result = await counters.findOneAndUpdate(
             { _id: sequenceName },
             { $inc: { sequence_value: 1 } },
             {
-                returnOriginal: </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="66"><span class="badge badge-success">66</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="66">true</span><span class="stryker-original-code" data-mutant="66"><span class="bg-success-light">false</span></span><span class="bg-null">,
-                upsert: </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="67"><span class="badge badge-success">67</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="67">false</span><span class="stryker-original-code" data-mutant="67"><span class="bg-success-light">true</span></span><span class="bg-null">
+                returnOriginal: </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="67"><span class="badge badge-success">67</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="67">true</span><span class="stryker-original-code" data-mutant="67"><span class="bg-success-light">false</span></span><span class="bg-null">,
+                upsert: </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="68"><span class="badge badge-success">68</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="68">false</span><span class="stryker-original-code" data-mutant="68"><span class="bg-success-light">true</span></span><span class="bg-null">
             });
 
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="68"><span class="badge badge-success">68</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="68">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="69"><span class="badge badge-success">69</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="69">result.ok</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="70"><span class="badge badge-success">70</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="70">false</span><span class="stryker-original-code" data-mutant="68"><span class="stryker-original-code" data-mutant="69"><span class="stryker-original-code" data-mutant="70"><span class="bg-success-light">!result.ok</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="71"><span class="badge badge-success">71</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="71">{}</span><span class="stryker-original-code" data-mutant="71"><span class="bg-success-light">{
-            throw new Error(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="72"><span class="badge badge-success">72</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="72">&quot;&quot;</span><span class="stryker-original-code" data-mutant="72"><span class="bg-success-light">&#039;Error reading next sequence value&#039;</span></span><span class="bg-success-light">);
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="69"><span class="badge badge-success">69</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="69">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="PrefixUnaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="70"><span class="badge badge-success">70</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="70">result.ok</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="71"><span class="badge badge-success">71</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="71">false</span><span class="stryker-original-code" data-mutant="69"><span class="stryker-original-code" data-mutant="70"><span class="stryker-original-code" data-mutant="71"><span class="bg-success-light">!result.ok</span></span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="72"><span class="badge badge-success">72</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="72">{}</span><span class="stryker-original-code" data-mutant="72"><span class="bg-success-light">{
+            throw new Error(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="73"><span class="badge badge-success">73</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="73">&quot;&quot;</span><span class="stryker-original-code" data-mutant="73"><span class="bg-success-light">&#039;Error reading next sequence value&#039;</span></span><span class="bg-success-light">);
         }</span></span><span class="bg-null">
         return result.value.sequence_value;
     }</span></span><span class="bg-null">
@@ -722,6 +722,14 @@ export class MongoProvider implements PersistenceProvider {
    ...    }</code></td>
 <td><code>{}</code></td></tr>
 <tr><th>65</th>
+<td>BooleanSubstitution</td>
+<td>Killed</td>
+<td>104
+:
+91</td>
+<td><code></code></td>
+<td><code></code></td></tr>
+<tr><th>66</th>
 <td>Block</td>
 <td>RuntimeError</td>
 <td>109
@@ -730,7 +738,7 @@ export class MongoProvider implements PersistenceProvider {
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
-<tr><th>66</th>
+<tr><th>67</th>
 <td>BooleanSubstitution</td>
 <td>Killed</td>
 <td>115
@@ -738,7 +746,7 @@ export class MongoProvider implements PersistenceProvider {
 32</td>
 <td><code></code></td>
 <td><code></code></td></tr>
-<tr><th>67</th>
+<tr><th>68</th>
 <td>BooleanSubstitution</td>
 <td>Killed</td>
 <td>116
@@ -746,7 +754,7 @@ export class MongoProvider implements PersistenceProvider {
 24</td>
 <td><code></code></td>
 <td><code></code></td></tr>
-<tr><th>68</th>
+<tr><th>69</th>
 <td>IfStatement</td>
 <td>Killed</td>
 <td>119
@@ -754,7 +762,7 @@ export class MongoProvider implements PersistenceProvider {
 12</td>
 <td><code>!      .</code></td>
 <td><code></code></td></tr>
-<tr><th>69</th>
+<tr><th>70</th>
 <td>PrefixUnaryExpression</td>
 <td>Killed</td>
 <td>119
@@ -762,7 +770,7 @@ export class MongoProvider implements PersistenceProvider {
 12</td>
 <td><code>!      .</code></td>
 <td><code>.</code></td></tr>
-<tr><th>70</th>
+<tr><th>71</th>
 <td>IfStatement</td>
 <td>Killed</td>
 <td>119
@@ -770,7 +778,7 @@ export class MongoProvider implements PersistenceProvider {
 12</td>
 <td><code>!      .</code></td>
 <td><code></code></td></tr>
-<tr><th>71</th>
+<tr><th>72</th>
 <td>Block</td>
 <td>Killed</td>
 <td>119
@@ -779,7 +787,7 @@ export class MongoProvider implements PersistenceProvider {
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
-<tr><th>72</th>
+<tr><th>73</th>
 <td>StringLiteral</td>
 <td>Killed</td>
 <td>120
