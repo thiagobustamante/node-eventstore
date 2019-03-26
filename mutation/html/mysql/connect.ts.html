@@ -24,24 +24,21 @@
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th></tr></thead>
 <tbody><tr><td>connect.ts</td>
-<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="83.33" aria-valuemin="0" aria-valuemax="100" style="width: 83.33%;">83.33
+<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%;">100.00
 %</div></div></td>
-<th class="text-center text-success" style="width: 10%">83.33</th>
+<th class="text-center text-success" style="width: 10%">100.00</th>
 <td class="text-center">10</td>
-<td class="text-center">2</td>
+<td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">0</td>
 <td class="text-center">2</td>
 <td class="text-center">0</td>
 <th class="text-center">10</th>
-<th class="text-center">2</th>
-<th class="text-center">14</th></tr>
+<th class="text-center">0</th>
+<th class="text-center">12</th></tr>
 </tbody></table></div></div>
 <div class="row"><div class="col-lg-7"><div class="row legend"><form class="col-md-12" novalidate="novalidate">
-<div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" checked value="2" type="checkbox">
-Survived
- 
-(2)</label></div>
+
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
 Killed
  
@@ -61,25 +58,25 @@ import * as MySQL from &#039;mysql&#039;;
 import { MySQLConfig } from &#039;./config&#039;;
 
 const mySQLConfigSchema = Joi.object().keys({
-    cluster: Joi.object().unknown(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="0"><span class="badge badge-danger">0</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="0">false</span><span class="stryker-original-code" data-mutant="0"><span class="bg-danger-light">true</span></span><span class="bg-null">),
-    config: Joi.object().unknown(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="1"><span class="badge badge-danger">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">false</span><span class="stryker-original-code" data-mutant="1"><span class="bg-danger-light">true</span></span><span class="bg-null">)
-}).xor(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">&quot;&quot;</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success-light">&#039;cluster&#039;</span></span><span class="bg-null">, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="3"><span class="badge badge-success">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">&quot;&quot;</span><span class="stryker-original-code" data-mutant="3"><span class="bg-success-light">&#039;config&#039;</span></span><span class="bg-null">);
+    cluster: Joi.object(),
+    config: Joi.object()
+}).xor(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="0"><span class="badge badge-success">0</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="0">&quot;&quot;</span><span class="stryker-original-code" data-mutant="0"><span class="bg-success-light">&#039;cluster&#039;</span></span><span class="bg-null">, </span><a href="#" class="stryker-mutant-button" tabindex="0" title="StringLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="1"><span class="badge badge-success">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">&quot;&quot;</span><span class="stryker-original-code" data-mutant="1"><span class="bg-success-light">&#039;config&#039;</span></span><span class="bg-null">);
 
 
 export class MySQLFactory {
-    public static createPool(config: MySQLConfig): MySQL.PoolCluster | MySQL.Pool </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="4"><span class="badge badge-secondary">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">{}</span><span class="stryker-original-code" data-mutant="4"><span class="bg-null">{
+    public static createPool(config: MySQLConfig): MySQL.PoolCluster | MySQL.Pool </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="2"><span class="badge badge-secondary">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">{}</span><span class="stryker-original-code" data-mutant="2"><span class="bg-null">{
         config = MySQLFactory.validateParams(config);
 
         let result: MySQL.PoolCluster | MySQL.Pool;
 
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">false</span><span class="stryker-original-code" data-mutant="5"><span class="stryker-original-code" data-mutant="6"><span class="bg-success-light">config.cluster</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">{}</span><span class="stryker-original-code" data-mutant="7"><span class="bg-success-light">{
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="3"><span class="badge badge-success">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="4"><span class="badge badge-success">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">false</span><span class="stryker-original-code" data-mutant="3"><span class="stryker-original-code" data-mutant="4"><span class="bg-success-light">config.cluster</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">{}</span><span class="stryker-original-code" data-mutant="5"><span class="bg-success-light">{
             const poolCluster = MySQL.createPoolCluster();
-            _.keys(config.cluster).forEach(key =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="8"><span class="badge badge-success">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">{}</span><span class="stryker-original-code" data-mutant="8"><span class="bg-success-light">{
+            _.keys(config.cluster).forEach(key =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">{}</span><span class="stryker-original-code" data-mutant="6"><span class="bg-success-light">{
                 const clusterConfig: MySQL.PoolConfig = config.cluster[key];
                 poolCluster.add(key, clusterConfig);
             }</span></span><span class="bg-success-light">);
             result = poolCluster;
-        }</span></span><span class="bg-null"> else </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="9"><span class="badge badge-success">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">{}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-success-light">{
+        }</span></span><span class="bg-null"> else </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">{}</span><span class="stryker-original-code" data-mutant="7"><span class="bg-success-light">{
             const pool = MySQL.createPool(config.config);
             result = pool;
         }</span></span><span class="bg-null">
@@ -87,9 +84,9 @@ export class MySQLFactory {
         return result;
     }</span></span><span class="bg-null">
 
-    private static validateParams(config: MySQLConfig) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="10"><span class="badge badge-secondary">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">{}</span><span class="stryker-original-code" data-mutant="10"><span class="bg-null">{
+    private static validateParams(config: MySQLConfig) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="8"><span class="badge badge-secondary">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">{}</span><span class="stryker-original-code" data-mutant="8"><span class="bg-null">{
         const result = Joi.validate(config, mySQLConfigSchema);
-        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="11"><span class="badge badge-success">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">false</span><span class="stryker-original-code" data-mutant="11"><span class="stryker-original-code" data-mutant="12"><span class="bg-success-light">result.error</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="13"><span class="badge badge-success">13</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="13">{}</span><span class="stryker-original-code" data-mutant="13"><span class="bg-success-light">{
+        if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="9"><span class="badge badge-success">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="10"><span class="badge badge-success">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">false</span><span class="stryker-original-code" data-mutant="9"><span class="stryker-original-code" data-mutant="10"><span class="bg-success-light">result.error</span></span></span><span class="bg-null">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="11"><span class="badge badge-success">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">{}</span><span class="stryker-original-code" data-mutant="11"><span class="bg-success-light">{
             throw result.error;
         }</span></span><span class="bg-null">
         return result.value;
@@ -105,22 +102,6 @@ export class MySQLFactory {
 <th>Original</th>
 <th>Replacement</th></tr></thead>
 <tbody><tr><th>0</th>
-<td>BooleanSubstitution</td>
-<td>Survived</td>
-<td>8
-:
-34</td>
-<td><code></code></td>
-<td><code></code></td></tr>
-<tr><th>1</th>
-<td>BooleanSubstitution</td>
-<td>Survived</td>
-<td>9
-:
-33</td>
-<td><code></code></td>
-<td><code></code></td></tr>
-<tr><th>2</th>
 <td>StringLiteral</td>
 <td>Killed</td>
 <td>10
@@ -128,7 +109,7 @@ export class MySQLFactory {
 7</td>
 <td><code>'       '</code></td>
 <td><code>""</code></td></tr>
-<tr><th>3</th>
+<tr><th>1</th>
 <td>StringLiteral</td>
 <td>Killed</td>
 <td>10
@@ -136,7 +117,7 @@ export class MySQLFactory {
 18</td>
 <td><code>'      '</code></td>
 <td><code>""</code></td></tr>
-<tr><th>4</th>
+<tr><th>2</th>
 <td>Block</td>
 <td>RuntimeError</td>
 <td>14
@@ -145,23 +126,23 @@ export class MySQLFactory {
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
+<tr><th>3</th>
+<td>IfStatement</td>
+<td>Killed</td>
+<td>19
+:
+12</td>
+<td><code>.</code></td>
+<td><code></code></td></tr>
+<tr><th>4</th>
+<td>IfStatement</td>
+<td>Killed</td>
+<td>19
+:
+12</td>
+<td><code>.</code></td>
+<td><code></code></td></tr>
 <tr><th>5</th>
-<td>IfStatement</td>
-<td>Killed</td>
-<td>19
-:
-12</td>
-<td><code>.</code></td>
-<td><code></code></td></tr>
-<tr><th>6</th>
-<td>IfStatement</td>
-<td>Killed</td>
-<td>19
-:
-12</td>
-<td><code>.</code></td>
-<td><code></code></td></tr>
-<tr><th>7</th>
 <td>Block</td>
 <td>Killed</td>
 <td>19
@@ -170,7 +151,7 @@ export class MySQLFactory {
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
-<tr><th>8</th>
+<tr><th>6</th>
 <td>Block</td>
 <td>Killed</td>
 <td>21
@@ -179,7 +160,7 @@ export class MySQLFactory {
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
-<tr><th>9</th>
+<tr><th>7</th>
 <td>Block</td>
 <td>Killed</td>
 <td>26
@@ -188,7 +169,7 @@ export class MySQLFactory {
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
-<tr><th>10</th>
+<tr><th>8</th>
 <td>Block</td>
 <td>RuntimeError</td>
 <td>34
@@ -197,23 +178,23 @@ export class MySQLFactory {
 <td><code>{
    ...    }</code></td>
 <td><code>{}</code></td></tr>
+<tr><th>9</th>
+<td>IfStatement</td>
+<td>Killed</td>
+<td>36
+:
+12</td>
+<td><code>.</code></td>
+<td><code></code></td></tr>
+<tr><th>10</th>
+<td>IfStatement</td>
+<td>Killed</td>
+<td>36
+:
+12</td>
+<td><code>.</code></td>
+<td><code></code></td></tr>
 <tr><th>11</th>
-<td>IfStatement</td>
-<td>Killed</td>
-<td>36
-:
-12</td>
-<td><code>.</code></td>
-<td><code></code></td></tr>
-<tr><th>12</th>
-<td>IfStatement</td>
-<td>Killed</td>
-<td>36
-:
-12</td>
-<td><code>.</code></td>
-<td><code></code></td></tr>
-<tr><th>13</th>
 <td>Block</td>
 <td>Killed</td>
 <td>36

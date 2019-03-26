@@ -24,26 +24,32 @@
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
 <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th></tr></thead>
 <tbody><tr><td>mysql.ts</td>
-<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%;">100.00
+<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="90.00" aria-valuemin="0" aria-valuemax="100" style="width: 90.00%;">90.00
 %</div></div></td>
-<th class="text-center text-success" style="width: 10%">100.00</th>
-<td class="text-center">10</td>
-<td class="text-center">0</td>
-<td class="text-center">0</td>
+<th class="text-center text-success" style="width: 10%">90.00</th>
+<td class="text-center">7</td>
+<td class="text-center">1</td>
+<td class="text-center">2</td>
 <td class="text-center">0</td>
 <td class="text-center">3</td>
 <td class="text-center">0</td>
-<th class="text-center">10</th>
-<th class="text-center">0</th>
+<th class="text-center">9</th>
+<th class="text-center">1</th>
 <th class="text-center">13</th></tr>
 </tbody></table></div></div>
 <div class="row"><div class="col-lg-7"><div class="row legend"><form class="col-md-12" novalidate="novalidate">
-
+<div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" checked value="2" type="checkbox">
+Survived
+ 
+(1)</label></div>
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
 Killed
  
-(10)</label></div>
-
+(7)</label></div>
+<div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="3" type="checkbox">
+TimedOut
+ 
+(2)</label></div>
 <div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="4" type="checkbox">
 RuntimeError
  
@@ -66,17 +72,17 @@ export class MySQL {
 
     public query(sql: string, args?: any) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="1"><span class="badge badge-secondary">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">{}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-null">{
         return new Promise&lt;any&gt;((resolve, reject) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: RuntimeError" data-mutant-status-annotation="secondary" data-mutant-status="4" data-mutant="2"><span class="badge badge-secondary">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">{}</span><span class="stryker-original-code" data-mutant="2"><span class="bg-null">{
-            this.pool.getConnection((err, connection) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="3"><span class="badge badge-success">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">{}</span><span class="stryker-original-code" data-mutant="3"><span class="bg-success-light">{
-                if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="4"><span class="badge badge-success">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">false</span><span class="stryker-original-code" data-mutant="4"><span class="stryker-original-code" data-mutant="5"><span class="bg-success-light">err</span></span></span><span class="bg-success-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">{}</span><span class="stryker-original-code" data-mutant="6"><span class="bg-success-light">{
+            this.pool.getConnection((err, connection) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="3"><span class="badge badge-warning">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">{}</span><span class="stryker-original-code" data-mutant="3"><span class="bg-warning-light">{
+                if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="4"><span class="badge badge-success">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">false</span><span class="stryker-original-code" data-mutant="4"><span class="stryker-original-code" data-mutant="5"><span class="bg-warning-light">err</span></span></span><span class="bg-warning-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">{}</span><span class="stryker-original-code" data-mutant="6"><span class="bg-warning-light">{
                     return reject(err);
-                }</span></span><span class="bg-success-light">
-                connection.query(sql, args </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">&amp;&amp;</span><span class="stryker-original-code" data-mutant="7"><span class="bg-success-light">||</span></span><span class="bg-success-light"> </span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrayLiteral" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="8"><span class="badge badge-success">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">[&#039;Stryker was here&#039;]</span><span class="stryker-original-code" data-mutant="8"><span class="bg-success-light">[]</span></span><span class="bg-success-light">, (e, rows) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="9"><span class="badge badge-success">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">{}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-success-light">{
+                }</span></span><span class="bg-warning-light">
+                connection.query(sql, args </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryExpression" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">&amp;&amp;</span><span class="stryker-original-code" data-mutant="7"><span class="bg-warning-light">||</span></span><span class="bg-warning-light"> </span><a href="#" class="stryker-mutant-button" tabindex="0" title="ArrayLiteral" data-content="status: Survived" data-mutant-status-annotation="danger" data-mutant-status="2" data-mutant="8"><span class="badge badge-danger">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">[&#039;Stryker was here&#039;]</span><span class="stryker-original-code" data-mutant="8"><span class="bg-danger-light">[]</span></span><span class="bg-warning-light">, (e, rows) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: TimedOut" data-mutant-status-annotation="warning" data-mutant-status="3" data-mutant="9"><span class="badge badge-warning">9</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="9">{}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-warning-light">{
                     connection.release();
-                    if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="10"><span class="badge badge-success">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="11"><span class="badge badge-success">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">false</span><span class="stryker-original-code" data-mutant="10"><span class="stryker-original-code" data-mutant="11"><span class="bg-success-light">e</span></span></span><span class="bg-success-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">{}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-success-light">{
+                    if (</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="10"><span class="badge badge-success">10</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="10">true</span><a href="#" class="stryker-mutant-button" tabindex="0" title="IfStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="11"><span class="badge badge-success">11</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="11">false</span><span class="stryker-original-code" data-mutant="10"><span class="stryker-original-code" data-mutant="11"><span class="bg-warning-light">e</span></span></span><span class="bg-warning-light">) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="Block" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="12"><span class="badge badge-success">12</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="12">{}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-warning-light">{
                         return reject(e);
-                    }</span></span><span class="bg-success-light">
+                    }</span></span><span class="bg-warning-light">
                     resolve(rows);
-                }</span></span><span class="bg-success-light">);
+                }</span></span><span class="bg-warning-light">);
             }</span></span><span class="bg-null">);
         }</span></span><span class="bg-null">);
     }</span></span><span class="bg-null">
@@ -116,7 +122,7 @@ export class MySQL {
 <td><code>{}</code></td></tr>
 <tr><th>3</th>
 <td>Block</td>
-<td>Killed</td>
+<td>TimedOut</td>
 <td>16
 :
 57</td>
@@ -158,7 +164,7 @@ export class MySQL {
 <td><code>&&</code></td></tr>
 <tr><th>8</th>
 <td>ArrayLiteral</td>
-<td>Killed</td>
+<td>Survived</td>
 <td>20
 :
 46</td>
@@ -166,7 +172,7 @@ export class MySQL {
 <td><code>['   ...   ']</code></td></tr>
 <tr><th>9</th>
 <td>Block</td>
-<td>Killed</td>
+<td>TimedOut</td>
 <td>20
 :
 63</td>
