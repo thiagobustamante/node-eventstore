@@ -66,6 +66,21 @@ describe('MySQL', () => {
 
     it('should be able to run a SQL query', async () => {
         const sql = 'some sql string';
+        const rows = [{ aField: 'value' }];
+
+        const mySql = new MySQL({});
+        poolStub.getConnection.yields(null, connectionStub);
+        connectionStub.query.yields(null, rows);
+
+        const result = await mySql.query(sql);
+
+        expect(connectionStub.query).to.have.been.calledOnceWithExactly(sql, [], sinon.match.func);
+        expect(connectionStub.release).to.have.been.calledOnce;
+        expect(result).to.be.equals(rows);
+    });
+
+    it('should be able to run a SQL query with arguments', async () => {
+        const sql = 'some sql string';
         const args = ['some arguments'];
         const rows = [{ aField: 'value' }];
 
