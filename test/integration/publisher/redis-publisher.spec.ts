@@ -44,7 +44,7 @@ describe('EventStory Redis Publisher (Integration)', () => {
         await waitUntil(() => subscriberStub.calledOnce);
         await subscription.remove();
         await ordersStream.addEvent(EVENT_PAYLOAD);
-        wait(500);
+        await wait(10);
         expect(subscriberStub).to.have.callCount(1);
     });
 

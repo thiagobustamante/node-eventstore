@@ -102,7 +102,7 @@ export class MongoProvider implements PersistenceProvider {
 
     private async getMongoClient() {
         if (!this.mongoClient) {
-            this.mongoClient = await MongoClient.connect(this.mongoURL);
+            this.mongoClient = await MongoClient.connect(this.mongoURL, { useNewUrlParser: true });
         }
         return this.mongoClient;
     }

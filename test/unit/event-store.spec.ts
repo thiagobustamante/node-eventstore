@@ -63,7 +63,7 @@ describe('EventStory', () => {
         await waitUntil(() => count === 1);
         await subscription.remove();
         await ordersStream.addEvent(EVENT_PAYLOAD);
-        wait(500);
+        await wait(100);
         expect(count).to.equal(1);
     });
 });

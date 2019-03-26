@@ -23,7 +23,7 @@ describe('EventStory Redis Publisher', () => {
             subscribe: (key: string) => null,
             unsubscribe: (key: string) => null
         });
-        factoryStub = sinon.stub(RedisFactory, 'createClient').returns(redisStub);
+        factoryStub = sinon.stub(RedisFactory, 'createClient').returns(redisStub as any);
         RedisPublisher = proxyquire('../../../src/publisher/redis', { '../redis/connect': factoryStub }).RedisPublisher;
     });
 

@@ -10,9 +10,11 @@ before_install:
 - docker run -p 6379:6379 -d --name redis redis:3.0.7-alpine
 - docker run -d --hostname rabbit --name rabbit -p 8080:15672 -p 5672:5672 rabbitmq:3-management
 - docker run -p 27017:27017 -d --name mongo mongo
+- docker run --name mysql-5.7 -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=eventstore -p 3306:3306 -d mysql:5.7.25
 script: 
 - npm run test:mutation
-- nyc npm test && nyc report --reporter=text-lcov | coveralls
+- npm run test:coverage
+- codecov -f ./reports/coverage/*.json
 deploy:
   provider: pages
   skip-cleanup: true

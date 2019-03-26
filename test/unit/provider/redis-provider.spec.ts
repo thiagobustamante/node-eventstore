@@ -25,7 +25,7 @@ describe('EventStory Redis Provider', () => {
             zadd: (key: string, weight: string, value: string) => this,
             zrange: (key: string, offset?: number, limit?: number) => []
         });
-        factoryStub = sinon.stub(RedisFactory, 'createClient').returns(redisStub);
+        factoryStub = sinon.stub(RedisFactory, 'createClient').returns(redisStub as any);
         RedisProvider = proxyquire('../../../src/provider/redis', { '../redis/connect': factoryStub }).RedisProvider;
     });
 

@@ -2,24 +2,34 @@
 
 import * as chai from 'chai';
 import 'mocha';
-import { MongoClient } from 'mongodb';
-import { EventStore, EventStream, MongoProvider } from '../../../src';
+import { Pool } from 'mysql';
+import { wait } from 'test-wait';
+import { EventStore, EventStream, MySQLProvider } from '../../../src';
+import { MySQLFactory } from '../../../src/mysql/connect';
 
 const expect = chai.expect;
 // tslint:disable:no-unused-expression
-describe('EventStory Mongo Provider (Integration)', () => {
+describe('EventStory MySQL Provider (Integration)', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
     const EVENT_PAYLOAD = 'Event Data';
-    const mongoURL = 'mongodb://localhost:27017/eventstore';
-
+    const mysqlConfig = {
+        config: {
+            database: 'eventstore',
+            host: 'localhost',
+            password: 'admin',
+            port: 3306,
+            user: 'root'
+        }
+    };
     beforeEach(async () => {
         const streamId = '1';
         const aggregation = 'orders';
 
-        const mongo = await MongoClient.connect(mongoURL, { useNewUrlParser: true });
-        await mongo.db().dropDatabase();
-        eventStore = new EventStore(new MongoProvider(mongoURL));
+        const mysql = MySQLFactory.createPool(mysqlConfig) as Pool;
+        await mysql.query('DROP TABLE IF EXISTS events');
+        await wait(100);
+        eventStore = new EventStore(new MySQLProvider(mysqlConfig));
         ordersStream = eventStore.getEventStream(aggregation, streamId);
     });
 
@@ -70,11 +80,9 @@ describe('EventStory Mongo Provider (Integration)', () => {
         expect(aggregations.length).to.equal(1);
     });
 
-    it('should be able to get ranged streams from the event stream', async () => {
-        const eventStream = eventStore.getEventStream('orders', '6');
+    it('should be able to get ranged aggregations from the event stream', async () => {
+        const eventStream = eventStore.getEventStream('orders', '5');
         await eventStream.addEvent(EVENT_PAYLOAD);
-        const eventStream2 = eventStore.getEventStream('orders', '7');
-        await eventStream2.addEvent(EVENT_PAYLOAD);
         const orders = await eventStore.getStreams('orders', 0, 1);
         expect(orders.length).to.equal(1);
     });

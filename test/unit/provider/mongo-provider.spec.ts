@@ -52,7 +52,7 @@ describe('EventStory Mongo Provider', () => {
         collectionStub.find.returns(cursorStub);
         dbStub.collection.returns(collectionStub);
         mongoStub.db.returns(dbStub);
-        mongoClientStub = sinon.stub(MongoClient, 'connect').returns(mongoStub);
+        mongoClientStub = sinon.stub(MongoClient, 'connect').resolves(mongoStub);
         MongoProvider = proxyquire('../../../src/provider/mongo', { 'mongo': mongoClientStub }).MongoProvider;
     });
 
