@@ -54,7 +54,7 @@ describe('MySQL', () => {
             config: {
                 database: 'test-db',
                 host: 'localhost',
-                port: 3306
+                port: 13306
             }
         };
 

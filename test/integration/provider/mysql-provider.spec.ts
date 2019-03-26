@@ -18,7 +18,7 @@ describe('EventStory MySQL Provider (Integration)', () => {
             database: 'eventstore',
             host: 'localhost',
             password: 'admin',
-            port: 3306,
+            port: 13306,
             user: 'root'
         }
     };

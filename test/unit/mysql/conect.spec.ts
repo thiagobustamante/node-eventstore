@@ -42,7 +42,7 @@ describe('MySQL Factory', () => {
             config: {
                 database: 'test-db',
                 host: 'localhost',
-                port: 3306
+                port: 13306
             }
         };
 
@@ -70,7 +70,7 @@ describe('MySQL Factory', () => {
                 'master': {
                     database: 'test-db',
                     host: 'localhost',
-                    port: 3306
+                    port: 13306
                 },
                 'slave': {
                     database: 'test-db',
