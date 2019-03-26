@@ -6,8 +6,8 @@ import * as MySQL from 'mysql';
 import { MySQLConfig } from './config';
 
 const mySQLConfigSchema = Joi.object().keys({
-    cluster: Joi.object().unknown(true),
-    config: Joi.object().unknown(true)
+    cluster: Joi.object(),
+    config: Joi.object()
 }).xor('cluster', 'config');
 
 
