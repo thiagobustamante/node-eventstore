@@ -3,6 +3,7 @@
 import { EventStore, EventStream } from './event-store';
 import { Event } from './model/event';
 import { Message } from './model/message';
+import { DynamodbProvider } from './provider/dynamodb';
 import { InMemoryProvider } from './provider/memory';
 import { MongoProvider } from './provider/mongo';
 import { MySQLProvider } from './provider/mysql';
@@ -18,6 +19,7 @@ export { PersistenceProvider };
 export { RedisProvider };
 export { MongoProvider };
 export { MySQLProvider };
+export { DynamodbProvider };
 export { Publisher };
 export { InMemoryPublisher };
 export { RabbitMQPublisher };
