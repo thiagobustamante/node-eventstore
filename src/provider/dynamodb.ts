@@ -2,80 +2,39 @@
 
 import { DynamoDB } from 'aws-sdk';
 import AWS = require('aws-sdk');
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
-import { Redis } from 'ioredis';
+import { DocumentClient, ItemList } from 'aws-sdk/clients/dynamodb';
 import * as _ from 'lodash';
+import { AWSConfig } from '../aws/config';
 import { Event } from '../model/event';
 import { Stream } from '../model/stream';
 import { PersistenceProvider } from './provider';
 
 
 /**
- * A Persistence Provider that handle all the data in redis.
+ * A Persistence Provider that handle all the data in Dynamodb.
  */
 export class DynamodbProvider implements PersistenceProvider {
-    private redis: Redis;
     private documentClient: DocumentClient;
+    private dynamoDB: DynamoDB;
+    private initialized = false;
 
-    constructor() {
-        AWS.config.update({ region: 'us-east-1' });
+    constructor(awsConfig: AWSConfig) {
+        AWS.config.update(awsConfig);
 
         this.documentClient = new DynamoDB.DocumentClient();
+        this.dynamoDB = new AWS.DynamoDB();
     }
 
-    // public async addEvent(stream: Stream, data: any) {
-    //     const historyEvents = await this.getEvents(stream);
-    //     console.log(`Before: ${JSON.stringify(historyEvents)}. Length: ${historyEvents.length}`);
-
-    //     const commitTimestamp = Date.now();
-    //     const sequence = historyEvents.length + 1;
-    //     const event = {
-    //         commitTimestamp: commitTimestamp,
-    //         payload: data,
-    //         sequence: sequence
-    //     } as Event;
-
-    //     const newevents: Array<Event> = [event];
-
-    //     historyEvents.forEach(i => {
-    //         newevents.push(i);
-    //     });
-
-    //     console.log(`After: ${JSON.stringify(newevents)}. Length: ${newevents.length}`);
-
-    //     const item = {
-    //         aggregation_streamid: `${this.getKey(stream)}`,
-    //         events: newevents
-    //     };
-    //     const param = {
-    //         Item: item,
-    //         TableName: 'events',
-    //     };
-
-    //     await this.documentClient.put(param, (error, _) => {
-    //         if (error) {
-    //             throw new Error(error.message);
-    //         }
-    //     });
-
-    //     return {
-    //         commitTimestamp: commitTimestamp,
-    //         payload: data,
-    //         sequence: sequence
-    //     } as Event;
-    // }
-
     public async addEvent(stream: Stream, data: any) {
-        const commitTimestamp = Date.now();
-        const sequence = await this.getNextSequenceValue(this.getKey(stream));
+        await this.ensureTables();
 
+        this.addAggregation(stream);
+        const commitTimestamp = Date.now();
         const item = {
             aggregation_streamid: `${this.getKey(stream)}`,
-            events: {
-                commitTimestamp: commitTimestamp,
-                payload: data
-            },
-            sequence: sequence,
+            commitTimestamp: commitTimestamp,
+            payload: data,
+            stream: stream
         };
         const param = {
             Item: item,
@@ -91,7 +50,6 @@ export class DynamodbProvider implements PersistenceProvider {
         return {
             commitTimestamp: commitTimestamp,
             payload: data,
-            sequence: sequence
         } as Event;
     }
 
@@ -104,45 +62,133 @@ export class DynamodbProvider implements PersistenceProvider {
                 ':a': this.getKey(stream)
             },
             KeyConditionExpression: 'aggregation_streamid = :a',
+            ScanIndexForward: false,
             TableName: 'events',
         };
 
-        const events = await this.documentClient.query(params).promise().then(result =>
-            result.Items.map(item => item.events));
-        return events;
+        const items: ItemList = (await this.documentClient.query(params).promise()).Items;
+
+        return items.map(data => {
+            return {
+                commitTimestamp: data.commitTimestamp,
+                payload: data.payload,
+            } as Event;
+        });
     }
 
     public async getAggregations(offset: number = 0, limit: number = -1): Promise<Array<string>> {
-        const aggregations: Array<string> = await this.redis.zrange('meta:aggregations', offset, limit);
-        return aggregations;
+        const params = {
+            TableName: 'aggregations',
+        };
+
+        const items = await (await this.documentClient.scan(params).promise());
+
+        return items.Items.map(data => data.aggregation);
     }
 
     public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
-        const streams: Array<string> = await this.redis.zrange(`meta:aggregations:${aggregation}`, offset, limit);
-        return streams;
+        const params = {
+            Key: {
+                'aggregation': aggregation
+            },
+            TableName: 'aggregations',
+        };
+
+        const items = await (await this.documentClient.scan(params).promise()).Items;
+
+        return items.map(data => data.stream);
+    }
+
+    private async addAggregation(stream: Stream) {
+        const param = {
+            Item: {
+                aggregation: stream.aggregation,
+                stream: stream.id
+            },
+            TableName: 'aggregations',
+        };
+
+        await this.documentClient.put(param, (error, _) => {
+            if (error) {
+                throw new Error(error.message);
+            }
+        });
     }
 
     private getKey(stream: Stream): string {
         return `${stream.aggregation}:${stream.id}`;
     }
 
-    private async getNextSequenceValue(sequenceName: string) {
-        // TODO FAZER UM getCounts que vai inicializar um Count para uma sequência.
-        const attributes = await this.documentClient.update({
-            'ExpressionAttributeNames': {
-                '#v': 'currentValue'
-            },
-            'ExpressionAttributeValues': {
-                ':a': 1
-            },
-            'Key': {
-                'counterName': sequenceName
-            },
-            'ReturnValues': 'UPDATED_NEW',
-            'TableName': 'counters',
-            'UpdateExpression': 'SET #v = #v + :a',
-        }).promise();
+    private async ensureTables() {
+        if (!this.initialized) {
+            await this.createTables();
+            this.initialized = true;
+        }
+    }
 
-        return attributes.Attributes.currentValue;
+    private async createTables() {
+        await this.dynamoDB.createTable(this.eventsScheme()).promise().catch(error => { this.initialized = true; });
+
+        await this.dynamoDB.createTable(this.aggregationsScheme()).promise().catch(error => { this.initialized = true; });
+    }
+
+    private eventsScheme = () => {
+        return {
+            AttributeDefinitions: [
+                {
+                    AttributeName: "aggregation_streamid",
+                    AttributeType: "S"
+                },
+                {
+                    AttributeName: "commitTimestamp",
+                    AttributeType: "N"
+                }
+            ],
+            KeySchema: [
+                {
+                    AttributeName: "aggregation_streamid",
+                    KeyType: "HASH",
+                },
+                {
+                    AttributeName: "commitTimestamp",
+                    KeyType: "RANGE"
+                }
+            ],
+            ProvisionedThroughput: {       // Only specified if using provisioned mode
+                ReadCapacityUnits: 1,
+                WriteCapacityUnits: 1
+            },
+            TableName: "events",
+        };
+    }
+
+    private aggregationsScheme = () => {
+        return {
+            AttributeDefinitions: [
+                {
+                    AttributeName: "aggregation",
+                    AttributeType: "S"
+                },
+                {
+                    AttributeName: "stream",
+                    AttributeType: "S"
+                }
+            ],
+            KeySchema: [
+                {
+                    AttributeName: "aggregation",
+                    KeyType: "HASH",
+                },
+                {
+                    AttributeName: "stream",
+                    KeyType: "RANGE"
+                }
+            ],
+            ProvisionedThroughput: {       // Only specified if using provisioned mode
+                ReadCapacityUnits: 1,
+                WriteCapacityUnits: 1
+            },
+            TableName: "aggregations",
+        };
     }
 }
