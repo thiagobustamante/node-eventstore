@@ -3,7 +3,6 @@
 import { DynamoDB } from 'aws-sdk';
 import AWS = require('aws-sdk');
 import { DocumentClient, ItemList } from 'aws-sdk/clients/dynamodb';
-import * as _ from 'lodash';
 import { AWSConfig } from '../aws/config';
 import { Event } from '../model/event';
 import { Stream } from '../model/stream';
