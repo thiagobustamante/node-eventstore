@@ -55,7 +55,7 @@ export class DynamodbProvider implements PersistenceProvider {
 
 
     public async getEvents(stream: Stream, offset: number = 0, limit: number = -1): Promise<Array<Event>> {
-
+        await this.ensureTables();
         const params = {
             ConsistentRead: true,
             ExpressionAttributeValues: {
@@ -77,6 +77,7 @@ export class DynamodbProvider implements PersistenceProvider {
     }
 
     public async getAggregations(offset: number = 0, limit: number = -1): Promise<Array<string>> {
+        await this.ensureTables();
         const params = {
             TableName: 'aggregations',
         };
@@ -87,6 +88,7 @@ export class DynamodbProvider implements PersistenceProvider {
     }
 
     public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
+        await this.ensureTables();
         const params = {
             Key: {
                 'aggregation': aggregation
@@ -154,7 +156,7 @@ export class DynamodbProvider implements PersistenceProvider {
                     KeyType: "RANGE"
                 }
             ],
-            ProvisionedThroughput: {       // Only specified if using provisioned mode
+            ProvisionedThroughput: {
                 ReadCapacityUnits: 1,
                 WriteCapacityUnits: 1
             },
@@ -184,7 +186,7 @@ export class DynamodbProvider implements PersistenceProvider {
                     KeyType: "RANGE"
                 }
             ],
-            ProvisionedThroughput: {       // Only specified if using provisioned mode
+            ProvisionedThroughput: {
                 ReadCapacityUnits: 1,
                 WriteCapacityUnits: 1
             },
