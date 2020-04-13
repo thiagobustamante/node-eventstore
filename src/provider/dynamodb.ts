@@ -123,9 +123,25 @@ export class DynamodbProvider implements PersistenceProvider {
     }
 
     private async createTables() {
-        await this.dynamoDB.createTable(this.eventsScheme()).promise().catch(error => { this.initialized = true; });
+        // this.exists('events');
+        if (!this.exists('events')) {
+            await this.dynamoDB.createTable(this.eventsScheme()).promise();
+        }
+        if (!this.exists('aggregations')) {
+            await this.dynamoDB.createTable(this.aggregationsScheme()).promise();
+        }
+    }
 
-        await this.dynamoDB.createTable(this.aggregationsScheme()).promise().catch(error => { this.initialized = true; });
+    private exists(tableName: string) {
+        const filter = {
+            TableName: tableName,
+        };
+        return this.dynamoDB.describeTable(filter).promise().then(result => {
+            if (result) {
+                return true;
+            }
+            return false;
+        });
     }
 
     private eventsScheme = () => {
