@@ -89,13 +89,16 @@ export class DynamodbProvider implements PersistenceProvider {
     public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
         await this.ensureTables();
         const params = {
-            Key: {
-                'aggregation': aggregation
+            ConsistentRead: true,
+            ExpressionAttributeValues: {
+                ':a': aggregation
             },
+            KeyConditionExpression: 'aggregation = :a',
+            ScanIndexForward: false,
             TableName: 'aggregations',
         };
 
-        const items = await (await this.documentClient.scan(params).promise()).Items;
+        const items = await (await this.documentClient.query(params).promise()).Items;
 
         return items.map(data => data.stream);
     }
