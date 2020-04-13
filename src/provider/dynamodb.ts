@@ -29,14 +29,14 @@ export class DynamodbProvider implements PersistenceProvider {
 
         this.addAggregation(stream);
         const commitTimestamp = Date.now();
-        const item = {
+        const event = {
             aggregation_streamid: `${this.getKey(stream)}`,
             commitTimestamp: commitTimestamp,
             payload: data,
             stream: stream
         };
         const param = {
-            Item: item,
+            Item: event,
             TableName: 'events',
         };
 
