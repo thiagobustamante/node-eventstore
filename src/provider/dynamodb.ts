@@ -108,11 +108,7 @@ export class DynamodbProvider implements PersistenceProvider {
             TableName: 'aggregations',
         };
 
-        await this.documentClient.put(param, (error, _) => {
-            if (error) {
-                throw new Error(error.message);
-            }
-        });
+        await this.documentClient.put(param);
     }
 
     private getKey(stream: Stream): string {
