@@ -40,11 +40,7 @@ export class DynamodbProvider implements PersistenceProvider {
             TableName: 'events',
         };
 
-        await this.documentClient.put(record, (error, _) => {
-            if (error) {
-                throw new Error(error.message);
-            }
-        });
+        await this.documentClient.put(record);
 
         return {
             commitTimestamp: commitTimestamp,
