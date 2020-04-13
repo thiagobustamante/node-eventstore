@@ -35,12 +35,12 @@ export class DynamodbProvider implements PersistenceProvider {
             payload: data,
             stream: stream
         };
-        const param = {
+        const record = {
             Item: event,
             TableName: 'events',
         };
 
-        await this.documentClient.put(param, (error, _) => {
+        await this.documentClient.put(record, (error, _) => {
             if (error) {
                 throw new Error(error.message);
             }
