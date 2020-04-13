@@ -57,16 +57,16 @@ export class SQSPublisher implements Publisher, HasSubscribers {
         const { Consumer } = require('sqs-consumer');
 
         const consumer = Consumer.create({
-            queueUrl: this.url,
             handleMessage: subscriber,
+            queueUrl: this.url,
         });
 
-        consumer.on('error', (err: { message: any; }) => {
-            console.error(err.message);
+        consumer.on('error', (error: { message: any; }) => {
+            throw new Error(error.message);
         });
 
-        consumer.on('processing_error', (err: { message: any; }) => {
-            console.error(err.message);
+        consumer.on('processing_error', (error: { message: any; }) => {
+            throw new Error(error.message);
         });
 
         consumer.start();
