@@ -61,14 +61,6 @@ export class SQSPublisher implements Publisher, HasSubscribers {
             queueUrl: this.url,
         });
 
-        consumer.on('error', (error: { message: any; }) => {
-            throw new Error(error.message);
-        });
-
-        consumer.on('processing_error', (error: { message: any; }) => {
-            throw new Error(error.message);
-        });
-
         consumer.start();
 
 
