@@ -14,9 +14,10 @@ const expect = chai.expect;
 // tslint:disable:no-unused-expression
 describe('EventStory Dynamodb Provider', () => {
 
-
+    let documentClientStub: sinon.SinonStub;
     let putStub: sinon.SinonStubbedInstance<any>;
-    // let queryStub: sinon.SinonStubbedInstance<any>;
+    let queryStub: sinon.SinonStubbedInstance<any>;
+    let promiseStub: sinon.SinonStub;
 
     let clock: sinon.SinonFakeTimers;
     const now = new Date();
@@ -32,16 +33,24 @@ describe('EventStory Dynamodb Provider', () => {
             };
         });
 
+        promiseStub = sinon.stub();
+        queryStub = sinon.spy((data: any): any => {
+            return {
+                promise: promiseStub,
+            };
+        });
+
         sinon.stub(AWS, "config").returns({ update: (): any => null });
-        sinon.stub(DynamoDB, 'DocumentClient').returns({
+        documentClientStub = sinon.stub(DynamoDB, 'DocumentClient').returns({
             put: putStub,
-            query: (): any => null,
+            query: queryStub,
             scan: (): any => null,
         });
     });
 
     afterEach(() => {
         clock.restore();
+        documentClientStub.restore();
     });
 
     it('should be able to add an Event to the Event Stream', async () => {
@@ -64,9 +73,33 @@ describe('EventStory Dynamodb Provider', () => {
         );
     });
 
-    // it('should be able to ask mongo the streams', async () => {
+    it('should be able to ask mongo the streams', async () => {
+        promiseStub.resolves({
+            Items: [{
+                aggregation_streamid: "orders:1",
+                commitTimestamp: now.getTime(),
+                payload: "EVENT PAYLOAD",
+                stream: { aggregation: "orders", id: "1" }
+            }]
+        });
 
-    // });
+        const dynamodbProvider: DynamodbProvider = new DynamodbProvider({ region: 'any region' });
+        const streams = await dynamodbProvider.getStreams('aggregation');
+
+        expect(streams).to.eql(
+            [{ aggregation: "orders", id: "1" }]
+        );
+        expect(queryStub).to.have.been.calledOnce;
+        expect(queryStub).to.have.been.calledWithExactly(
+            {
+                ConsistentRead: true,
+                ExpressionAttributeValues: { ':a': "aggregation" },
+                KeyConditionExpression: "aggregation = :a",
+                ScanIndexForward: false,
+                TableName: "aggregations"
+            }
+        );
+    });
 
 
 
