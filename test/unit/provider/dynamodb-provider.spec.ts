@@ -54,6 +54,13 @@ describe('EventStory Dynamodb Provider', () => {
         documentClientStub.restore();
     });
 
+    const eventItem = {
+        aggregation_streamid: "orders:1",
+        commitTimestamp: now.getTime(),
+        payload: "EVENT PAYLOAD",
+        stream: { aggregation: "orders", id: "1" }
+    };
+
     it('should be able to add an Event to the Event Stream', async () => {
         const dynamodbProvider: any = new DynamodbProvider({ region: 'any region' });
         await dynamodbProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
@@ -63,12 +70,7 @@ describe('EventStory Dynamodb Provider', () => {
         expect(putStub.getCall(0)).to.have.been.calledWithExactly({ Item: { aggregation: "orders", stream: "1" }, TableName: "aggregations" });
         expect(putStub.getCall(1)).to.have.been.calledWithExactly(
             {
-                Item: {
-                    aggregation_streamid: "orders:1",
-                    commitTimestamp: now.getTime(),
-                    payload: "EVENT PAYLOAD",
-                    stream: { aggregation: "orders", id: "1" }
-                },
+                Item: eventItem,
                 TableName: "events"
             }
         );
@@ -76,12 +78,7 @@ describe('EventStory Dynamodb Provider', () => {
 
     it('should be able to ask dynamodb the events', async () => {
         promiseStub.resolves({
-            Items: [{
-                aggregation_streamid: "orders:1",
-                commitTimestamp: now.getTime(),
-                payload: "EVENT PAYLOAD",
-                stream: { aggregation: "orders", id: "1" }
-            }]
+            Items: [eventItem]
         });
 
         const dynamodbProvider: DynamodbProvider = new DynamodbProvider({ region: 'any region' });
@@ -103,13 +100,9 @@ describe('EventStory Dynamodb Provider', () => {
     });
 
     it('should be able to ask dynamodb the streams', async () => {
+
         promiseStub.resolves({
-            Items: [{
-                aggregation_streamid: "orders:1",
-                commitTimestamp: now.getTime(),
-                payload: "EVENT PAYLOAD",
-                stream: { aggregation: "orders", id: "1" }
-            }]
+            Items: [eventItem]
         });
 
         const dynamodbProvider: DynamodbProvider = new DynamodbProvider({ region: 'any region' });
