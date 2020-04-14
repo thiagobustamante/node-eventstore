@@ -7,6 +7,7 @@ import * as sinonChai from 'sinon-chai';
 chai.use(sinonChai);
 import AWS = require('aws-sdk');
 import { DynamoDB } from 'aws-sdk';
+import { Stream } from '../../../src/model/stream';
 import { DynamodbProvider } from '../../../src/provider/dynamodb';
 
 const expect = chai.expect;
@@ -73,7 +74,35 @@ describe('EventStory Dynamodb Provider', () => {
         );
     });
 
-    it('should be able to ask mongo the streams', async () => {
+    it('should be able to ask dynamodb the events', async () => {
+        promiseStub.resolves({
+            Items: [{
+                aggregation_streamid: "orders:1",
+                commitTimestamp: now.getTime(),
+                payload: "EVENT PAYLOAD",
+                stream: { aggregation: "orders", id: "1" }
+            }]
+        });
+
+        const dynamodbProvider: DynamodbProvider = new DynamodbProvider({ region: 'any region' });
+        const streams = await dynamodbProvider.getEvents({ aggregation: "orders", id: "1" } as Stream);
+
+        expect(streams).to.eql(
+            [{ commitTimestamp: now.getTime(), payload: "EVENT PAYLOAD" }]
+        );
+        expect(queryStub).to.have.been.calledOnce;
+        expect(queryStub).to.have.been.calledWithExactly(
+            {
+                ConsistentRead: true,
+                ExpressionAttributeValues: { ':a': "orders:1" },
+                KeyConditionExpression: "aggregation_streamid = :a",
+                ScanIndexForward: false,
+                TableName: "events"
+            }
+        );
+    });
+
+    it('should be able to ask dynamodb the streams', async () => {
         promiseStub.resolves({
             Items: [{
                 aggregation_streamid: "orders:1",
@@ -100,7 +129,5 @@ describe('EventStory Dynamodb Provider', () => {
             }
         );
     });
-
-
 
 });
