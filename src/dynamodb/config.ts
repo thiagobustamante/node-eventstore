@@ -27,7 +27,7 @@ export class DynamoDBConfig {
             });
     }
 
-    private eventsScheme = (tableName: string) => {
+    private eventsScheme(tableName: string) {
         return {
             AttributeDefinitions: [
                 {
@@ -57,7 +57,7 @@ export class DynamoDBConfig {
         };
     }
 
-    private aggregationsScheme = (tableName: string) => {
+    private aggregationsScheme(tableName: string) {
         return {
             AttributeDefinitions: [
                 {
