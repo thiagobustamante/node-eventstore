@@ -20,7 +20,6 @@ export class SQSPublisher implements Publisher, HasSubscribers {
     }
 
     public async publish(message: Message) {
-        console.log(`Message to be send: ${JSON.stringify(message.event.payload)}`);
         const sqsData = {
             MessageAttributes: {
                 "aggregation": {
@@ -42,12 +41,11 @@ export class SQSPublisher implements Publisher, HasSubscribers {
             QueueUrl: this.url,
         };
 
-        let success = false;
-        await this.sqs.sendMessage(sqsData, (error, data) => {
+        const success = await this.sqs.sendMessage(sqsData, (error, _) => {
             if (!error) {
-                success = true;
+                return true;
             }
-            console.log(`Message sent: ${data.MessageId} - ${data.SequenceNumber} - ${data.MD5OfMessageBody}`);
+            return false;
         });
 
         return success;
