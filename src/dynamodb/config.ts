@@ -17,14 +17,10 @@ export class DynamoDBConfig {
     }
 
     public async exists(eventTableName: string, aggregationTableName: string) {
-        return this.dynamoDB.listTables({})
-            .promise()
-            .then((data) => {
-                const exists = data.TableNames.filter(name => {
-                    return name === eventTableName || name === aggregationTableName;
-                }).length > 0;
-                return exists;
-            });
+        const tables = await this.dynamoDB.listTables({}).promise();
+        return tables.TableNames.filter(tableName => {
+            return tableName === eventTableName || tableName === aggregationTableName;
+        }).length > 0;
     }
 
     private eventsScheme(tableName: string) {

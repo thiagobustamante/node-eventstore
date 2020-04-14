@@ -41,11 +41,11 @@ export class SQSPublisher implements Publisher, HasSubscribers {
             QueueUrl: this.url,
         };
 
-        const success = await this.sqs.sendMessage(sqsData, (error, _) => {
+        let success = false;
+        await this.sqs.sendMessage(sqsData, (error, _) => {
             if (!error) {
-                return true;
+                success = true;
             }
-            return false;
         });
 
         return success;
