@@ -14,19 +14,14 @@ import { PersistenceProvider } from './provider';
  */
 export class DynamodbProvider implements PersistenceProvider {
     private documentClient: DocumentClient;
-    private dynamoDB: DynamoDB;
-    private initialized = false;
 
     constructor(awsConfig: AWSConfig) {
         AWS.config.update(awsConfig);
 
         this.documentClient = new DynamoDB.DocumentClient();
-        this.dynamoDB = new AWS.DynamoDB();
     }
 
     public async addEvent(stream: Stream, data: any) {
-        await this.ensureTables();
-
         this.addAggregation(stream);
         const commitTimestamp = Date.now();
         const event = {
@@ -40,7 +35,7 @@ export class DynamodbProvider implements PersistenceProvider {
             TableName: 'events',
         };
 
-        await this.documentClient.put(record);
+        await this.documentClient.put(record).promise();
 
         return {
             commitTimestamp: commitTimestamp,
@@ -50,7 +45,6 @@ export class DynamodbProvider implements PersistenceProvider {
 
 
     public async getEvents(stream: Stream, offset: number = 0, limit: number = -1): Promise<Array<Event>> {
-        await this.ensureTables();
         const params = {
             ConsistentRead: true,
             ExpressionAttributeValues: {
@@ -72,7 +66,6 @@ export class DynamodbProvider implements PersistenceProvider {
     }
 
     public async getAggregations(offset: number = 0, limit: number = -1): Promise<Array<string>> {
-        await this.ensureTables();
         const params = {
             TableName: 'aggregations',
         };
@@ -83,7 +76,6 @@ export class DynamodbProvider implements PersistenceProvider {
     }
 
     public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
-        await this.ensureTables();
         const params = {
             ConsistentRead: true,
             ExpressionAttributeValues: {
@@ -108,99 +100,10 @@ export class DynamodbProvider implements PersistenceProvider {
             TableName: 'aggregations',
         };
 
-        await this.documentClient.put(param);
+        await this.documentClient.put(param).promise();
     }
 
     private getKey(stream: Stream): string {
         return `${stream.aggregation}:${stream.id}`;
-    }
-
-    private async ensureTables() {
-        if (!this.initialized) {
-            await this.createTables();
-            this.initialized = true;
-        }
-    }
-
-    private async createTables() {
-        // this.exists('events');
-        if (!this.exists('events')) {
-            await this.dynamoDB.createTable(this.eventsScheme()).promise();
-        }
-        if (!this.exists('aggregations')) {
-            await this.dynamoDB.createTable(this.aggregationsScheme()).promise();
-        }
-    }
-
-    private exists(tableName: string) {
-        const filter = {
-            TableName: tableName,
-        };
-        return this.dynamoDB.describeTable(filter).promise().then(result => {
-            if (result) {
-                return true;
-            }
-            return false;
-        });
-    }
-
-    private eventsScheme = () => {
-        return {
-            AttributeDefinitions: [
-                {
-                    AttributeName: "aggregation_streamid",
-                    AttributeType: "S"
-                },
-                {
-                    AttributeName: "commitTimestamp",
-                    AttributeType: "N"
-                }
-            ],
-            KeySchema: [
-                {
-                    AttributeName: "aggregation_streamid",
-                    KeyType: "HASH",
-                },
-                {
-                    AttributeName: "commitTimestamp",
-                    KeyType: "RANGE"
-                }
-            ],
-            ProvisionedThroughput: {
-                ReadCapacityUnits: 1,
-                WriteCapacityUnits: 1
-            },
-            TableName: "events",
-        };
-    }
-
-    private aggregationsScheme = () => {
-        return {
-            AttributeDefinitions: [
-                {
-                    AttributeName: "aggregation",
-                    AttributeType: "S"
-                },
-                {
-                    AttributeName: "stream",
-                    AttributeType: "S"
-                }
-            ],
-            KeySchema: [
-                {
-                    AttributeName: "aggregation",
-                    KeyType: "HASH",
-                },
-                {
-                    AttributeName: "stream",
-                    KeyType: "RANGE"
-                }
-            ],
-            ProvisionedThroughput: {
-                ReadCapacityUnits: 1,
-                WriteCapacityUnits: 1
-            },
-            TableName: "aggregations",
-        };
     }
 }
