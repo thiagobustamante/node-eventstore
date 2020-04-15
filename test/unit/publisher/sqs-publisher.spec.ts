@@ -1,4 +1,5 @@
 import AWS = require('aws-sdk');
+const { Consumer } = require('sqs-consumer');
 import * as chai from 'chai';
 import 'mocha';
 import * as sinon from 'sinon';
@@ -9,12 +10,14 @@ chai.use(sinonChai);
 const expect = chai.expect;
 
 // tslint:disable:no-unused-expression
-describe('EventStory Memory Publisher', () => {
+describe('EventStory SQS Publisher', () => {
 
     let awsConfigStub: sinon.SinonStub;
     let sqsStub: sinon.SinonStub;
     let promiseStub: sinon.SinonStubbedInstance<any>;
     let sendMessageStub: sinon.SinonStubbedInstance<any>;
+    let consumerStub: sinon.SinonStub;
+    let createConsumerStub: sinon.SinonStubbedInstance<any>;
 
     beforeEach(() => {
         promiseStub = sinon.stub();
@@ -28,14 +31,23 @@ describe('EventStory Memory Publisher', () => {
         sqsStub = sinon.stub(AWS, 'SQS').returns({
             sendMessage: sendMessageStub,
         });
+
+
+        createConsumerStub = sinon.spy((data: any): any => {
+            return {
+                start: promiseStub,
+            };
+        });
+        consumerStub = sinon.stub(Consumer, 'create').returns(createConsumerStub);
     });
 
     afterEach(() => {
         awsConfigStub.restore();
         sqsStub.restore();
+        consumerStub.restore();
     });
 
-    it('should send a message', async () => {
+    it('should be able to publish events to sqs', async () => {
         promiseStub.resolves({
             MessageId: '12345'
         });
@@ -63,5 +75,14 @@ describe('EventStory Memory Publisher', () => {
             MessageGroupId: "orders",
             QueueUrl: "http://local"
         });
+    });
+
+    it.skip('should be able to subscribe to listen changes in the eventstore', async () => {
+        const sqsPublisher = new SQSPublisher('http://local', { region: 'any region' });
+
+        const subscriberOrdersStub = sinon.stub();
+        await sqsPublisher.subscribe('orders', subscriberOrdersStub);
+
+        expect(consumerStub).to.have.been.calledOnce;
     });
 });

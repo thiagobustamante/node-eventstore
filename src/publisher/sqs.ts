@@ -1,6 +1,7 @@
 'use strict';
 
 import AWS = require('aws-sdk');
+const { Consumer } = require('sqs-consumer');
 import { SQS } from 'aws-sdk';
 import { AWSConfig } from '../aws/config';
 import { Message } from '../model/message';
@@ -46,8 +47,6 @@ export class SQSPublisher implements Publisher, HasSubscribers {
     }
 
     public async subscribe(aggregation: string, subscriber: Subscriber): Promise<Subscription> {
-        const { Consumer } = require('sqs-consumer');
-
         const consumer = Consumer.create({
             handleMessage: subscriber,
             queueUrl: this.url,
@@ -55,8 +54,6 @@ export class SQSPublisher implements Publisher, HasSubscribers {
 
         consumer.start();
 
-
         return consumer;
-
     }
 }

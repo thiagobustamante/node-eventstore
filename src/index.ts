@@ -13,6 +13,8 @@ import { InMemoryPublisher } from './publisher/memory';
 import { Publisher } from './publisher/publisher';
 import { RabbitMQPublisher } from './publisher/rabbitmq';
 import { RedisPublisher } from './publisher/redis';
+import { SQSPublisher } from './publisher/sqs';
+
 
 export { InMemoryProvider };
 export { PersistenceProvider };
@@ -28,3 +30,4 @@ export { EventStore };
 export { EventStream };
 export { Event };
 export { Message };
+export { SQSPublisher };

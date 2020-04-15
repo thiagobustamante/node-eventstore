@@ -21,7 +21,7 @@ export class DynamodbProvider implements PersistenceProvider {
         this.documentClient = new DynamoDB.DocumentClient();
     }
 
-    public async addEvent(stream: Stream, data: any) {
+    public async addEvent(stream: Stream, data: any): Promise<Event> {
         this.addAggregation(stream);
         const commitTimestamp = Date.now();
         const event = {
