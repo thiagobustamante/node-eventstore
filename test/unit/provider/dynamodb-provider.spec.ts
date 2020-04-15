@@ -18,7 +18,9 @@ describe('EventStory Dynamodb Provider', () => {
     let documentClientStub: sinon.SinonStub;
     let putStub: sinon.SinonStubbedInstance<any>;
     let queryStub: sinon.SinonStubbedInstance<any>;
-    let promiseStub: sinon.SinonStub;
+    let scanStub: sinon.SinonStubbedInstance<any>;
+    let promiseQueryStub: sinon.SinonStub;
+    let promiseScanStub: sinon.SinonStub;
 
     let clock: sinon.SinonFakeTimers;
     const now = new Date();
@@ -34,10 +36,17 @@ describe('EventStory Dynamodb Provider', () => {
             };
         });
 
-        promiseStub = sinon.stub();
+        promiseQueryStub = sinon.stub();
         queryStub = sinon.spy((data: any): any => {
             return {
-                promise: promiseStub,
+                promise: promiseQueryStub,
+            };
+        });
+
+        promiseScanStub = sinon.stub();
+        scanStub = sinon.spy((data: any): any => {
+            return {
+                promise: promiseScanStub,
             };
         });
 
@@ -45,7 +54,7 @@ describe('EventStory Dynamodb Provider', () => {
         documentClientStub = sinon.stub(DynamoDB, 'DocumentClient').returns({
             put: putStub,
             query: queryStub,
-            scan: (): any => null,
+            scan: scanStub,
         });
     });
 
@@ -77,7 +86,7 @@ describe('EventStory Dynamodb Provider', () => {
     });
 
     it('should be able to ask dynamodb the events', async () => {
-        promiseStub.resolves({
+        promiseQueryStub.resolves({
             Items: [eventItem]
         });
 
@@ -101,7 +110,7 @@ describe('EventStory Dynamodb Provider', () => {
 
     it('should be able to ask dynamodb the streams', async () => {
 
-        promiseStub.resolves({
+        promiseQueryStub.resolves({
             Items: [eventItem]
         });
 
@@ -122,5 +131,22 @@ describe('EventStory Dynamodb Provider', () => {
             }
         );
     });
+
+    it('should be able to ask dynamodb the aggregations', async () => {
+        promiseScanStub.resolves({ Items: [{ aggregation: 'orders' }] });
+
+        const dynamodbProvider: DynamodbProvider = new DynamodbProvider({ region: 'any region' });
+        const aggregations = await dynamodbProvider.getAggregations();
+
+        expect(aggregations).to.eql(["orders"]);
+        expect(scanStub).to.have.been.calledOnce;
+        expect(scanStub).to.have.been.calledWithExactly(
+            {
+                TableName: 'aggregations',
+            }
+        );
+    });
+
+
 
 });
