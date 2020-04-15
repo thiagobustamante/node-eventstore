@@ -46,12 +46,8 @@ export class DynamodbProvider implements PersistenceProvider {
 
     public async getEvents(stream: Stream, offset: number = 0, limit: number = -1): Promise<Array<Event>> {
         const filter = {
-            ConsistentRead: true,
-            ExpressionAttributeValues: {
-                ':a': this.getKey(stream)
-            },
+            ExpressionAttributeValues: { ':a': this.getKey(stream) },
             KeyConditionExpression: 'aggregation_streamid = :a',
-            ScanIndexForward: false,
             TableName: 'events',
         };
 
@@ -67,13 +63,10 @@ export class DynamodbProvider implements PersistenceProvider {
     }
 
     public async getAggregations(offset: number = 0, limit: number = -1): Promise<Array<string>> {
-        const params = {
-            TableName: 'aggregations',
-        };
+        const filter = { TableName: 'aggregations', };
 
-        const items = await this.documentClient.scan(params).promise();
-
-        return items.Items.map(data => data.aggregation);
+        const items = await this.documentClient.scan(filter).promise();
+        return items.Items.map(data => data.aggregat);
     }
 
     public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
