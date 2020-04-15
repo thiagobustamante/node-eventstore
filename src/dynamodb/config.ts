@@ -11,16 +11,18 @@ export class DynamoDBConfig {
         this.dynamoDB = new AWS.DynamoDB();
     }
 
-    public async createTables(eventTableName: string, aggregationTableName: string) {
-        await this.dynamoDB.createTable(this.eventsScheme(eventTableName)).promise();
+    public async createTables(eventTableName: string, aggregationTableName: string): Promise<void> {
         await this.dynamoDB.createTable(this.aggregationsScheme(aggregationTableName)).promise();
+        await this.dynamoDB.createTable(this.eventsScheme(eventTableName)).promise();
     }
 
-    public async exists(eventTableName: string, aggregationTableName: string) {
+    public async exists(eventTableName: string, aggregationTableName: string): Promise<boolean> {
         const tables = await this.dynamoDB.listTables({}).promise();
+
         return tables.TableNames.filter(tableName => {
+
             return tableName === eventTableName || tableName === aggregationTableName;
-        }).length > 0;
+        }).length === 2;
     }
 
     private eventsScheme(tableName: string) {
