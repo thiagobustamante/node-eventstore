@@ -7,7 +7,7 @@ import { Message } from '../model/message';
 import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher';
 
 /**
- * A Publisher that use RabbitMQ to message communications.
+ * A Publisher that use SQS to message communications.
  */
 export class SQSPublisher implements Publisher, HasSubscribers {
     private url: string;
@@ -19,7 +19,7 @@ export class SQSPublisher implements Publisher, HasSubscribers {
         this.url = url;
     }
 
-    public async publish(message: Message) {
+    public async publish(message: Message): Promise<boolean> {
         const sqsData = {
             MessageAttributes: {
                 "aggregation": {
@@ -36,19 +36,13 @@ export class SQSPublisher implements Publisher, HasSubscribers {
                 },
             },
             MessageBody: JSON.stringify(message),
-            MessageDeduplicationId: message.stream.aggregation + message.event.commitTimestamp,
+            MessageDeduplicationId: `${message.stream.aggregation}:${message.stream.id}:${message.event.commitTimestamp}`,
             MessageGroupId: message.stream.aggregation,
             QueueUrl: this.url,
         };
 
-        let success = false;
-        await this.sqs.sendMessage(sqsData, (error, _) => {
-            if (!error) {
-                success = true;
-            }
-        });
-
-        return success;
+        const messageId = await (await this.sqs.sendMessage(sqsData).promise()).MessageId;
+        return messageId !== null && messageId !== undefined;
     }
 
     public async subscribe(aggregation: string, subscriber: Subscriber): Promise<Subscription> {
