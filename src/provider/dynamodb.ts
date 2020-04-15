@@ -45,7 +45,7 @@ export class DynamodbProvider implements PersistenceProvider {
 
 
     public async getEvents(stream: Stream, offset: number = 0, limit: number = -1): Promise<Array<Event>> {
-        const params = {
+        const filter = {
             ConsistentRead: true,
             ExpressionAttributeValues: {
                 ':a': this.getKey(stream)
@@ -55,7 +55,7 @@ export class DynamodbProvider implements PersistenceProvider {
             TableName: 'events',
         };
 
-        const items: ItemList = (await this.documentClient.query(params).promise()).Items;
+        const items: ItemList = (await this.documentClient.query(filter).promise()).Items;
 
         return items.map((data, index) => {
             return {
