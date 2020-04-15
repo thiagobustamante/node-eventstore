@@ -57,10 +57,11 @@ export class DynamodbProvider implements PersistenceProvider {
 
         const items: ItemList = (await this.documentClient.query(params).promise()).Items;
 
-        return items.map(data => {
+        return items.map((data, index) => {
             return {
                 commitTimestamp: data.commitTimestamp,
                 payload: data.payload,
+                sequence: index + 1,
             } as Event;
         });
     }
@@ -70,7 +71,7 @@ export class DynamodbProvider implements PersistenceProvider {
             TableName: 'aggregations',
         };
 
-        const items = await (await this.documentClient.scan(params).promise());
+        const items = await this.documentClient.scan(params).promise();
 
         return items.Items.map(data => data.aggregation);
     }
@@ -86,7 +87,7 @@ export class DynamodbProvider implements PersistenceProvider {
             TableName: 'aggregations',
         };
 
-        const items = await (await this.documentClient.query(params).promise()).Items;
+        const items = (await this.documentClient.query(params).promise()).Items;
 
         return items.map(data => data.stream);
     }

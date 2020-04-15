@@ -89,10 +89,10 @@ describe('EventStory Dynamodb Provider', () => {
         });
 
         const dynamodbProvider: DynamodbProvider = new DynamodbProvider({ region: 'any region' });
-        const streams = await dynamodbProvider.getEvents({ aggregation: "orders", id: "1" } as Stream);
+        const events = await dynamodbProvider.getEvents({ aggregation: "orders", id: "1" } as Stream);
 
-        expect(streams).to.eql(
-            [{ commitTimestamp: now.getTime(), payload: "EVENT PAYLOAD" }]
+        expect(events).to.eql(
+            [{ commitTimestamp: now.getTime(), payload: "EVENT PAYLOAD", sequence: 1 }]
         );
         expect(queryStub).to.have.been.calledOnce;
         expect(queryStub).to.have.been.calledWithExactly(
