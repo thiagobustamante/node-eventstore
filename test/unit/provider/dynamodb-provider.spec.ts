@@ -19,8 +19,7 @@ describe('EventStory Dynamodb Provider', () => {
     let putStub: sinon.SinonStubbedInstance<any>;
     let queryStub: sinon.SinonStubbedInstance<any>;
     let scanStub: sinon.SinonStubbedInstance<any>;
-    let promiseQueryStub: sinon.SinonStub;
-    let promiseScanStub: sinon.SinonStub;
+    let promiseStub: sinon.SinonStub;
 
     let clock: sinon.SinonFakeTimers;
     const now = new Date();
@@ -36,17 +35,16 @@ describe('EventStory Dynamodb Provider', () => {
             };
         });
 
-        promiseQueryStub = sinon.stub();
+        promiseStub = sinon.stub();
         queryStub = sinon.spy((data: any): any => {
             return {
-                promise: promiseQueryStub,
+                promise: promiseStub,
             };
         });
 
-        promiseScanStub = sinon.stub();
         scanStub = sinon.spy((data: any): any => {
             return {
-                promise: promiseScanStub,
+                promise: promiseStub,
             };
         });
 
@@ -86,7 +84,7 @@ describe('EventStory Dynamodb Provider', () => {
     });
 
     it('should be able to ask dynamodb the events', async () => {
-        promiseQueryStub.resolves({
+        promiseStub.resolves({
             Items: [eventItem]
         });
 
@@ -110,7 +108,7 @@ describe('EventStory Dynamodb Provider', () => {
 
     it('should be able to ask dynamodb the streams', async () => {
 
-        promiseQueryStub.resolves({
+        promiseStub.resolves({
             Items: [eventItem]
         });
 
@@ -133,7 +131,7 @@ describe('EventStory Dynamodb Provider', () => {
     });
 
     it('should be able to ask dynamodb the aggregations', async () => {
-        promiseScanStub.resolves({ Items: [{ aggregation: 'orders' }] });
+        promiseStub.resolves({ Items: [{ aggregation: 'orders' }] });
 
         const dynamodbProvider: DynamodbProvider = new DynamodbProvider({ region: 'any region' });
         const aggregations = await dynamodbProvider.getAggregations();
