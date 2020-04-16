@@ -97,8 +97,8 @@ describe('EventStory Dynamodb Provider', () => {
         expect(queryStub).to.have.been.calledOnce;
         expect(queryStub).to.have.been.calledWith(
             {
-                ExpressionAttributeValues: { ':a': "orders:1" },
-                KeyConditionExpression: "aggregation_streamid = :a",
+                ExpressionAttributeValues: { ':key': "orders:1" },
+                KeyConditionExpression: "aggregation_streamid = :key",
                 TableName: "events"
             }
         );
@@ -120,8 +120,8 @@ describe('EventStory Dynamodb Provider', () => {
         expect(queryStub).to.have.been.calledWithExactly(
             {
                 ConsistentRead: true,
-                ExpressionAttributeValues: { ':a': "aggregation" },
-                KeyConditionExpression: "aggregation = :a",
+                ExpressionAttributeValues: { ':aggregation': "aggregation" },
+                KeyConditionExpression: "aggregation = :aggregation",
                 ScanIndexForward: false,
                 TableName: "aggregations"
             }
