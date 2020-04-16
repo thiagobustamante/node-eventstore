@@ -95,12 +95,10 @@ describe('EventStory Dynamodb Provider', () => {
             [{ commitTimestamp: now.getTime(), payload: "EVENT PAYLOAD", sequence: 1 }]
         );
         expect(queryStub).to.have.been.calledOnce;
-        expect(queryStub).to.have.been.calledWithExactly(
+        expect(queryStub).to.have.been.calledWith(
             {
-                ConsistentRead: true,
                 ExpressionAttributeValues: { ':a': "orders:1" },
                 KeyConditionExpression: "aggregation_streamid = :a",
-                ScanIndexForward: false,
                 TableName: "events"
             }
         );

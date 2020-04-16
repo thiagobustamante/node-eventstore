@@ -66,7 +66,7 @@ export class DynamodbProvider implements PersistenceProvider {
         const filter = { TableName: 'aggregations', };
 
         const items = await this.documentClient.scan(filter).promise();
-        return items.Items.map(data => data.aggregat);
+        return items.Items.map(data => data.aggregation);
     }
 
     public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
