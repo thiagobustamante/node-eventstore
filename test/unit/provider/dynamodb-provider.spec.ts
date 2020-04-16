@@ -83,6 +83,35 @@ describe('EventStory Dynamodb Provider', () => {
         );
     });
 
+    it('should be able to add an Event to the Event Stream when aggregation already exists', async () => {
+        const dynamodbProvider: any = new DynamodbProvider({ region: 'any region' });
+        await dynamodbProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
+        await dynamodbProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD SAMPLE');
+
+        expect(putStub).to.have.been.calledThrice;
+
+        expect(putStub.getCall(0)).to.have.been.calledWithExactly({
+            Item: { aggregation: "orders", stream: "1" }, TableName: "aggregations"
+        });
+        expect(putStub.getCall(1)).to.have.been.calledWithExactly(
+            {
+                Item: eventItem,
+                TableName: "events"
+            }
+        );
+        expect(putStub.getCall(2)).to.have.been.calledWithExactly(
+            {
+                Item: {
+                    aggregation_streamid: "orders:1",
+                    commitTimestamp: now.getTime(),
+                    payload: "EVENT PAYLOAD SAMPLE",
+                    stream: { aggregation: "orders", id: "1" }
+                },
+                TableName: "events"
+            }
+        );
+    });
+
     it('should be able to ask dynamodb the events', async () => {
         promiseStub.resolves({
             Items: [eventItem]

@@ -14,11 +14,13 @@ import { PersistenceProvider } from './provider';
  */
 export class DynamodbProvider implements PersistenceProvider {
     private documentClient: DocumentClient;
+    private aggregations: Map<String, String>;
 
     constructor(awsConfig: AWSConfig) {
         AWS.config.update(awsConfig);
 
         this.documentClient = new DynamoDB.DocumentClient();
+        this.aggregations = new Map();
     }
 
     public async addEvent(stream: Stream, data: any): Promise<Event> {
@@ -86,15 +88,18 @@ export class DynamodbProvider implements PersistenceProvider {
     }
 
     private async addAggregation(stream: Stream) {
-        const param = {
-            Item: {
-                aggregation: stream.aggregation,
-                stream: stream.id
-            },
-            TableName: 'aggregations',
-        };
+        if (!this.aggregations.has(stream.aggregation)) {
+            const param = {
+                Item: {
+                    aggregation: stream.aggregation,
+                    stream: stream.id
+                },
+                TableName: 'aggregations',
+            };
 
-        await this.documentClient.put(param).promise();
+            await this.documentClient.put(param).promise();
+            this.aggregations.set(stream.aggregation, stream.id);
+        }
     }
 
     private getKey(stream: Stream): string {
