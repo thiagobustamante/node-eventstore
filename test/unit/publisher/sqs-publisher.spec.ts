@@ -17,7 +17,7 @@ describe('EventStory SQS Publisher', () => {
     let promiseStub: sinon.SinonStubbedInstance<any>;
     let sendMessageStub: sinon.SinonStubbedInstance<any>;
     let consumerStub: sinon.SinonStub;
-    let createConsumerStub: sinon.SinonStubbedInstance<any>;
+    let startConsumerStub: sinon.SinonStubbedInstance<any>;
 
     beforeEach(() => {
         promiseStub = sinon.stub();
@@ -33,12 +33,10 @@ describe('EventStory SQS Publisher', () => {
         });
 
 
-        createConsumerStub = sinon.spy((data: any): any => {
-            return {
-                start: promiseStub,
-            };
-        });
-        consumerStub = sinon.stub(Consumer, 'create').returns(createConsumerStub);
+        startConsumerStub = {
+            start: promiseStub,
+        };
+        consumerStub = sinon.stub(Consumer, 'create').returns(startConsumerStub);
     });
 
     afterEach(() => {
@@ -77,12 +75,19 @@ describe('EventStory SQS Publisher', () => {
         });
     });
 
-    it.skip('should be able to subscribe to listen changes in the eventstore', async () => {
+    it('should be able to subscribe to listen changes in the eventstore', async () => {
         const sqsPublisher = new SQSPublisher('http://local', { region: 'any region' });
 
         const subscriberOrdersStub = sinon.stub();
-        await sqsPublisher.subscribe('orders', subscriberOrdersStub);
+        const consumer = await sqsPublisher.subscribe('orders', subscriberOrdersStub);
 
+        const consumerExpected = {
+            handleMessage: subscriberOrdersStub,
+            queueUrl: 'http://local',
+        };
         expect(consumerStub).to.have.been.calledOnce;
+        expect(consumerStub).to.have.been.calledWith(consumerExpected);
+        expect(startConsumerStub.start).to.have.been.calledOnce;
+        expect(consumer).to.have.been.equal(startConsumerStub);
     });
 });
