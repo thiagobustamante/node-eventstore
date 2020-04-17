@@ -24,8 +24,9 @@ export class DynamodbProvider implements PersistenceProvider {
     }
 
     public async addEvent(stream: Stream, data: any): Promise<Event> {
+        const now = new Date();
         this.addAggregation(stream);
-        const commitTimestamp = Date.now();
+        const commitTimestamp = now.getTime();
         const event = {
             aggregation_streamid: `${this.getKey(stream)}`,
             commitTimestamp: commitTimestamp,
