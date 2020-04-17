@@ -38,7 +38,6 @@ export class SQSPublisher implements Publisher, HasSubscribers {
             },
             MessageBody: JSON.stringify(message),
             MessageDeduplicationId: `${message.stream.aggregation}:${message.stream.id}:${message.event.commitTimestamp}`,
-            MessageGroupId: message.stream.aggregation,
             QueueUrl: this.url,
         };
 

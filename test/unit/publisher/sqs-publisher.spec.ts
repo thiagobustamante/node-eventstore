@@ -70,7 +70,6 @@ describe('EventStory SQS Publisher', () => {
             },
             MessageBody: JSON.stringify(messageBody),
             MessageDeduplicationId: "orders:1:1234567",
-            MessageGroupId: "orders",
             QueueUrl: "http://local"
         });
     });
