@@ -28,7 +28,6 @@ describe('EventStory Dynamodb Provider', () => {
 
         clock = sinon.useFakeTimers(now.getTime());
 
-
         putStub = sinon.spy((data: any): any => {
             return {
                 promise: (): any => ({})
