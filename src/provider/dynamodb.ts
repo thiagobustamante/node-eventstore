@@ -73,7 +73,7 @@ export class DynamodbProvider implements PersistenceProvider {
     }
 
     public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
-        const params = {
+        const aggregationFilter = {
             ConsistentRead: true,
             ExpressionAttributeValues: {
                 ':aggregation': aggregation
@@ -83,7 +83,7 @@ export class DynamodbProvider implements PersistenceProvider {
             TableName: 'aggregations',
         };
 
-        const items = (await this.documentClient.query(params).promise()).Items;
+        const items = (await this.documentClient.query(aggregationFilter).promise()).Items;
 
         return items.map(data => data.stream);
     }
