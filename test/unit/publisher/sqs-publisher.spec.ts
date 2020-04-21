@@ -69,7 +69,6 @@ describe('EventStory SQS Publisher', () => {
                 id: { DataType: "String", StringValue: "1" }
             },
             MessageBody: JSON.stringify(messageBody),
-            MessageDeduplicationId: "orders:1:1234567",
             QueueUrl: "http://local"
         });
     });

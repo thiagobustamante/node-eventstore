@@ -19,7 +19,7 @@ export class DynamodbProvider implements PersistenceProvider {
     constructor(awsConfig: AWSConfig) {
         AWS.config.update(awsConfig);
 
-        this.documentClient = new DynamoDB.DocumentClient();
+        this.documentClient = new DynamoDB.DocumentClient({ convertEmptyValues: true });
         this.aggregationsLocalCache = new Map();
     }
 
@@ -97,7 +97,7 @@ export class DynamodbProvider implements PersistenceProvider {
                 },
                 TableName: 'aggregations',
             };
-            this.documentClient.put(param).promise()
+            this.documentClient.put(param).promise();
             this.aggregationsLocalCache.set(stream.aggregation, stream.id);
         }
     }
