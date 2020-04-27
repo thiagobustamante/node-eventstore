@@ -1,4 +1,4 @@
-'use srtrict';
+'use strict';
 
 import { Event } from '../model/event';
 import { Stream } from '../model/stream';
