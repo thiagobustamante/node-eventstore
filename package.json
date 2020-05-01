@@ -26,7 +26,9 @@
     "test:coverage": "nyc npm test",
     "test:mutation": "stryker run",
     "stryker:init": "stryker init",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "nyc": {
     "include": [
@@ -106,9 +108,11 @@
     "lodash": "^4.17.11",
     "mongodb": "^3.1.13",
     "mysql": "^2.16.0",
-    "sqs-consumer": "^5.4.0"
+    "sqs-consumer": "^5.4.0",
+    "snyk": "^1.316.1"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "snyk": true
 }
