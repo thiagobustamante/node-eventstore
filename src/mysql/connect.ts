@@ -1,5 +1,3 @@
-'use strict';
-
 import * as Joi from 'joi';
 import * as _ from 'lodash';
 import * as MySQL from 'mysql';

@@ -1,5 +1,3 @@
-'use strict';
-
 import * as Redis from 'ioredis';
 import * as Joi from 'joi';
 import * as _ from 'lodash';

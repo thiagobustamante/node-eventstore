@@ -1,40 +1,23 @@
-'use strict';
+jest.mock('mysql');
 
-import * as chai from 'chai';
 import * as _ from 'lodash';
-import 'mocha';
-import { PoolConfig } from 'mysql';
-import * as proxyquire from 'proxyquire';
-import * as sinon from 'sinon';
-import * as sinonChai from 'sinon-chai';
+import { MySQLFactory } from '../../../src/mysql/connect';
+import * as MySQL from 'mysql';
 
-chai.use(sinonChai);
-const expect = chai.expect;
-
-// tslint:disable:no-unused-expression
-
+const createPoolMock: jest.Mock = MySQL.createPool as any;
+const createPoolClusterMock: jest.Mock = MySQL.createPoolCluster as any;
+const poolClusterAddMock = jest.fn();
+const poolClusterMock = {
+    add: poolClusterAddMock
+};
 describe('MySQL Factory', () => {
-    let mySqlStub: sinon.SinonStubbedInstance<any>;
-    let poolClusterStub: sinon.SinonStubbedInstance<any>;
-    let MySQLFactory: any;
-
-    beforeEach(() => {
-        poolClusterStub = sinon.stub({
-            add: (config: PoolConfig) => this
-        });
-
-        mySqlStub = sinon.stub({
-            createPool: (config: PoolConfig) => this,
-            createPoolCluster: () => this
-        });
-        mySqlStub.createPoolCluster.returns(poolClusterStub);
-
-        MySQLFactory = proxyquire('../../../src/mysql/connect', { mysql: mySqlStub }).MySQLFactory;
+    beforeAll(() => {
+        createPoolClusterMock.mockReturnValue(poolClusterMock);
     });
-
-    afterEach(() => {
-        mySqlStub.createPool.restore();
-        mySqlStub.createPoolCluster.restore();
+    
+    beforeEach(() => {
+        poolClusterAddMock.mockClear();
+        createPoolMock.mockClear();
     });
 
     it('should be able to create a connection pool for mysql', async () => {
@@ -45,10 +28,13 @@ describe('MySQL Factory', () => {
                 port: 13306
             }
         };
+        const pool = { a:'pool' };
+        createPoolMock.mockReturnValue(pool);
 
-        MySQLFactory.createPool(mySQL);
+        const result = MySQLFactory.createPool(mySQL);
 
-        expect(mySqlStub.createPool).to.have.been.calledOnceWithExactly(mySQL.config);
+        expect(createPoolMock).toBeCalledWith(mySQL.config);
+        expect(result).toEqual(pool);
     });
 
     it('should be able to validate mysql config params', async () => {
@@ -61,7 +47,7 @@ describe('MySQL Factory', () => {
             invalidOption: 'invalid'
         };
 
-        expect(() => MySQLFactory.createPool(config)).to.throw();
+        expect(() => MySQLFactory.createPool(config)).toThrow();
     });
 
     it('should be able to create a pool to connect to a mySQL cluster', async () => {
@@ -80,11 +66,12 @@ describe('MySQL Factory', () => {
             }
         };
 
-        MySQLFactory.createPool(mySQL);
+        const result = MySQLFactory.createPool(mySQL);
 
-        expect(mySqlStub.createPoolCluster).to.have.been.calledOnce;
-        expect(poolClusterStub.add).to.have.been.calledTwice;
-        expect(poolClusterStub.add).to.have.been.calledWithExactly('master', mySQL.cluster.master);
-        expect(poolClusterStub.add).to.have.been.calledWithExactly('slave', mySQL.cluster.slave);
+        expect(createPoolClusterMock).toBeCalledTimes(1);
+        expect(poolClusterAddMock).toBeCalledTimes(2);
+        expect(poolClusterAddMock).toBeCalledWith('master', mySQL.cluster.master);
+        expect(poolClusterAddMock).toBeCalledWith('slave', mySQL.cluster.slave);
+        expect(result).toEqual(poolClusterMock);
     });
 });

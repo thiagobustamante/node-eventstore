@@ -1,5 +1,3 @@
-'use strict';
-
 import { Event } from '../model/event';
 import { Stream } from '../model/stream';
 import { MySQLConfig } from '../mysql/config';

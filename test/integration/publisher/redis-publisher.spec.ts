@@ -1,17 +1,7 @@
-'use strict';
-
-import * as chai from 'chai';
-import 'mocha';
-import * as sinon from 'sinon';
-import * as sinonChai from 'sinon-chai';
 import { wait, waitUntil } from 'test-wait';
 import { EventStore, EventStream, InMemoryProvider, RedisPublisher } from '../../../src';
 import { RedisFactory } from '../../../src/redis/connect';
 
-chai.use(sinonChai);
-const expect = chai.expect;
-
-// tslint:disable:no-unused-expression
 describe('EventStory Redis Publisher (Integration)', () => {
     let eventStore: EventStore;
     let ordersStream: EventStream;
@@ -37,43 +27,43 @@ describe('EventStory Redis Publisher (Integration)', () => {
 
     it('should be able to subscribe and unsubscribe to EventStore changes channel', async () => {
         const eventStoreNotified = createEventStore();
-        const subscriberStub = sinon.stub();
+        const subscriberStub = jest.fn();
 
         const subscription = await eventStoreNotified.subscribe(ordersStream.aggregation, subscriberStub);
         await ordersStream.addEvent(EVENT_PAYLOAD);
-        await waitUntil(() => subscriberStub.calledOnce);
+        await waitUntil(() => subscriberStub.mock.calls.length === 1);
         await subscription.remove();
         await ordersStream.addEvent(EVENT_PAYLOAD);
         await wait(10);
-        expect(subscriberStub).to.have.callCount(1);
+        expect(subscriberStub).toBeCalledTimes(1);
     });
 
     it('should be able to notify multiple listeners for a channel', async () => {
         const eventStoreNotified = createEventStore();
 
-        const subscriberStub = sinon.stub();
-        const subscriber2Stub = sinon.stub();
+        const subscriberStub = jest.fn();
+        const subscriber2Stub = jest.fn();
         await eventStoreNotified.subscribe('orders', subscriberStub);
         await eventStoreNotified.subscribe('orders', subscriber2Stub);
         await ordersStream.addEvent(EVENT_PAYLOAD);
-        await waitUntil(() => subscriberStub.calledOnce && subscriber2Stub.calledOnce);
+        await waitUntil(() => subscriberStub.mock.calls.length === 1 && subscriber2Stub.mock.calls.length === 1);
     });
 
     it('should not notify listeners about other aggregation changes', async () => {
         const eventStoreNotified = createEventStore();
         const customersStream = eventStore.getEventStream('customers', '1');
 
-        const subscriberOffersStub = sinon.stub();
-        const subscriberOrdersStub = sinon.stub();
+        const subscriberOffersStub = jest.fn();
+        const subscriberOrdersStub = jest.fn();
         await eventStoreNotified.subscribe('offers', subscriberOffersStub);
         await eventStoreNotified.subscribe('orders', subscriberOrdersStub);
         await ordersStream.addEvent(EVENT_PAYLOAD);
         await customersStream.addEvent(EVENT_PAYLOAD);
-        await waitUntil(() => subscriberOrdersStub.calledOnce);
+        await waitUntil(() => subscriberOrdersStub.mock.calls.length === 1);
         await wait(10);
 
-        expect(subscriberOffersStub).to.not.have.been.called;
-        expect(subscriberOrdersStub).to.have.been.calledOnce;
+        expect(subscriberOffersStub).not.toBeCalled();
+        expect(subscriberOrdersStub).toBeCalledTimes(1);
     });
 
     function createEventStore() {

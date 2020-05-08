@@ -1,5 +1,3 @@
-'use strict';
-
 import * as _ from 'lodash';
 import { EventStreamImpl } from './event-stream';
 import { Event } from './model/event';

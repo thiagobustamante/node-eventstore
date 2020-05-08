@@ -1,5 +1,3 @@
-'use strict';
-
 import { EventStore, EventStream } from './event-store';
 import { Event } from './model/event';
 import { Stream } from './model/stream';

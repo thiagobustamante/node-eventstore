@@ -1,52 +1,31 @@
-'use strict';
+jest.mock('../../../src/mysql/connect');
 
-import * as chai from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
 import * as _ from 'lodash';
-import 'mocha';
-import * as proxyquire from 'proxyquire';
-import * as sinon from 'sinon';
-import * as sinonChai from 'sinon-chai';
 import { MySQLConfig } from '../../../src/mysql/config';
+import { MySQL } from '../../../src/mysql/mysql';
+import { MySQLFactory } from '../../../src/mysql/connect';
 
-chai.use(chaiAsPromised);
-chai.use(sinonChai);
-const expect = chai.expect;
+const createPoolMock = MySQLFactory.createPool as jest.Mock;
+const getConnectionMock = jest.fn();
+const poolMock = {
+    getConnection: getConnectionMock
+};
 
-// tslint:disable:no-unused-expression
-
+const connectionMock = {
+    query: jest.fn(),
+    release: jest.fn()
+}
 describe('MySQL', () => {
-    let mySqlFactoryStub: sinon.SinonStubbedInstance<any>;
-    let poolStub: sinon.SinonStubbedInstance<any>;
-    let connectionStub: sinon.SinonStubbedInstance<any>;
-    let MySQL: any;
-
-    beforeEach(() => {
-        connectionStub = sinon.stub({
-            query: (sql: string, args: Array<any>, callback: (e: any, rows: any) => void) => this,
-            release: () => this
-        });
-
-        poolStub = sinon.stub({
-            getConnection: (callback: (err: any, connection: any) => void) => this
-        });
-
-        mySqlFactoryStub = sinon.stub({
-            createPool: (config: MySQLConfig) => this,
-        });
-        mySqlFactoryStub.createPool.returns(poolStub);
-        MySQL = proxyquire('../../../src/mysql/mysql', {
-            './connect': {
-                MySQLFactory: mySqlFactoryStub
-            }
-        }).MySQL;
+    beforeAll(() => {
+        createPoolMock.mockReturnValue(poolMock);
+        getConnectionMock.mockImplementation((callback) => callback(null, connectionMock));
     });
-
-    afterEach(() => {
-        mySqlFactoryStub.createPool.restore();
-        poolStub.getConnection.restore();
-        connectionStub.query.restore();
-        connectionStub.release.restore();
+    
+    beforeEach(() => {
+        createPoolMock.mockClear();
+        getConnectionMock.mockClear();
+        connectionMock.query.mockClear();
+        connectionMock.release.mockClear();
     });
 
     it('should be able to create a connection pool for mysql', async () => {
@@ -60,23 +39,23 @@ describe('MySQL', () => {
 
         const mySql = new MySQL(mySQLConfig);
 
-        expect(mySqlFactoryStub.createPool).to.have.been.calledOnceWithExactly(mySQLConfig);
-        expect(mySql.pool).to.be.equal(poolStub);
+        expect(createPoolMock).toBeCalledWith(mySQLConfig);
+        expect((mySql as any).pool).toEqual(poolMock);
     });
 
     it('should be able to run a SQL query', async () => {
         const sql = 'some sql string';
         const rows = [{ aField: 'value' }];
+        
+        connectionMock.query.mockImplementation((_sql, _args, callback) => callback(null, rows));
 
         const mySql = new MySQL({});
-        poolStub.getConnection.yields(null, connectionStub);
-        connectionStub.query.yields(null, rows);
-
         const result = await mySql.query(sql);
 
-        expect(connectionStub.query).to.have.been.calledOnceWithExactly(sql, [], sinon.match.func);
-        expect(connectionStub.release).to.have.been.calledOnce;
-        expect(result).to.be.equals(rows);
+        expect(getConnectionMock).toBeCalledTimes(1);
+        expect(connectionMock.query).toBeCalledWith(sql, [], expect.anything());
+        expect(connectionMock.release).toBeCalledTimes(1);
+        expect(result).toEqual(rows);
     });
 
     it('should be able to run a SQL query with arguments', async () => {
@@ -84,41 +63,35 @@ describe('MySQL', () => {
         const args = ['some arguments'];
         const rows = [{ aField: 'value' }];
 
-        const mySql = new MySQL({});
-        poolStub.getConnection.yields(null, connectionStub);
-        connectionStub.query.yields(null, rows);
+        connectionMock.query.mockImplementation((_sql, _args, callback) => callback(null, rows));
 
+        const mySql = new MySQL({});
         const result = await mySql.query(sql, args);
 
-        expect(connectionStub.query).to.have.been.calledOnceWith(sql, args, sinon.match.func);
-        expect(connectionStub.release).to.have.been.calledOnce;
-        expect(result).to.be.equals(rows);
+        expect(connectionMock.query).toBeCalledWith(sql, args, expect.anything());
+        expect(connectionMock.release).toBeCalledTimes(1);
+        expect(result).toEqual(rows);
     });
 
-    it('should be able to handle connection errors', (done) => {
+    it('should be able to handle connection errors', async () => {
         const sql = 'some sql string';
         const args = ['some arguments'];
         const error = new Error('Test error');
 
+        getConnectionMock.mockImplementationOnce((callback) => callback(error, null));
+        
         const mySql = new MySQL({});
-        poolStub.getConnection.yields(error, null);
-
-        const result = mySql.query(sql, args);
-        expect(result).to.eventually.be.rejectedWith(error).and.notify(done);
+        expect(() => mySql.query(sql, args)).rejects.toThrow(error);
     });
-
-    it('should be able to handle mysql errors', (done) => {
+    
+    it('should be able to handle mysql errors', async () => {
         const sql = 'some sql string';
         const args = ['some arguments'];
-        const error = new Error('Test error');
+        const error = new Error('Test SQL error');
+        
+        connectionMock.query.mockImplementation((_sql, _args, callback) => callback(error, null));
 
         const mySql = new MySQL({});
-        poolStub.getConnection.yields(null, connectionStub);
-        connectionStub.query.yields(error, null);
-
-        const result = mySql.query(sql, args);
-        expect(connectionStub.query).to.have.been.calledOnceWith(sql, args, sinon.match.func);
-        expect(connectionStub.release).to.have.been.calledOnce;
-        expect(result).to.eventually.be.rejectedWith(error).and.notify(done);
+        expect(() => mySql.query(sql, args)).rejects.toThrow(error);
     });
 });

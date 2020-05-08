@@ -1,5 +1,3 @@
-'use strict';
-
 import { Redis } from 'ioredis';
 import { Message } from '../model/message';
 import { RedisConfig } from '../redis/config';

@@ -1,5 +1,3 @@
-'use strict';
-
 import { Message } from '../model/message';
 import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher';
 

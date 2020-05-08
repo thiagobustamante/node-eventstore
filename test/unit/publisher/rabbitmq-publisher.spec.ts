@@ -1,41 +1,43 @@
-'use strict';
+jest.mock('amqplib');
 
-import * as chai from 'chai';
-import 'mocha';
-import * as proxyquire from 'proxyquire';
-import * as sinon from 'sinon';
-import * as sinonChai from 'sinon-chai';
 import { Message } from '../../../src/model/message';
+import { RabbitMQPublisher } from '../../../src/publisher/rabbitmq';
+import * as amqp from 'amqplib'; 
 
-chai.use(sinonChai);
-const expect = chai.expect;
-// tslint:disable:no-unused-expression
+const amqpConnectMock = amqp.connect as jest.Mock;
+const channelMock = {
+    assertExchange: jest.fn(),
+    assertQueue: jest.fn(),
+    bindQueue: jest.fn(),
+    cancel: jest.fn(),
+    consume: jest.fn(),
+    deleteQueue: jest.fn(),
+    publish: jest.fn()
+};
+const connectionMock = { 
+    createChannel: jest.fn() 
+};
 
 describe('EventStory RabbitMQ Publisher', () => {
-    let channelStub: sinon.SinonStubbedInstance<any>;
-    let connectionStub: sinon.SinonStubbedInstance<any>;
-    let amqpStub: sinon.SinonStubbedInstance<any>;
-    let RabbitMQPublisher: any;
-    beforeEach(() => {
-        amqpStub = sinon.stub({ connect: (url: string) => null });
-        connectionStub = sinon.stub({ createChannel: () => null });
-        channelStub = sinon.stub({
-            assertExchange: (exchange: string, type: string, options?: any) => null,
-            assertQueue: (queue: string, options?: any) => null,
-            bindQueue: (queue: string, source: string, pattern: string) => null,
-            cancel: (consumerTag: string) => null,
-            consume: (queue: string, onMessage: (msg: Message | null) => any) => null,
-            deleteQueue: (queue: string) => null,
-            publish: (exchange: string, routingKey: string, content: Buffer) => true
-        });
+    beforeAll(() => {
+        amqpConnectMock.mockResolvedValue(connectionMock);
+        connectionMock.createChannel.mockResolvedValue(channelMock);
+    });
 
-        amqpStub.connect.returns(connectionStub);
-        connectionStub.createChannel.returns(channelStub);
-        RabbitMQPublisher = proxyquire('../../../src/publisher/rabbitmq', { amqplib: amqpStub }).RabbitMQPublisher;
+    beforeEach(() => {
+        amqpConnectMock.mockClear();
+        channelMock.assertExchange.mockClear();
+        channelMock.assertQueue.mockClear();
+        channelMock.bindQueue.mockClear();
+        channelMock.cancel.mockClear();
+        channelMock.consume.mockClear();
+        channelMock.deleteQueue.mockClear();
+        channelMock.publish.mockClear();
+        connectionMock.createChannel.mockClear();
     });
 
     it('should be able to publish events to rabbitmq', async () => {
-        const rabbitmqPublisher: any = new RabbitMQPublisher("amqp://localhost");
+        const rabbitmqPublisher: any = new RabbitMQPublisher('amqp://localhost');
 
         const message: Message = {
             event: {
@@ -51,38 +53,37 @@ describe('EventStory RabbitMQ Publisher', () => {
         await rabbitmqPublisher.publish(message);
         await rabbitmqPublisher.publish(message);
 
-        expect(amqpStub.connect).to.have.been.calledOnceWithExactly("amqp://localhost");
-        expect(connectionStub.createChannel).to.have.been.calledOnce;
-        expect(channelStub.assertExchange).to.have.been.calledOnceWithExactly(message.stream.aggregation, 'fanout', { durable: false });
-        expect(channelStub.publish).to.have.been.calledTwice;
-        expect(channelStub.publish).to.have.been.calledWithExactly(
+        expect(amqpConnectMock).toBeCalledWith('amqp://localhost');
+        expect(connectionMock.createChannel).toBeCalledTimes(1);
+        expect(channelMock.assertExchange).toBeCalledTimes(1);
+        expect(channelMock.assertExchange).toBeCalledWith(message.stream.aggregation, 'fanout', { durable: false });
+        expect(channelMock.publish).toBeCalledTimes(2);
+        expect(channelMock.publish).toBeCalledWith(
             message.stream.aggregation, '', new Buffer(JSON.stringify(message)));
     });
 
     it('should be able to subscribe to listen changes in the eventstore', async () => {
-        channelStub.assertQueue.returns({ queue: '123' });
-        channelStub.consume.returns({ consumerTag: '321' });
-        const rabbitmqPublisher: any = new RabbitMQPublisher("amqp://localhost");
-        const subscriber = (message: Message) => {
-            // nothing to do
-        };
+        channelMock.assertQueue.mockResolvedValue({ queue: '123' });
+        channelMock.consume.mockResolvedValue({ consumerTag: '321' });
+        const rabbitmqPublisher: any = new RabbitMQPublisher('amqp://localhost');
+        const subscriber = jest.fn();
         const subscription = await rabbitmqPublisher.subscribe('orders', subscriber);
-        await rabbitmqPublisher.subscribe('orders', () => {
-            // 
-        });
+        await rabbitmqPublisher.subscribe('orders', jest.fn());
 
         await subscription.remove();
 
-        expect(amqpStub.connect).to.have.been.calledOnceWithExactly("amqp://localhost");
-        expect(connectionStub.createChannel).to.have.been.calledOnce;
-        expect(channelStub.assertExchange).to.have.been.calledOnceWithExactly('orders', 'fanout', { durable: false });
-        expect(channelStub.assertQueue).to.have.been.calledTwice;
-        expect(channelStub.assertQueue).to.have.been.calledWithExactly('', { exclusive: true });
-        expect(channelStub.bindQueue).to.have.been.calledTwice;
-        expect(channelStub.bindQueue).to.have.been.calledWithExactly('123', 'orders', '');
-        expect(channelStub.consume).to.have.been.calledTwice;
-        expect(channelStub.consume).to.have.been.calledWith('123', sinon.match.func, { noAck: true });
-        expect(channelStub.cancel).to.have.been.calledWithExactly('321');
-        expect(channelStub.deleteQueue).to.have.been.calledWithExactly('123');
+        expect(amqpConnectMock).toBeCalledTimes(1);
+        expect(amqpConnectMock).toBeCalledWith('amqp://localhost');
+        expect(connectionMock.createChannel).toBeCalledTimes(1);
+        expect(channelMock.assertExchange).toBeCalledTimes(1);
+        expect(channelMock.assertExchange).toBeCalledWith('orders', 'fanout', { durable: false });
+        expect(channelMock.assertQueue).toBeCalledTimes(2);
+        expect(channelMock.assertQueue).toBeCalledWith('', { exclusive: true });
+        expect(channelMock.bindQueue).toBeCalledTimes(2);
+        expect(channelMock.bindQueue).toBeCalledWith('123', 'orders', '');
+        expect(channelMock.consume).toBeCalledTimes(2);
+        expect(channelMock.consume).toBeCalledWith('123', expect.anything(), { noAck: true });
+        expect(channelMock.cancel).toBeCalledWith('321');
+        expect(channelMock.deleteQueue).toBeCalledWith('123');
     });
 });

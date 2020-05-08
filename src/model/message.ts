@@ -1,5 +1,3 @@
-'use strict';
-
 import { Event } from './event';
 import { Stream } from './stream';
 

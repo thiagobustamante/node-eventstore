@@ -1,10 +1,4 @@
-'use strict';
-
-import * as chai from 'chai';
-import 'mocha';
 import { EventStore, EventStream, InMemoryProvider } from '../../../src';
-
-const expect = chai.expect;
 
 describe('EventStory Memory Provider', () => {
     let eventStore: EventStore;
@@ -21,17 +15,17 @@ describe('EventStory Memory Provider', () => {
 
     it('should be able to add an event to the EventStream', async () => {
         const event = await ordersStream.addEvent(EVENT_PAYLOAD);
-        expect(event).to.have.property('commitTimestamp');
-        expect(event).to.have.property('sequence');
+        expect(event).toHaveProperty('commitTimestamp');
+        expect(event).toHaveProperty('sequence');
     });
 
     it('should be able to read events from the EventStream', async () => {
         await ordersStream.addEvent(EVENT_PAYLOAD);
         await ordersStream.addEvent(EVENT_PAYLOAD + '_1');
         const events = await ordersStream.getEvents();
-        expect(events.length).to.equals(2);
-        expect(events[0].payload).to.equals(EVENT_PAYLOAD);
-        expect(events[0].sequence).to.equals(0);
+        expect(events.length).toEqual(2);
+        expect(events[0].payload).toEqual(EVENT_PAYLOAD);
+        expect(events[0].sequence).toEqual(0);
     });
 
     it('should be able to get event ranged list from the event stream', async () => {
@@ -39,21 +33,21 @@ describe('EventStory Memory Provider', () => {
         await ordersStream.addEvent(EVENT_PAYLOAD + '_1');
         await ordersStream.addEvent(EVENT_PAYLOAD + '_2');
         const events = await ordersStream.getEvents(1, 5);
-        expect(events.length).to.equal(2);
-        expect(events[0].payload).to.equal(EVENT_PAYLOAD + '_1');
-        expect(events[0].sequence).to.equal(1);
+        expect(events.length).toEqual(2);
+        expect(events[0].payload).toEqual(EVENT_PAYLOAD + '_1');
+        expect(events[0].sequence).toEqual(1);
     });
 
     it('should be able to get aggregations from the event stream', async () => {
         await ordersStream.addEvent(EVENT_PAYLOAD);
         const aggregations = await eventStore.getAggregations();
-        expect(aggregations.length).to.equal(1);
+        expect(aggregations.length).toEqual(1);
     });
 
     it('should be able to get streams from the event stream', async () => {
         await ordersStream.addEvent(EVENT_PAYLOAD);
         const orders = await eventStore.getStreams('orders');
-        expect(orders.length).to.equal(1);
+        expect(orders.length).toEqual(1);
     });
 
     it('should be able to get ranged aggregations from the event stream', async () => {
@@ -65,9 +59,9 @@ describe('EventStory Memory Provider', () => {
         const customersStream = eventStore.getEventStream('customers', '1');
         await customersStream.addEvent(EVENT_PAYLOAD);
         const aggregations = await eventStore.getAggregations(1, 2);
-        expect(aggregations.length).to.equal(2);
-        expect(aggregations[0]).to.equal('customers');
-        expect(aggregations[1]).to.equal('offers');
+        expect(aggregations.length).toEqual(2);
+        expect(aggregations[0]).toEqual('customers');
+        expect(aggregations[1]).toEqual('offers');
     });
 
     it('should be able to get ranged aggregations from the event stream', async () => {
@@ -83,20 +77,20 @@ describe('EventStory Memory Provider', () => {
         const orders6Stream = eventStore.getEventStream('orders', '6');
         await orders6Stream.addEvent(EVENT_PAYLOAD);
         const orders = await eventStore.getStreams('orders', 2, 3);
-        expect(orders.length).to.equal(3);
-        expect(orders[0]).to.equal('3');
-        expect(orders[1]).to.equal('4');
-        expect(orders[2]).to.equal('5');
+        expect(orders.length).toEqual(3);
+        expect(orders[0]).toEqual('3');
+        expect(orders[1]).toEqual('4');
+        expect(orders[2]).toEqual('5');
     });
 
     it('should return an empty list of aggregations when there is no aggregation', async () => {
         const aggregations = await eventStore.getAggregations();
-        expect(aggregations.length).to.equal(0);
+        expect(aggregations.length).toEqual(0);
     });
 
     it('should return an empty list of streams when there is no aggregation', async () => {
         const orders = await eventStore.getStreams('orders');
-        expect(orders.length).to.equal(0);
+        expect(orders.length).toEqual(0);
     });
 
 });

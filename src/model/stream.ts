@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * A Stream of events
  */

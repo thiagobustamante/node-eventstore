@@ -1,5 +1,3 @@
-'use strict';
-
 import AWS = require('aws-sdk');
 const { Consumer } = require('sqs-consumer');
 import { SQS } from 'aws-sdk';
@@ -15,7 +13,7 @@ export class SQSPublisher implements Publisher, HasSubscribers {
     private sqs: SQS;
 
     constructor(url: string, awsconfig: AWSConfig) {
-        AWS.config.update(awsconfig);
+        AWS.config.update(awsconfig.aws);
         this.sqs = new AWS.SQS();
         this.url = url;
     }
@@ -23,16 +21,16 @@ export class SQSPublisher implements Publisher, HasSubscribers {
     public async publish(message: Message): Promise<boolean> {
         const sqsData = {
             MessageAttributes: {
-                "aggregation": {
-                    DataType: "String",
+                'aggregation': {
+                    DataType: 'String',
                     StringValue: message.stream.aggregation
                 },
-                "commitTimestamp": {
-                    DataType: "Number",
+                'commitTimestamp': {
+                    DataType: 'Number',
                     StringValue: `${message.event.commitTimestamp}`
                 },
-                "id": {
-                    DataType: "String",
+                'id': {
+                    DataType: 'String',
                     StringValue: message.stream.id,
                 },
             },

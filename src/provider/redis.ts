@@ -1,5 +1,3 @@
-'use strict';
-
 import { Redis } from 'ioredis';
 import { Event } from '../model/event';
 import { Stream } from '../model/stream';

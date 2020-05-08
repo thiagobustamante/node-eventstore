@@ -1,5 +1,3 @@
-'use strict';
-
 import { Pool, PoolCluster } from 'mysql';
 import { MySQLConfig } from './config';
 import { MySQLFactory } from './connect';

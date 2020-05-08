@@ -1,26 +1,16 @@
-'use strict';
+jest.mock('ioredis');
 
-import * as chai from 'chai';
 import * as _ from 'lodash';
-import 'mocha';
-import * as proxyquire from 'proxyquire';
-import * as sinon from 'sinon';
-import * as sinonChai from 'sinon-chai';
+import * as Redis from 'ioredis';
+import { RedisFactory } from '../../../src/redis/connect';
 
-chai.use(sinonChai);
-const expect = chai.expect;
-
+const redisMock: jest.Mock = Redis as any;
+const redisClusterMock: jest.Mock = Redis.Cluster as any;
 describe('RedisFactory', () => {
-    let redisStub: sinon.SinonStub;
-    let RedisFactory: any;
 
     beforeEach(() => {
-        redisStub = sinon.stub(require('ioredis'), 'constructor');
-        RedisFactory = proxyquire('../../../src/redis/connect', { ioredis: redisStub }).RedisFactory;
-    });
-
-    afterEach(() => {
-        redisStub.restore();
+        redisMock.mockClear();
+        redisClusterMock.mockClear();
     });
 
     it('should be able to create a client to connect to a standalone redis', async () => {
@@ -37,7 +27,8 @@ describe('RedisFactory', () => {
 
         RedisFactory.createClient(config);
 
-        expect(redisStub).to.have.been.calledOnceWithExactly(config.standalone.port,
+        expect(redisMock).toBeCalledTimes(1);
+        expect(redisMock).toBeCalledWith(config.standalone.port,
             config.standalone.host,
             _.merge(config.options, { password: config.standalone.password }));
     });
@@ -51,7 +42,8 @@ describe('RedisFactory', () => {
 
         RedisFactory.createClient(config);
 
-        expect(redisStub).to.have.been.calledOnceWithExactly(6379, config.standalone.host, {});
+        expect(redisMock).toBeCalledTimes(1);
+        expect(redisMock).toBeCalledWith(6379, config.standalone.host, {});
     });
 
     it('should be able to validate redis config params', async () => {
@@ -67,7 +59,7 @@ describe('RedisFactory', () => {
             }
         };
 
-        expect(() => RedisFactory.createClient(config)).to.throw();
+        expect(() => RedisFactory.createClient(config)).toThrow();
     });
 
     it('should be able to create a client to connect to a redis using sentinel', async () => {
@@ -76,7 +68,7 @@ describe('RedisFactory', () => {
                 db: 6
             },
             sentinel: {
-                name: "Test",
+                name: 'Test',
                 nodes: [
                     {
                         host: 'localhost',
@@ -89,7 +81,8 @@ describe('RedisFactory', () => {
 
         RedisFactory.createClient(config);
 
-        expect(redisStub).to.have.been.calledOnceWithExactly(
+        expect(redisMock).toBeCalledTimes(1);
+        expect(redisMock).toBeCalledWith(
             _.merge(config.options, {
                 name: config.sentinel.name,
                 sentinels: [
@@ -116,11 +109,10 @@ describe('RedisFactory', () => {
             }
         };
 
-        const clusterStub = sinon.stub(require('ioredis'), 'Cluster');
-        RedisFactory = proxyquire('../../../src/redis/connect', { ioredis: clusterStub }).RedisFactory;
         RedisFactory.createClient(config);
 
-        expect(clusterStub).to.have.been.calledOnceWithExactly(
+        expect(redisClusterMock).toBeCalledTimes(1);
+        expect(redisClusterMock).toBeCalledWith(
             [
                 {
                     host: 'localhost',
@@ -132,7 +124,5 @@ describe('RedisFactory', () => {
                 redisOptions: config.options,
                 scaleReads: 'all'
             });
-
-        clusterStub.restore();
     });
 });

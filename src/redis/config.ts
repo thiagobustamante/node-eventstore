@@ -1,5 +1,3 @@
-'use strict';
-
 export interface RedisConfig {
     /**
      * Configure the connection to a standalone Redis.

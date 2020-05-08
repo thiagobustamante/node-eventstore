@@ -1,5 +1,3 @@
-'use strict';
-
 import * as _ from 'lodash';
 import { Collection, MongoClient } from 'mongodb';
 import { Event } from '../model/event';

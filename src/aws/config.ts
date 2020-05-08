@@ -1,9 +1,13 @@
-'use strict';
+import { APIVersions, ConfigurationOptions } from 'aws-sdk/lib/config';
+import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 
 export interface AWSConfig {
+    aws: ConfigurationOptions & ConfigurationServicePlaceholders & APIVersions;
+    eventsTable?: AWSDynamoConfig;
+}
 
-    region: string;
-
-    accessKeyId?: string;
-    secretAccessKey?: string;
+export interface AWSDynamoConfig {
+    tableName?: string;
+    readCapacityUnits?: number;
+    writeCapacityUnits?: number;
 }

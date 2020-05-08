@@ -1,11 +1,5 @@
-'use strict';
-
-import * as chai from 'chai';
-import 'mocha';
 import { wait, waitUntil } from 'test-wait';
 import { EventStore, EventStream, InMemoryProvider, RabbitMQPublisher } from '../../../src';
-
-const expect = chai.expect;
 
 describe('EventStory RabbitMQ Publisher (Integration)', () => {
     let eventStore: EventStore;
@@ -31,7 +25,7 @@ describe('EventStory RabbitMQ Publisher (Integration)', () => {
         await subscription.remove();
         await ordersStream.addEvent(EVENT_PAYLOAD);
         await wait(10);
-        expect(count).to.equal(1);
+        expect(count).toEqual(1);
     });
 
     function createEventStore() {

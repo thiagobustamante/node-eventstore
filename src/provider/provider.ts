@@ -1,5 +1,3 @@
-'use strict';
-
 import { Event } from '../model/event';
 import { Stream } from '../model/stream';
 
@@ -24,7 +22,7 @@ export interface PersistenceProvider {
      * @param limit The desired quantity events
      * @return A List with events in the {@link EventStream}
      */
-    getEvents(stream: Stream, offset?: number, limit?: number): Promise<Array<Event>>;
+    getEvents(stream: Stream, offset?: number | string, limit?: number): Promise<Array<Event>>;
 
     /**
      * Retrieves a ranged aggregation list
@@ -32,7 +30,7 @@ export interface PersistenceProvider {
      * @param limit The desired quantity aggregations
      * @return The aggregation list
      */
-    getAggregations(offset?: number, limit?: number): Promise<Array<string>>;
+    getAggregations(offset?: number | string, limit?: number): Promise<Array<string>>;
 
     /**
      * Retrieves a ranged stream list
@@ -41,5 +39,5 @@ export interface PersistenceProvider {
      * @param limit The desired quantity streams
      * @return The stream list
      */
-    getStreams(aggregation: string, offset?: number, limit?: number): Promise<Array<string>>;
+    getStreams(aggregation: string, offset?: number | string, limit?: number): Promise<Array<string>>;
 }

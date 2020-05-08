@@ -1,5 +1,3 @@
-'use strict';
-
 import * as amqp from 'amqplib';
 import { Message } from '../model/message';
 import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher';

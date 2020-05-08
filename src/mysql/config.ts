@@ -1,5 +1,3 @@
-'use strict';
-
 import { PoolConfig } from 'mysql';
 
 export interface MySQLConfig {
