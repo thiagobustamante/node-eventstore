@@ -12,8 +12,8 @@ before_install:
 - docker run -p 27017:27017 -d --name mongo mongo
 - docker run --name mysql -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=eventstore -p 13306:3306 -d mysql:5.7.25
 script: 
+- npm run test
 - npm run test:mutation
-- npm run test:coverage
 - codecov -f ./reports/coverage/*.json
 deploy:
   provider: pages
