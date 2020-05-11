@@ -22,7 +22,7 @@ describe('EventStory RabbitMQ Publisher (Integration)', () => {
 
     it('should be able to subscribe and unsubscribe to EventStore changes channel', async () => {
         count = 0;
-        const subscription = await eventStore.subscribe(ordersStream.aggregation, message => {
+        const subscription = await eventStore.subscribe(ordersStream.aggregation, () => {
             count++;
         });
         await ordersStream.addEvent(EVENT_PAYLOAD);

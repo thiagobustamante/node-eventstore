@@ -1,6 +1,5 @@
 jest.mock('mysql');
 
-import * as _ from 'lodash';
 import { MySQLFactory } from '../../../src/mysql/connect';
 import * as MySQL from 'mysql';
 
@@ -14,7 +13,7 @@ describe('MySQL Factory', () => {
     beforeAll(() => {
         createPoolClusterMock.mockReturnValue(poolClusterMock);
     });
-    
+
     beforeEach(() => {
         poolClusterAddMock.mockClear();
         createPoolMock.mockClear();
@@ -28,7 +27,7 @@ describe('MySQL Factory', () => {
                 port: 13306
             }
         };
-        const pool = { a:'pool' };
+        const pool = { a: 'pool' };
         createPoolMock.mockReturnValue(pool);
 
         const result = MySQLFactory.createPool(mySQL);

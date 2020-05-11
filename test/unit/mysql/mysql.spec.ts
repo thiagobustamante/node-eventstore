@@ -1,6 +1,5 @@
 jest.mock('../../../src/mysql/connect');
 
-import * as _ from 'lodash';
 import { MySQLConfig } from '../../../src/mysql/config';
 import { MySQL } from '../../../src/mysql/mysql';
 import { MySQLFactory } from '../../../src/mysql/connect';
