@@ -12,7 +12,6 @@ module.exports = {
         "node",
     ],
     testRegex: '(/.*|(\\.|/)(test|spec))\\.(ts|js)x?$',
-    testPathIgnorePatterns: ["dist", "/unit/mock-util.ts"],
     coverageDirectory: 'reports/coverage',
     collectCoverageFrom: [
         'src/**/*.{ts,tsx,js,jsx}',

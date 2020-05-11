@@ -27,22 +27,22 @@ export class RedisProvider implements PersistenceProvider {
         await this.redis.multi()
             .rpush(this.getKey(stream.aggregation, stream.id), JSON.stringify(event))
             .zadd(`meta:aggregations:${stream.aggregation}`, '1', stream.id)
-            .zadd(`meta:aggregations`, '1', stream.aggregation)
+            .zadd('meta:aggregations', '1', stream.aggregation)
             .exec();
         return event;
     }
 
-    public async getEvents(stream: Stream, offset: number = 0, limit: number = -1) {
+    public async getEvents(stream: Stream, offset = 0, limit = -1) {
         const history: Array<string> = await this.redis.lrange(this.getKey(stream.aggregation, stream.id), offset, limit);
         return history.map(data => JSON.parse(data));
     }
 
-    public async getAggregations(offset: number = 0, limit: number = -1): Promise<Array<string>> {
+    public async getAggregations(offset = 0, limit = -1): Promise<Array<string>> {
         const aggregations: Array<string> = await this.redis.zrange('meta:aggregations', offset, limit);
         return aggregations;
     }
 
-    public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
+    public async getStreams(aggregation: string, offset = 0, limit = -1): Promise<Array<string>> {
         const streams: Array<string> = await this.redis.zrange(`meta:aggregations:${aggregation}`, offset, limit);
         return streams;
     }

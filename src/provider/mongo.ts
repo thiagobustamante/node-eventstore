@@ -35,7 +35,7 @@ export class MongoProvider implements PersistenceProvider {
         return event;
     }
 
-    public async getEvents(stream: Stream, offset: number = 0, limit: number = 0) {
+    public async getEvents(stream: Stream, offset = 0, limit = 0) {
         const events = await this.events();
         const cursor = events.find({ 'stream.id': stream.id, 'stream.aggregation': stream.aggregation });
         if (offset > 0) {
@@ -48,7 +48,7 @@ export class MongoProvider implements PersistenceProvider {
         return await cursor.toArray();
     }
 
-    public async getAggregations(offset: number = 0, limit: number = 0): Promise<Array<string>> {
+    public async getAggregations(offset = 0, limit = 0): Promise<Array<string>> {
         const events = await this.events();
         const cursor = events.aggregate().group({ _id: '$stream.aggregation' });
 
@@ -62,7 +62,7 @@ export class MongoProvider implements PersistenceProvider {
         return aggregations;
     }
 
-    public async getStreams(aggregation: string, offset: number = 0, limit: number = 0): Promise<Array<string>> {
+    public async getStreams(aggregation: string, offset = 0, limit = 0): Promise<Array<string>> {
         const events = await this.events();
         const cursor = events.aggregate()
             .match({ 'stream.aggregation': aggregation })
@@ -109,6 +109,7 @@ export class MongoProvider implements PersistenceProvider {
         const counters = await this.counters();
         const result = await counters.findOneAndUpdate(
             { _id: sequenceName },
+            // eslint-disable-next-line @typescript-eslint/camelcase
             { $inc: { sequence_value: 1 } },
             {
                 returnOriginal: false,

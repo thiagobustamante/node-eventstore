@@ -32,7 +32,7 @@ export class MySQLProvider implements PersistenceProvider {
         return event;
     }
 
-    public async getEvents(stream: Stream, offset: number = 0, limit: number = -1) {
+    public async getEvents(stream: Stream, offset = 0, limit = -1) {
         await this.ensureTables();
         if (limit <= 0) {
             limit = Number.MAX_SAFE_INTEGER;
@@ -48,7 +48,7 @@ export class MySQLProvider implements PersistenceProvider {
         });
     }
 
-    public async getAggregations(offset: number = 0, limit: number = -1): Promise<Array<string>> {
+    public async getAggregations(offset = 0, limit = -1): Promise<Array<string>> {
         await this.ensureTables();
         if (limit <= 0) {
             limit = Number.MAX_SAFE_INTEGER;
@@ -57,7 +57,7 @@ export class MySQLProvider implements PersistenceProvider {
             [offset, limit]);
     }
 
-    public async getStreams(aggregation: string, offset: number = 0, limit: number = -1): Promise<Array<string>> {
+    public async getStreams(aggregation: string, offset = 0, limit = -1): Promise<Array<string>> {
         await this.ensureTables();
         if (limit <= 0) {
             limit = Number.MAX_SAFE_INTEGER;

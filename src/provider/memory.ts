@@ -21,17 +21,17 @@ export class InMemoryProvider implements PersistenceProvider {
         return event;
     }
 
-    public async getEvents(stream: Stream, offset: number = 0, limit?: number) {
+    public async getEvents(stream: Stream, offset = 0, limit?: number) {
         const history = this.getEventsList(stream.aggregation, stream.id);
         return _(history).drop(offset).take(limit || history.length).value();
     }
 
-    public async getAggregations(offset: number = 0, limit?: number): Promise<Array<string>> {
+    public async getAggregations(offset = 0, limit?: number): Promise<Array<string>> {
         const keys = Array.from(this.store.keys());
         return _(keys).sort().drop(offset).take(limit || this.store.size).value();
     }
 
-    public async getStreams(aggregation: string, offset: number = 0, limit?: number): Promise<Array<string>> {
+    public async getStreams(aggregation: string, offset = 0, limit?: number): Promise<Array<string>> {
         const streams = this.store.get(aggregation);
         if (streams) {
             const keys = Array.from(streams.keys());

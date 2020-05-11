@@ -7,6 +7,11 @@ describe('EventStory RabbitMQ Publisher (Integration)', () => {
     const EVENT_PAYLOAD = 'Event Data';
     let count = 0;
     const rabbitmqUrl = 'amqp://localhost';
+    const createEventStore = () => {
+        return new EventStore(
+            new InMemoryProvider(),
+            new RabbitMQPublisher(rabbitmqUrl));
+    };
 
     beforeEach(async () => {
         const streamId = '1';
@@ -27,10 +32,4 @@ describe('EventStory RabbitMQ Publisher (Integration)', () => {
         await wait(10);
         expect(count).toEqual(1);
     });
-
-    function createEventStore() {
-        return new EventStore(
-            new InMemoryProvider(),
-            new RabbitMQPublisher(rabbitmqUrl));
-    }
 });

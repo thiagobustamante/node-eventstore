@@ -1,10 +1,10 @@
-jest.mock('../../../src/redis/connect')
+jest.mock('../../../src/redis/connect');
 
 import { RedisFactory } from '../../../src/redis/connect';
 import { RedisProvider } from '../../../src/provider/redis';
 
 const createClientMock = RedisFactory.createClient as jest.Mock;
-let redisMock = {
+const redisMock = {
     exec: jest.fn(),
     incr: jest.fn(),
     lrange: jest.fn(),
@@ -37,7 +37,7 @@ describe('EventStory Redis Provider', () => {
 
         const redisProvider = new RedisProvider({ standalone: { host: 'localhost' } });
         const events = await redisProvider.getEvents({ aggregation: 'orders', id: '1' }, 2, 5);
-        expect(redisMock.lrange).toBeCalledWith(`orders:1`, 2, 5);
+        expect(redisMock.lrange).toBeCalledWith('orders:1', 2, 5);
         expect(events.length).toEqual(1);
         expect(events[0].payload).toEqual('EVENT PAYLOAD');
     });
@@ -47,7 +47,7 @@ describe('EventStory Redis Provider', () => {
 
         const redisProvider = new RedisProvider({ standalone: { host: 'localhost' } });
         const events = await redisProvider.getEvents({ aggregation: 'orders', id: '1' });
-        expect(redisMock.lrange).toBeCalledWith(`orders:1`, 0, -1);
+        expect(redisMock.lrange).toBeCalledWith('orders:1', 0, -1);
         expect(events.length).toEqual(1);
         expect(events[0].payload).toEqual('EVENT PAYLOAD');
     });
@@ -106,8 +106,8 @@ describe('EventStory Redis Provider', () => {
         expect(redisMock.multi).toBeCalledTimes(1);
         expect(redisMock.rpush).toBeCalledWith('orders:1', '{"commitTimestamp":1,"payload":"EVENT PAYLOAD","sequence":0}');
         expect(redisMock.zadd).toBeCalledTimes(2);
-        expect(redisMock.zadd).toBeCalledWith(`meta:aggregations`, '1', 'orders');
-        expect(redisMock.zadd).toBeCalledWith(`meta:aggregations:orders`, '1', '1');
+        expect(redisMock.zadd).toBeCalledWith('meta:aggregations', '1', 'orders');
+        expect(redisMock.zadd).toBeCalledWith('meta:aggregations:orders', '1', '1');
         expect(redisMock.exec).toBeCalledTimes(1);
         expect(event.sequence).toEqual(0);
         expect(event.commitTimestamp).toEqual(1);

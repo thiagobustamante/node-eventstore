@@ -2,7 +2,7 @@ jest.mock('../../../src/redis/connect');
 
 import { Message } from '../../../src/model/message';
 import { RedisFactory } from '../../../src/redis/connect';
-import { RedisPublisher } from '../../../src/publisher/redis';''
+import { RedisPublisher } from '../../../src/publisher/redis'; '';
 
 const createClientMock = RedisFactory.createClient as jest.Mock;
 const redisMock = {

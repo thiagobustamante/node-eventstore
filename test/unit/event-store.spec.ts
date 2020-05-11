@@ -50,7 +50,7 @@ describe('EventStory', () => {
 
     it('should be able to unsubscribe from EventStore changes channel', async () => {
         let count = 0;
-        const subscription = await eventStore.subscribe(ordersStream.aggregation, message => {
+        const subscription = await eventStore.subscribe(ordersStream.aggregation, () => {
             count++;
         });
         await ordersStream.addEvent(EVENT_PAYLOAD);

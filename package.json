@@ -16,11 +16,11 @@
   "scripts": {
     "build": "npm run clean && tsc",
     "clean": "rimraf dist",
-    "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
-    "lint:fix": "tslint --fix ./src/**/*.ts ./test/**/*.ts -t verbose",
+    "lint": "eslint ./src/**/*.ts ./test/**/*.spec.ts",
+    "lint:fix": "eslint --fix ./src/**/*.ts ./test/**/*.spec.ts -t verbose",
     "postversion": "git push origin master",
     "pretest": "cross-env NODE_ENV=test npm run build && npm run lint",
-    "test": "cross-env NODE_ENV=test mocha --exit",
+    "test": "npm run test:unit && npm run test:integration",
     "test:integration": "cross-env NODE_ENV=test jest --config ./test/jest.config-integration.js",
     "test:unit": "cross-env NODE_ENV=test jest --config ./test/jest.config-unit.js --coverage",
     "test:mutation": "stryker run",
@@ -47,7 +47,6 @@
     "@stryker-mutator/jest-runner": "^2.5.0",
     "@stryker-mutator/typescript": "^2.5.0",
     "@types/amqplib": "^0.5.13",
-    "@types/aws-sdk": "2.7.0",
     "@types/ioredis": "^3.2.23",
     "@types/jest": "^25.2.1",
     "@types/joi": "^13.6.3",
@@ -59,17 +58,17 @@
     "cross-env": "^5.2.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-jsdoc": "^24.0.2",
+    "eslint-plugin-jsdoc": "^24.0.6",
     "eslint-plugin-prefer-arrow": "^1.2.1",
+    "eslint-plugin-prettier": "^3.1.3",
     "jest": "^25.5.4",
+    "prettier": "^2.0.5",
     "rimraf": "^2.7.1",
     "source-map-support": "^0.5.19",
     "test-wait": "^1.1.3",
     "ts-jest": "^25.4.0",
     "ts-loader": "^5.3.3",
     "ts-node": "^8.6.2",
-    "tslint": "^6.0.0",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {
@@ -78,11 +77,9 @@
   },
   "optionalDependencies": {
     "amqplib": "^0.5.3",
-    "aws-sdk": "^2.648.0",
     "ioredis": "^4.6.2",
     "mongodb": "^3.1.13",
-    "mysql": "^2.16.0",
-    "sqs-consumer": "^5.4.0"
+    "mysql": "^2.16.0"
   },
   "publishConfig": {
     "access": "public"

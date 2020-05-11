@@ -25,8 +25,8 @@ const cursorMock = {
     skip: jest.fn(),
     toArray: jest.fn()
 };
-const mongoMock = { 
-    db: jest.fn() 
+const mongoMock = {
+    db: jest.fn()
 };
 
 describe('EventStory Mongo Provider', () => {
@@ -41,7 +41,7 @@ describe('EventStory Mongo Provider', () => {
         cursorMock.limit.mockReturnValue(cursorMock);
         collectionMock.find.mockReturnValue(cursorMock);
         dbMock.collection.mockReturnValue(collectionMock);
-        mongoMock.db.mockReturnValue(dbMock);       
+        mongoMock.db.mockReturnValue(dbMock);
         mongoClientConnectMock.mockResolvedValue(mongoMock);
     });
 
@@ -69,7 +69,7 @@ describe('EventStory Mongo Provider', () => {
         const mongoProvider = new MongoProvider('mongodb://localhost:27017/eventstore');
         const events = await mongoProvider.getEvents({ aggregation: 'orders', id: '1' }, 2, 5);
         expect(mongoMock.db).toBeCalledTimes(1);
-        expect(dbMock.collection).toBeCalledTimes(1)
+        expect(dbMock.collection).toBeCalledTimes(1);
         expect(dbMock.collection).toBeCalledWith('events');
         expect(collectionMock.find).toBeCalledWith({ 'stream.id': '1', 'stream.aggregation': 'orders' });
         expect(cursorMock.skip).toBeCalledWith(2);
@@ -83,7 +83,7 @@ describe('EventStory Mongo Provider', () => {
         const mongoProvider = new MongoProvider('mongodb://localhost:27017/eventstore');
         const events = await mongoProvider.getEvents({ aggregation: 'orders', id: '1' });
         expect(mongoMock.db).toBeCalledTimes(1);
-        expect(dbMock.collection).toBeCalledTimes(1)
+        expect(dbMock.collection).toBeCalledTimes(1);
         expect(dbMock.collection).toBeCalledWith('events');
         expect(collectionMock.find).toBeCalledWith({ 'stream.id': '1', 'stream.aggregation': 'orders' });
         expect(cursorMock.skip).not.toBeCalled();
@@ -98,7 +98,7 @@ describe('EventStory Mongo Provider', () => {
         const events = await mongoProvider.getAggregations(2, 5);
 
         expect(mongoMock.db).toBeCalledTimes(1);
-        expect(dbMock.collection).toBeCalledTimes(1)
+        expect(dbMock.collection).toBeCalledTimes(1);
         expect(dbMock.collection).toBeCalledWith('events');
         expect(collectionMock.aggregate).toBeCalled();
         expect(aggregationCursorMock.group).toBeCalledWith({ _id: '$stream.aggregation' });
@@ -115,7 +115,7 @@ describe('EventStory Mongo Provider', () => {
         const events = await mongoProvider.getAggregations();
 
         expect(mongoMock.db).toBeCalledTimes(1);
-        expect(dbMock.collection).toBeCalledTimes(1)
+        expect(dbMock.collection).toBeCalledTimes(1);
         expect(dbMock.collection).toBeCalledWith('events');
         expect(collectionMock.aggregate).toBeCalled();
         expect(aggregationCursorMock.group).toBeCalledWith({ _id: '$stream.aggregation' });
@@ -132,7 +132,7 @@ describe('EventStory Mongo Provider', () => {
         const events = await mongoProvider.getStreams('orders', 2, 5);
 
         expect(mongoMock.db).toBeCalledTimes(1);
-        expect(dbMock.collection).toBeCalledTimes(1)
+        expect(dbMock.collection).toBeCalledTimes(1);
         expect(dbMock.collection).toBeCalledWith('events');
         expect(collectionMock.aggregate).toBeCalled();
         expect(aggregationCursorMock.match).toBeCalledWith({ 'stream.aggregation': 'orders' });
@@ -150,7 +150,7 @@ describe('EventStory Mongo Provider', () => {
         const events = await mongoProvider.getStreams('orders');
 
         expect(mongoMock.db).toBeCalledTimes(1);
-        expect(dbMock.collection).toBeCalledTimes(1)
+        expect(dbMock.collection).toBeCalledTimes(1);
         expect(dbMock.collection).toBeCalledWith('events');
         expect(collectionMock.aggregate).toBeCalled();
         expect(aggregationCursorMock.match).toBeCalledWith({ 'stream.aggregation': 'orders' });
@@ -162,6 +162,7 @@ describe('EventStory Mongo Provider', () => {
     });
 
     it('should be able to add an Event to the Event Stream', async () => {
+        // eslint-disable-next-line @typescript-eslint/camelcase
         collectionMock.findOneAndUpdate.mockResolvedValue({ value: { sequence_value: 1 }, ok: true });
         collectionMock.insertOne.mockResolvedValue({ result: { ok: true } });
 
@@ -176,7 +177,8 @@ describe('EventStory Mongo Provider', () => {
         expect(dbMock.collection).toBeCalledWith('events');
         expect(dbMock.collection).toBeCalledWith('counters');
         expect(collectionMock.findOneAndUpdate).toBeCalledWith(
-            { _id: `orders:1` },
+            { _id: 'orders:1' },
+            // eslint-disable-next-line @typescript-eslint/camelcase
             { $inc: { sequence_value: 1 } },
             {
                 returnOriginal: false,
@@ -209,7 +211,8 @@ describe('EventStory Mongo Provider', () => {
         expect(dbMock.collection).toBeCalledWith('events');
         expect(dbMock.collection).toBeCalledWith('counters');
         expect(collectionMock.findOneAndUpdate).toBeCalledWith(
-            { _id: `orders:1` },
+            { _id: 'orders:1' },
+            // eslint-disable-next-line @typescript-eslint/camelcase
             { $inc: { sequence_value: 1 } },
             {
                 returnOriginal: false,
@@ -218,6 +221,7 @@ describe('EventStory Mongo Provider', () => {
     });
 
     it('should be able to handle errors in object writing', async () => {
+        // eslint-disable-next-line @typescript-eslint/camelcase
         collectionMock.findOneAndUpdate.mockResolvedValue({ value: { sequence_value: 1 }, ok: true });
         collectionMock.insertOne.mockResolvedValue({ result: { ok: false } });
 
@@ -234,7 +238,8 @@ describe('EventStory Mongo Provider', () => {
         expect(dbMock.collection).toBeCalledWith('events');
         expect(dbMock.collection).toBeCalledWith('counters');
         expect(collectionMock.findOneAndUpdate).toBeCalledWith(
-            { _id: `orders:1` },
+            { _id: 'orders:1' },
+            // eslint-disable-next-line @typescript-eslint/camelcase
             { $inc: { sequence_value: 1 } },
             {
                 returnOriginal: false,
@@ -251,6 +256,7 @@ describe('EventStory Mongo Provider', () => {
     });
 
     it('should only initiate collections once', async () => {
+        // eslint-disable-next-line @typescript-eslint/camelcase
         collectionMock.findOneAndUpdate.mockResolvedValue({ value: { sequence_value: 1 }, ok: true });
         collectionMock.insertOne.mockResolvedValue({ result: { ok: true } });
 

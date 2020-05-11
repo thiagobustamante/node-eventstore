@@ -4,7 +4,6 @@ import { RedisConfig } from '../redis/config';
 import { RedisFactory } from '../redis/connect';
 import { HasSubscribers, Publisher, Subscriber, Subscription } from './publisher';
 
-
 /**
  * A Publisher that use Redis pub / sub feature to message communications.
  */
@@ -12,7 +11,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
     private redisSubscriber: Redis;
     private redisPublisher: Redis;
     private listeners: Map<string, Array<Subscriber>> = new Map();
-    private listenningRedis: boolean = false;
+    private listenningRedis = false;
 
     constructor(config: RedisConfig) {
         this.redisSubscriber = RedisFactory.createClient(config);
@@ -35,7 +34,7 @@ export class RedisPublisher implements Publisher, HasSubscribers {
         await this.registerRedisListener();
 
         return {
-            remove: async () => {
+            remove: async (): Promise<void> => {
                 const index = subscribers.indexOf(subscriber);
                 subscribers.splice(index, 1);
                 if (subscribers.length === 0) {

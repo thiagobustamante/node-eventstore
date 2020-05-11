@@ -14,13 +14,13 @@ const poolMock = {
 const connectionMock = {
     query: jest.fn(),
     release: jest.fn()
-}
+};
 describe('MySQL', () => {
     beforeAll(() => {
         createPoolMock.mockReturnValue(poolMock);
         getConnectionMock.mockImplementation((callback) => callback(null, connectionMock));
     });
-    
+
     beforeEach(() => {
         createPoolMock.mockClear();
         getConnectionMock.mockClear();
@@ -46,7 +46,7 @@ describe('MySQL', () => {
     it('should be able to run a SQL query', async () => {
         const sql = 'some sql string';
         const rows = [{ aField: 'value' }];
-        
+
         connectionMock.query.mockImplementation((_sql, _args, callback) => callback(null, rows));
 
         const mySql = new MySQL({});
@@ -79,16 +79,16 @@ describe('MySQL', () => {
         const error = new Error('Test error');
 
         getConnectionMock.mockImplementationOnce((callback) => callback(error, null));
-        
+
         const mySql = new MySQL({});
         expect(() => mySql.query(sql, args)).rejects.toThrow(error);
     });
-    
+
     it('should be able to handle mysql errors', async () => {
         const sql = 'some sql string';
         const args = ['some arguments'];
         const error = new Error('Test SQL error');
-        
+
         connectionMock.query.mockImplementation((_sql, _args, callback) => callback(error, null));
 
         const mySql = new MySQL({});

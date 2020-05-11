@@ -16,6 +16,12 @@ describe('EventStory Redis Publisher (Integration)', () => {
         }
     };
 
+    const createEventStore = () => {
+        return new EventStore(
+            new InMemoryProvider(),
+            new RedisPublisher(redisConfig));
+    };
+
     beforeEach(async () => {
         const streamId = '1';
         const aggregation = 'orders';
@@ -65,10 +71,4 @@ describe('EventStory Redis Publisher (Integration)', () => {
         expect(subscriberOffersStub).not.toBeCalled();
         expect(subscriberOrdersStub).toBeCalledTimes(1);
     });
-
-    function createEventStore() {
-        return new EventStore(
-            new InMemoryProvider(),
-            new RedisPublisher(redisConfig));
-    }
 });
