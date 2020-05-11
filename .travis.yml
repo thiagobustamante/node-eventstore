@@ -13,21 +13,24 @@ before_install:
 - docker run --name mysql -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=eventstore -p 13306:3306 -d mysql:5.7.25
 script: 
 - npm run test
-- npm run test:mutation
 - codecov -f ./reports/coverage/*.json
-deploy:
-  provider: pages
-  skip-cleanup: true
-  local-dir: reports
-  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep-history: true
-  on:
-    branch: master
-    node: '10'
 jobs:
   include:
+  - stage: npm mutation
+    node_js: '10'
+    script: 
+    - npm run test:mutation
+    deploy:
+      provider: pages
+      skip-cleanup: true
+      local-dir: reports
+      github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+      keep-history: true
+      skip_cleanup: true
+      on:
+        branch: master
   - stage: npm release
-    node_js: '9'
+    node_js: '10'
     script: npm run build
     deploy:
       provider: npm
@@ -38,3 +41,5 @@ jobs:
       on:
         tags: true
         repo: thiagobustamante/node-eventstore
+
+        
