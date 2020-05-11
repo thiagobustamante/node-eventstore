@@ -22,7 +22,7 @@
     "pretest": "cross-env NODE_ENV=test npm run build && npm run lint",
     "test": "npm run test:unit && npm run test:integration",
     "test:integration": "cross-env NODE_ENV=test jest --config ./test/jest.config-integration.js",
-    "test:unit": "cross-env NODE_ENV=test jest --config ./test/jest.config-unit.js --coverage",
+    "test:unit": "cross-env NODE_ENV=test jest --config ./test/jest.config-unit.js --detectOpenHandles --coverage",
     "test:mutation": "stryker run ./test/stryker.conf.js",
     "stryker:init": "stryker init",
     "tsc": "tsc"
