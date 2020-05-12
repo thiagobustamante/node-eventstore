@@ -23,7 +23,7 @@ describe('EventStory MySQL Provider (Integration)', () => {
 
         const mysql = MySQLFactory.createPool(mysqlConfig) as Pool;
         await mysql.query('DROP TABLE IF EXISTS events');
-        await wait(100);
+        await wait(200);
         eventStore = new EventStore(new MySQLProvider(mysqlConfig));
         ordersStream = eventStore.getEventStream(aggregation, streamId);
     });
