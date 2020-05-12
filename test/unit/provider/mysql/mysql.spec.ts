@@ -1,8 +1,8 @@
-jest.mock('../../../src/mysql/connect');
+jest.mock('../../../../src/provider/mysql/connect');
 
-import { MySQLConfig } from '../../../src/mysql/config';
-import { MySQL } from '../../../src/mysql/mysql';
-import { MySQLFactory } from '../../../src/mysql/connect';
+import { MySQLConfig } from '../../../../src/provider/mysql/config';
+import { MySQL } from '../../../../src/provider/mysql/mysql';
+import { MySQLFactory } from '../../../../src/provider/mysql/connect';
 
 const createPoolMock = MySQLFactory.createPool as jest.Mock;
 const getConnectionMock = jest.fn();

@@ -1,7 +1,7 @@
 import { Event } from '../model/event';
 import { Stream } from '../model/stream';
-import { MySQLConfig } from '../mysql/config';
-import { MySQL } from '../mysql/mysql';
+import { MySQLConfig } from './mysql/config';
+import { MySQL } from './mysql/mysql';
 import { PersistenceProvider } from './provider';
 
 /**

@@ -1,6 +1,6 @@
-jest.mock('../../../src/mysql/mysql');
+jest.mock('../../../src/provider/mysql/mysql');
 
-import { MySQL } from '../../../src/mysql/mysql';
+import { MySQL } from '../../../src/provider/mysql/mysql';
 import { MySQLProvider } from '../../../src/provider/mysql';
 
 const MySqlConstructorMock = MySQL as jest.Mock;

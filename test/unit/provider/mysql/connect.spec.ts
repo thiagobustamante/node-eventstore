@@ -1,6 +1,6 @@
 jest.mock('mysql');
 
-import { MySQLFactory } from '../../../src/mysql/connect';
+import { MySQLFactory } from '../../../../src/provider/mysql/connect';
 import * as MySQL from 'mysql';
 
 const createPoolMock: jest.Mock = MySQL.createPool as any;

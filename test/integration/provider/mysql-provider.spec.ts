@@ -1,7 +1,7 @@
 import { Pool } from 'mysql';
 import { wait } from 'test-wait';
 import { EventStore, EventStream, MySQLProvider } from '../../../src';
-import { MySQLFactory } from '../../../src/mysql/connect';
+import { MySQLFactory } from '../../../src/provider/mysql/connect';
 
 describe('EventStory MySQL Provider (Integration)', () => {
     let eventStore: EventStore;
