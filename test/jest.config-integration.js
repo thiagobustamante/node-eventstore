@@ -11,7 +11,7 @@ module.exports = {
         'json',
         'node',
     ],
-    testRegex: '(/integration/.*|(\\.|/)(test|spec))\\.(ts|js)x?$',
+    testMatch: ['**/test/integration/**/*.spec.ts'],
     coverageDirectory: 'reports/coverage',
     collectCoverageFrom: [
         'src/**/*.{ts,tsx,js,jsx}',

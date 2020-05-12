@@ -2,7 +2,7 @@ jest.mock('amqplib');
 
 import { Message } from '../../../src/model/message';
 import { RabbitMQPublisher } from '../../../src/publisher/rabbitmq';
-import * as amqp from 'amqplib'; 
+import * as amqp from 'amqplib';
 
 const amqpConnectMock = amqp.connect as jest.Mock;
 const channelMock = {
@@ -14,8 +14,8 @@ const channelMock = {
     deleteQueue: jest.fn(),
     publish: jest.fn()
 };
-const connectionMock = { 
-    createChannel: jest.fn() 
+const connectionMock = {
+    createChannel: jest.fn()
 };
 
 describe('EventStory RabbitMQ Publisher', () => {
@@ -59,12 +59,15 @@ describe('EventStory RabbitMQ Publisher', () => {
         expect(channelMock.assertExchange).toBeCalledWith(message.stream.aggregation, 'fanout', { durable: false });
         expect(channelMock.publish).toBeCalledTimes(2);
         expect(channelMock.publish).toBeCalledWith(
-            message.stream.aggregation, '', new Buffer(JSON.stringify(message)));
+            message.stream.aggregation, '', Buffer.from(JSON.stringify(message)));
     });
 
     it('should be able to subscribe to listen changes in the eventstore', async () => {
         channelMock.assertQueue.mockResolvedValue({ queue: '123' });
-        channelMock.consume.mockResolvedValue({ consumerTag: '321' });
+        channelMock.consume.mockImplementation((queue, callback) => {
+            callback({ content: Buffer.from(JSON.stringify({ payload: 'MESSAGE_CONTENT' })) });
+            return { consumerTag: '321' };
+        });
         const rabbitmqPublisher: any = new RabbitMQPublisher('amqp://localhost');
         const subscriber = jest.fn();
         const subscription = await rabbitmqPublisher.subscribe('orders', subscriber);
@@ -85,5 +88,6 @@ describe('EventStory RabbitMQ Publisher', () => {
         expect(channelMock.consume).toBeCalledWith('123', expect.anything(), { noAck: true });
         expect(channelMock.cancel).toBeCalledWith('321');
         expect(channelMock.deleteQueue).toBeCalledWith('123');
+        expect(subscriber).toBeCalledWith({ payload: 'MESSAGE_CONTENT' });
     });
 });

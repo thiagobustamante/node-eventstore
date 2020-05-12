@@ -75,12 +75,12 @@ describe('MySQL', () => {
     it('should be able to handle connection errors', async () => {
         const sql = 'some sql string';
         const args = ['some arguments'];
-        const error = new Error('Test error');
+        const error = new Error('Test Connection error');
 
         getConnectionMock.mockImplementationOnce((callback) => callback(error, null));
 
         const mySql = new MySQL({});
-        expect(() => mySql.query(sql, args)).rejects.toThrow(error);
+        await expect(() => mySql.query(sql, args)).rejects.toThrow(error);
     });
 
     it('should be able to handle mysql errors', async () => {
@@ -91,6 +91,6 @@ describe('MySQL', () => {
         connectionMock.query.mockImplementation((_sql, _args, callback) => callback(error, null));
 
         const mySql = new MySQL({});
-        expect(() => mySql.query(sql, args)).rejects.toThrow(error);
+        await expect(() => mySql.query(sql, args)).rejects.toThrow(error);
     });
 });

@@ -69,7 +69,7 @@ describe('EventStory Redis Publisher', () => {
         expect(status).toBeFalsy();
     });
 
-    it('should be able to subscribe to listen changes in the eventstore', async () => {
+    it('should register a redis listener to handle subscriptions', async () => {
         redisMock.on.mockResolvedValue(redisMock);
         const redisPublisher = new RedisPublisher({ standalone: { host: 'localhost' } });
 
@@ -85,6 +85,27 @@ describe('EventStory Redis Publisher', () => {
         expect(redisMock.on).toBeCalledTimes(1);
         expect(redisMock.unsubscribe).not.toBeCalled();
     });
+
+    it('should be able to subscribe to listen changes in the eventstore', async () => {
+        const message = { stream: { aggregation: 'orders', id: '123' }, event: {} };
+        redisMock.on.mockImplementation((type, callback) => {
+            callback('orders', JSON.stringify(message));
+            return redisMock;
+        });
+        const redisPublisher = new RedisPublisher({ standalone: { host: 'localhost' } });
+
+        const subscriberOrdersStub = jest.fn();
+        const subscription = await redisPublisher.subscribe('orders', subscriberOrdersStub);
+
+        await subscription.remove();
+
+        expect(redisMock.subscribe).toBeCalledTimes(1);
+        expect(redisMock.subscribe).toBeCalledWith('orders');
+        expect(redisMock.on).toBeCalledTimes(1);
+        expect(redisMock.on).toBeCalledWith('message', expect.anything());
+        expect(subscriberOrdersStub).toBeCalledWith(message);
+    });
+
 
     it('should be able to unsubscribe to redis channel', async () => {
         redisMock.on.mockResolvedValue(redisMock);
