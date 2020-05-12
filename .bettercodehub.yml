@@ -1,3 +1,4 @@
+component_depth: 2
 languages:
     - typescript
 exclude:
