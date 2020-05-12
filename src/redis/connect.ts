@@ -56,9 +56,7 @@ export class RedisFactory {
                 port: 6379
             });
 
-            if (config.standalone.password) {
-                config.options.password = config.standalone.password;
-            }
+            config.options.password = config.standalone.password;
 
             client = new Redis(_.toSafeInteger(config.standalone.port),
                 config.standalone.host, config.options);
