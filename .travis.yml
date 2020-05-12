@@ -10,23 +10,23 @@ before_install:
 - docker run -p 6379:6379 -d --name redis redis:3.0.7-alpine
 - docker run -d --hostname rabbit --name rabbit -p 8080:15672 -p 5672:5672 rabbitmq:3-management
 - docker run -p 27017:27017 -d --name mongo mongo
-- docker run --name mysql -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=eventstore -p 13306:3306 -d mysql:5.7.25
-script: 
+- docker run --name mysql -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=eventstore
+  -p 13306:3306 -d mysql:5.7.25
+script:
 - npm run test
 - codecov -f ./reports/coverage/*.json
 jobs:
   include:
-  - stage: npm mutation
+  - stage: mutation tests
     node_js: '10'
-    script: 
+    script:
     - npm run test:mutation
     deploy:
       provider: pages
       skip-cleanup: true
       local-dir: reports
-      github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+      github-token: "$GITHUB_TOKEN"
       keep-history: true
-      skip_cleanup: true
       on:
         branch: master
   - stage: npm release
@@ -41,5 +41,6 @@ jobs:
       on:
         tags: true
         repo: thiagobustamante/node-eventstore
-
-        
+env:
+  global:
+    secure: PtFOJwcgu4AukQWbhDjf0lMVBtVBs4ovnq7kz2MiuzXtjhCpW/l4MCSzqS8cm35eAM7kPU8rWbNGzurw/AK++8M9iQ5jL9yH2mD/o5GT08RpVBs6JSWmmZ2jG5N7srM9yIOwYOfixZrh2s3SSaXI0RM2H/a9TXjLVAzw/tSllvbvjEWm4njCvL2S1jtNy1oJAAfrT62o3xlVBuhld+BWWYTUeVOVlfMF+Rk7KlZOJabuZ/dToYhLguxAw8n8CJcme0GnD9tCgrgTBZruka+UIb3HGFwNy9jGFDw3gYCaVLUtPXFhrTQV2SVO90CC/zVIAqdP2jxIsEtq2xSvA/V/K+ign9LqPIncFZrgYKrjDZ8tvpeET57B83aIBA6UDAUcQvjSD0yrojyN9qZ7+ggwHKH+sT6gpiUEdWOtIIjw2sq/L9RQiYG4VUfB0GjiVHNHOyCOz8nIY4XP90cBkNTcU0rbeXdOs/Xp8ewUXxQRIBI1mWjWH2aJlg9lNejmj5D8JaAZH6so4M8taJKyZZOFa1xm99lvbojKvCbKJgq291rNVv+8UnlRsmc68qFHrmYogG5LcvKjphxSSOdwHuJKX78/IcKb2QPOBLdiKOLlnNkG/3s9PWlUBgNBLTBtiJ6kfkUe8w4Ah9mBwk4DdDK2bdvrI1PaCqFrHtLgHRTP/xg=
