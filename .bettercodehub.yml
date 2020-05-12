@@ -1,2 +1,2 @@
 exclude:
-    - .eslintrc.js
+- /.eslintrc.js
