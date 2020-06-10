@@ -2,7 +2,7 @@ module.exports = (config) => {
   config.set({
     mutator: 'typescript',
     packageManager: 'npm',
-    reporters: ['html', 'clear-text', 'progress'],
+    reporters: ['html', 'clear-text', 'progress', 'dashboard'],
     testRunner: 'jest',
     jest: {
       projectType: 'custom',
