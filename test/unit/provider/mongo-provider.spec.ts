@@ -168,7 +168,8 @@ describe('EventStory Mongo Provider', () => {
 
         const mongoURL = 'mongodb://localhost:27017/eventstore';
         const mongoProvider = new MongoProvider(mongoURL);
-        const event = await mongoProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
+        const type = 'evtType';
+        const event = await mongoProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD', type);
 
         expect(mongoClientConnectMock).toBeCalledTimes(1);
         expect(mongoClientConnectMock).toBeCalledWith(mongoURL, { useNewUrlParser: true });
@@ -186,6 +187,7 @@ describe('EventStory Mongo Provider', () => {
             });
         expect(collectionMock.insertOne).toBeCalledWith(
             expect.objectContaining({
+                type: type,
                 commitTimestamp: expect.anything(),
                 payload: 'EVENT PAYLOAD',
                 sequence: 0,
@@ -252,7 +254,6 @@ describe('EventStory Mongo Provider', () => {
                 sequence: 0,
                 stream: expect.objectContaining({ aggregation: 'orders', id: '1' })
             }));
-        // expect(event.commitTimestamp).toEqual(1);
     });
 
     it('should only initiate collections once', async () => {
@@ -269,6 +270,24 @@ describe('EventStory Mongo Provider', () => {
         expect(dbMock.collection).toBeCalledTimes(2);
         expect(dbMock.collection).toBeCalledWith('events');
         expect(dbMock.collection).toBeCalledWith('counters');
+    });
+
+    it('should use empty as default event type', async () => {
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        collectionMock.findOneAndUpdate.mockResolvedValue({ value: { sequence_value: 1 }, ok: true });
+        collectionMock.insertOne.mockResolvedValue({ result: { ok: true } });
+
+        const mongoProvider = new MongoProvider('mongodb://localhost:27017/eventstore');
+        await mongoProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
+
+        expect(collectionMock.insertOne).toBeCalledWith(
+            expect.objectContaining({
+                type: '',
+                commitTimestamp: expect.anything(),
+                payload: 'EVENT PAYLOAD',
+                sequence: 0,
+                stream: expect.objectContaining({ aggregation: 'orders', id: '1' })
+            }));
     });
 
 });

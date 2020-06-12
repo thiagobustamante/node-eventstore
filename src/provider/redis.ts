@@ -15,14 +15,15 @@ export class RedisProvider implements PersistenceProvider {
         this.redis = RedisFactory.createClient(config);
     }
 
-    public async addEvent(stream: Stream, data: any) {
+    public async addEvent(stream: Stream, data: any, type = '') {
         const sequence = await this.redis.incr(`sequences:{${this.getKey(stream.aggregation, stream.id)}}`) - 1;
         const time = await this.redis.time();
         const commitTimestamp = parseInt(time, 10);
         const event: Event = {
             commitTimestamp: commitTimestamp,
             payload: data,
-            sequence: sequence
+            sequence: sequence,
+            type: type
         };
         await this.redis.multi()
             .rpush(this.getKey(stream.aggregation, stream.id), JSON.stringify(event))

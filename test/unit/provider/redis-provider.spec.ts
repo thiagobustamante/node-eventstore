@@ -99,12 +99,34 @@ describe('EventStory Redis Provider', () => {
         redisMock.rpush.mockReturnValue(redisMock);
         redisMock.zadd.mockReturnValue(redisMock);
 
+        const type = 'evtType';
+        const redisProvider = new RedisProvider({ standalone: { host: 'localhost' } });
+        const event = await redisProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD', type);
+        expect(redisMock.incr).toBeCalledWith('sequences:{orders:1}');
+        expect(redisMock.time).toBeCalledTimes(1);
+        expect(redisMock.multi).toBeCalledTimes(1);
+        expect(redisMock.rpush).toBeCalledWith('orders:1', '{"commitTimestamp":1,"payload":"EVENT PAYLOAD","sequence":0,"type":"evtType"}');
+        expect(redisMock.zadd).toBeCalledTimes(2);
+        expect(redisMock.zadd).toBeCalledWith('meta:aggregations', '1', 'orders');
+        expect(redisMock.zadd).toBeCalledWith('meta:aggregations:orders', '1', '1');
+        expect(redisMock.exec).toBeCalledTimes(1);
+        expect(event.sequence).toEqual(0);
+        expect(event.commitTimestamp).toEqual(1);
+    });
+
+    it('should use empty as default event type', async () => {
+        redisMock.incr.mockResolvedValue(1);
+        redisMock.time.mockResolvedValue(1);
+        redisMock.multi.mockReturnValue(redisMock);
+        redisMock.rpush.mockReturnValue(redisMock);
+        redisMock.zadd.mockReturnValue(redisMock);
+
         const redisProvider = new RedisProvider({ standalone: { host: 'localhost' } });
         const event = await redisProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
         expect(redisMock.incr).toBeCalledWith('sequences:{orders:1}');
         expect(redisMock.time).toBeCalledTimes(1);
         expect(redisMock.multi).toBeCalledTimes(1);
-        expect(redisMock.rpush).toBeCalledWith('orders:1', '{"commitTimestamp":1,"payload":"EVENT PAYLOAD","sequence":0}');
+        expect(redisMock.rpush).toBeCalledWith('orders:1', '{"commitTimestamp":1,"payload":"EVENT PAYLOAD","sequence":0,"type":""}');
         expect(redisMock.zadd).toBeCalledTimes(2);
         expect(redisMock.zadd).toBeCalledWith('meta:aggregations', '1', 'orders');
         expect(redisMock.zadd).toBeCalledWith('meta:aggregations:orders', '1', '1');

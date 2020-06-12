@@ -98,7 +98,8 @@ export interface EventStream {
     /**
      * Add a new event to the end of the event stream.
      * @param data The event data
+     * @param type The Event type
      * @return The event, updated with informations like its sequence order and commitTimestamp
      */
-    addEvent(data: any): Promise<Event>;
+    addEvent(data: any, type?: string): Promise<Event>;
 }

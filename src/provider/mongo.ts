@@ -17,14 +17,15 @@ export class MongoProvider implements PersistenceProvider {
         this.mongoURL = url;
     }
 
-    public async addEvent(stream: Stream, data: any) {
+    public async addEvent(stream: Stream, data: any, type = '') {
         const events = await this.events();
         const sequence = await this.getNextSequenceValue(this.getKey(stream.aggregation, stream.id)) - 1;
         const commitTimestamp = new Date().getTime();
         const event: Event = {
             commitTimestamp: commitTimestamp,
             payload: data,
-            sequence: sequence
+            sequence: sequence,
+            type: type
         };
 
         const result = await events.insertOne(_.merge(event, { stream: stream }));

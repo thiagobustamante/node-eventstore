@@ -10,12 +10,13 @@ import { PersistenceProvider } from './provider';
 export class InMemoryProvider implements PersistenceProvider {
     private store: Map<string, Map<string, Array<Event>>> = new Map();
 
-    public async addEvent(stream: Stream, data: any) {
+    public async addEvent(stream: Stream, data: any, type = '') {
         const currentEvents = await this.getEventsList(stream.aggregation, stream.id);
         const event: Event = {
             commitTimestamp: new Date().getTime(),
             payload: data,
-            sequence: currentEvents.length
+            sequence: currentEvents.length,
+            type: type
         };
         currentEvents.push(event);
         return event;

@@ -14,4 +14,8 @@ export interface Event {
      * The sequence order for the event in the {@link EventStream}
      */
     sequence?: number;
+    /**
+     * The Event type
+     */
+    type?: string;
 }

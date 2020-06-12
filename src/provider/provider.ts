@@ -11,9 +11,10 @@ export interface PersistenceProvider {
      * Add a new {@link Event} in the {@link EventStream}
      * @param stream The associated stream
      * @param data The Event data
+     * @param type The Event type
      * @return The updated event, after persisted.
      */
-    addEvent(stream: Stream, data: any): Promise<Event>;
+    addEvent(stream: Stream, data: any, type?: string): Promise<Event>;
 
     /**
      * Retrieves a ranged list of events in the {@link EventStream}

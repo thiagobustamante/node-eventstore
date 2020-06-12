@@ -15,19 +15,20 @@ export class MySQLProvider implements PersistenceProvider {
         this.mysql = new MySQL(config);
     }
 
-    public async addEvent(stream: Stream, data: any) {
+    public async addEvent(stream: Stream, data: any, type = '') {
         await this.ensureTables();
-        let result = await this.mysql.query('INSERT INTO events(streamId, aggregation, payload, sequence) ' +
-            'SELECT ?,?,?,COUNT(*) FROM events ' +
+        let result = await this.mysql.query('INSERT INTO events(streamId, aggregation, payload, type, sequence) ' +
+            'SELECT ?,?,?,?,COUNT(*) FROM events ' +
             'WHERE streamId = ? AND aggregation = ?',
-            [stream.id, stream.aggregation, JSON.stringify(data), stream.id, stream.aggregation]);
+            [stream.id, stream.aggregation, JSON.stringify(data), type, stream.id, stream.aggregation]);
 
         result = await this.mysql.query('SELECT sequence, commitTimestamp FROM events WHERE id=?', [result.insertId]);
 
         const event: Event = {
             commitTimestamp: result.commitTimestamp,
             payload: data,
-            sequence: result.sequence
+            sequence: result.sequence,
+            type: type
         };
         return event;
     }
@@ -43,7 +44,8 @@ export class MySQLProvider implements PersistenceProvider {
             return {
                 commitTimestamp: data.commitTimestamp,
                 payload: JSON.parse(data.payload),
-                sequence: data.sequence
+                sequence: data.sequence,
+                type: data.type
             };
         });
     }
@@ -79,6 +81,7 @@ export class MySQLProvider implements PersistenceProvider {
             + 'streamId VARCHAR(40) NOT NULL,'
             + 'aggregation VARCHAR(40) NOT NULL,'
             + 'payload TEXT,'
+            + 'type VARCHAR(40),'
             + 'sequence INT,'
             + 'commitTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,'
             + 'PRIMARY KEY (id),'

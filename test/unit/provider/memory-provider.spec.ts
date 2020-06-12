@@ -20,12 +20,14 @@ describe('EventStory Memory Provider', () => {
     });
 
     it('should be able to read events from the EventStream', async () => {
-        await ordersStream.addEvent(EVENT_PAYLOAD);
+        await ordersStream.addEvent(EVENT_PAYLOAD, 'evtType');
         await ordersStream.addEvent(EVENT_PAYLOAD + '_1');
         const events = await ordersStream.getEvents();
         expect(events.length).toEqual(2);
         expect(events[0].payload).toEqual(EVENT_PAYLOAD);
         expect(events[0].sequence).toEqual(0);
+        expect(events[0].type).toEqual('evtType');
+        expect(events[1].type).toEqual('');
     });
 
     it('should be able to get event ranged list from the event stream', async () => {

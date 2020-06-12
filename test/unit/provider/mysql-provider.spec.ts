@@ -13,6 +13,7 @@ const ensureTablesSQL = 'CREATE TABLE IF NOT EXISTS events ('
     + 'streamId VARCHAR(40) NOT NULL,'
     + 'aggregation VARCHAR(40) NOT NULL,'
     + 'payload TEXT,'
+    + 'type VARCHAR(40),'
     + 'sequence INT,'
     + 'commitTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,'
     + 'PRIMARY KEY (id),'
@@ -156,19 +157,43 @@ describe('EventStory Redis Provider', () => {
         mySqlMock.query.mockResolvedValueOnce({ insertId: '1234' });
         mySqlMock.query.mockResolvedValueOnce({ commitTimestamp: 'timestamp', sequence: 111 });
 
+        const type = 'evtType';
         const mySQLProvider = new MySQLProvider({});
-        const event = await mySQLProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
+        const event = await mySQLProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD', type);
         expect(mySqlMock.query).toBeCalledWith(ensureTablesSQL);
-        expect(mySqlMock.query).toBeCalledWith('INSERT INTO events(streamId, aggregation, payload, sequence) ' +
-            'SELECT ?,?,?,COUNT(*) FROM events ' +
+        expect(mySqlMock.query).toBeCalledWith('INSERT INTO events(streamId, aggregation, payload, type, sequence) ' +
+            'SELECT ?,?,?,?,COUNT(*) FROM events ' +
             'WHERE streamId = ? AND aggregation = ?',
-            ['1', 'orders', JSON.stringify('EVENT PAYLOAD'), '1', 'orders']);
+            ['1', 'orders', JSON.stringify('EVENT PAYLOAD'), type, '1', 'orders']);
         expect(mySqlMock.query).toBeCalledWith('SELECT sequence, commitTimestamp FROM events WHERE id=?',
             ['1234']);
         expect(event).toEqual({
             commitTimestamp: 'timestamp',
             payload: 'EVENT PAYLOAD',
-            sequence: 111
+            sequence: 111,
+            type: type
+        });
+    });
+
+    it('should use empty as default event type', async () => {
+        mySqlMock.query.mockResolvedValueOnce({});
+        mySqlMock.query.mockResolvedValueOnce({ insertId: '1234' });
+        mySqlMock.query.mockResolvedValueOnce({ commitTimestamp: 'timestamp', sequence: 111 });
+
+        const mySQLProvider = new MySQLProvider({});
+        const event = await mySQLProvider.addEvent({ aggregation: 'orders', id: '1' }, 'EVENT PAYLOAD');
+        expect(mySqlMock.query).toBeCalledWith(ensureTablesSQL);
+        expect(mySqlMock.query).toBeCalledWith('INSERT INTO events(streamId, aggregation, payload, type, sequence) ' +
+            'SELECT ?,?,?,?,COUNT(*) FROM events ' +
+            'WHERE streamId = ? AND aggregation = ?',
+            ['1', 'orders', JSON.stringify('EVENT PAYLOAD'), '', '1', 'orders']);
+        expect(mySqlMock.query).toBeCalledWith('SELECT sequence, commitTimestamp FROM events WHERE id=?',
+            ['1234']);
+        expect(event).toEqual({
+            commitTimestamp: 'timestamp',
+            payload: 'EVENT PAYLOAD',
+            sequence: 111,
+            type: ''
         });
     });
 });
