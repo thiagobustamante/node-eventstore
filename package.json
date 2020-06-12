@@ -1,6 +1,6 @@
 {
   "name": "@eventstore.net/event.store",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "A simple and fast EventStore that support multiple persistence and notification providers",
   "author": "Thiago da Rosa de Bustamante <trbustamante@gmail.com>",
   "license": "MIT",
