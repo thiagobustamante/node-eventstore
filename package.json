@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "joi": "^13.7.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.20"
   },
   "optionalDependencies": {
     "amqplib": "^0.5.3",
